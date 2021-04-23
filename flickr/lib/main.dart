@@ -12,6 +12,11 @@ class MyApp extends StatelessWidget {
       title: 'Flickr',
       home: Scaffold(
         appBar: AppBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
           title: Title(
             child: Text("Flicker"),
             color: Colors.blue,

@@ -1,4 +1,4 @@
-#Fri Apr 23 22:54:18 EET 2021
+#Sat Apr 24 00:01:19 EET 2021
 base.0=D\:\\UNI STUFF\\swproject\\Flickr_Elixir\\flickr\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
