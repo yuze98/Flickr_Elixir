@@ -3,16 +3,18 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 class GetStarted extends StatelessWidget {
   // This widget is the root of your application.
-  final MyImage=['https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg','https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg','https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg'];
+  final MyImage = [
+    'https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg',
+    'https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg',
+    'https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg'
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    //  title: 'Flickr',
+      //  title: 'Flickr',
       home: Scaffold(
         backgroundColor: Colors.grey,
-
         body: Swiper(
-
           pagination: SwiperPagination(),
           itemCount: MyImage.length,
           itemBuilder: (context, index) {
@@ -28,11 +30,10 @@ class GetStarted extends StatelessWidget {
           label: const Text('Snap'),
           backgroundColor: Colors.red,
           onPressed: () {
-
+            Navigator.pushNamed(context, '/third');
           },
         ),
       ),
     );
-
   }
 }
