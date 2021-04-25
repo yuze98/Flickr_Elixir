@@ -3,6 +3,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 class GetStarted extends StatelessWidget {
   // This widget is the root of your application.
+
   final MyImage = [
     'https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg',
     'https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg',
@@ -10,6 +11,8 @@ class GetStarted extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    var x=MediaQuery.of(context).size.height * 0.30;
+
     return MaterialApp(
       //  title: 'Flickr',
       home: Scaffold(
@@ -24,14 +27,31 @@ class GetStarted extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          elevation: 4.0,
-          icon: const Icon(Icons.access_time),
-          label: const Text('Snap'),
-          backgroundColor: Colors.red,
-          onPressed: () {
-            Navigator.pushNamed(context, '/third');
-          },
+
+
+
+        floatingActionButton: FittedBox(
+
+fit: BoxFit.contain,
+          child: FloatingActionButton.extended(
+            elevation: 4.0,
+
+            label:  Text('GetStarted',style: TextStyle(
+              fontSize:40.0 ,
+              fontWeight: FontWeight.bold,
+            ),
+
+            )
+
+          ,
+            backgroundColor: Colors.lightBlueAccent,
+            onPressed: (
+
+                ) {
+Navigator.pushNamed(context, '/third');
+              print("heh");
+            },
+          ),
         ),
       ),
     );
