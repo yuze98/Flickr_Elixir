@@ -1,0 +1,70 @@
+# Miscellaneous
+.class
+.log
+.pyc
+.swp
+.DS_Store
+.atom
+.buildlog
+.history
+.svn
+
+# IntelliJ related
+.iml
+.ipr
+.iws
+.idea
+
+# Visual Studio Code related
+.vscode
+
+# FlutterDartPub related
+docapi
+.dart_tool
+.flutter-plugins
+.packages
+.pub-cache
+.pub
+build
+
+# Android related
+androidgradle-wrapper.jar
+android.gradle
+androidcaptures
+androidgradlew
+androidgradlew.bat
+androidlocal.properties
+androidGeneratedPluginRegistrant.java
+
+# iOSXCode related
+ios.mode1v3
+ios.mode2v3
+ios.moved-aside
+ios.pbxuser
+ios.perspectivev3
+iossync
+ios.sconsign.dblite
+ios.tags
+ios.vagrant
+iosDerivedData
+iosIcon
+iosPods
+ios.symlinks
+iosprofile
+iosxcuserdata
+ios.generated
+iosFlutterApp.framework
+iosFlutterFlutter.framework
+iosFlutterGenerated.xcconfig
+iosFlutterapp.flx
+iosFlutterapp.zip
+iosFlutterflutter_assets
+iosServiceDefinitions.json
+iosRunnerGeneratedPluginRegistrant.
+
+# Exceptions to above rules.
+!iosdefault.mode1v3
+!iosdefault.mode2v3
+!iosdefault.pbxuser
+!iosdefault.perspectivev3
+!packagesflutter_toolstestdatadart_dependencies_test.packages
