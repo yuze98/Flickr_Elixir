@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
-class LoginScreen extends StatelessWidget {
+class GetStarted extends StatelessWidget {
   // This widget is the root of your application.
+  final MyImage=['https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg','https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg','https://yemenat.net/wp-content/uploads/2015/01/30-06-13-168938822.jpg'];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flickr',
+    //  title: 'Flickr',
       home: Scaffold(
-        appBar: AppBar(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          ),
-          title: Title(
-            child: Text("Flicker"),
-            color: Colors.blue,
-          ),
+        backgroundColor: Colors.grey,
+
+        body: Swiper(
+
+          pagination: SwiperPagination(),
+          itemCount: MyImage.length,
+          itemBuilder: (context, index) {
+            return Image.network(
+              MyImage[index],
+              fit: BoxFit.cover,
+            );
+          },
         ),
-        body: Container(
-          color: Colors.redAccent[400],
+        floatingActionButton: FloatingActionButton.extended(
+          elevation: 4.0,
+          icon: const Icon(Icons.access_time),
+          label: const Text('Snap'),
+          backgroundColor: Colors.red,
+          onPressed: () {
+
+          },
         ),
       ),
     );
+
   }
 }
