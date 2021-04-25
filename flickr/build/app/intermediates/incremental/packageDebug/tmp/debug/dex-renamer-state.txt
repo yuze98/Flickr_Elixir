@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-#Sun Apr 25 03:29:41 EET 2021
-base.0=C\:\\Users\\Fat7y\\OneDrive\\Documents\\GitHub\\Flickr_Elixir\\flickr\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-=======
-#Sun Apr 25 01:52:55 EET 2021
-base.0=D\:\\UNI STUFF\\swproject\\Flickr_Elixir\\flickr\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
->>>>>>> bd2d4d9366b7d7275e810d195e66b3039cd95cd0
-path.0=classes.dex
-renamed.0=classes.dex
