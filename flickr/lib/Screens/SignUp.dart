@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -35,7 +36,7 @@ class _SignupState extends State<Signup> {
           toolbarHeight: devicesize.height * 0.15,
           actions: [
             IconButton(
-                icon: Icon(Icons.view_quilt),
+                icon: Icon(Icons.close),
                 onPressed: () {
                   Navigator.pop(context);
                 })
@@ -154,7 +155,7 @@ class _SignupState extends State<Signup> {
                         Radius.circular(5.0),
                       ),
                     ),
-                    minimumSize: Size(devicesize.width, devicesize.height / 8),
+                    minimumSize: Size(devicesize.width, devicesize.height / 10),
                   ),
                   onPressed: () {
                     print(firstnameController.text);
@@ -168,9 +169,25 @@ class _SignupState extends State<Signup> {
                   child: Text(
                     "Sign up",
                     style: TextStyle(
+                        letterSpacing: devicesize.width * 0.005,
                         fontWeight: FontWeight.bold,
                         fontSize: devicesize.width * 0.06),
                   ),
+                ),
+              ), //submit button
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    devicesize.width * 0.06,
+                    devicesize.height * 0.01,
+                    devicesize.width * 0.06,
+                    devicesize.height * 0.01),
+                child: Text(
+                  "By signing up you afree with Flickr's Terms of Services and Privacy Policy.",
+                  style: TextStyle(
+                    fontSize: devicesize.width * 0.035,
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               )
             ],
