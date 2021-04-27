@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -44,7 +47,7 @@ class _SignupState extends State<Signup> {
         ),
         body: Padding(
           padding: EdgeInsets.fromLTRB(
-              devicesize.width * 0.06, 0, devicesize.width * 0.06, 0),
+              devicesize.width * 0.01, 0, devicesize.width * 0.01, 0),
           child: ListView(
             children: [
               SizedBox(
@@ -142,9 +145,9 @@ class _SignupState extends State<Signup> {
               ), // password
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
+                    devicesize.width * 0.05,
                     devicesize.height * 0.07,
-                    devicesize.width * 0.06,
+                    devicesize.width * 0.05,
                     devicesize.height * 0.01),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -181,13 +184,67 @@ class _SignupState extends State<Signup> {
                     devicesize.height * 0.01,
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
-                child: Text(
-                  "By signing up you afree with Flickr's Terms of Services and Privacy Policy.",
-                  style: TextStyle(
-                    fontSize: devicesize.width * 0.035,
-                    color: Colors.grey[600],
-                  ),
+                child: RichText(
                   textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'By signing up you agree with Flickr\'s ',
+                        style: TextStyle(
+                            fontSize: devicesize.width * 0.035,
+                            color: Colors.grey[600]),
+                      ),
+                      TextSpan(
+                        text: 'Terms of Services ',
+                        style: TextStyle(
+                            fontSize: devicesize.width * 0.035,
+                            color: Colors.blue),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launch('https://www.flickr.com/help/terms');
+                          },
+                      ),
+                      TextSpan(
+                        text: 'and ',
+                        style: TextStyle(
+                            fontSize: devicesize.width * 0.035,
+                            color: Colors.grey[600]),
+                      ),
+                      TextSpan(
+                        text: 'Privacy Policy.',
+                        style: TextStyle(
+                            fontSize: devicesize.width * 0.035,
+                            color: Colors.blue),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launch('https://www.flickr.com/help/privacy');
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                thickness: devicesize.height * 0.004,
+              ),
+              Text(
+                'Already a Flickr member?',
+                style: TextStyle(
+                  fontSize: devicesize.width * 0.04,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/second');
+                },
+                child: Text(
+                  "Log in here !",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.teal,
+                      fontSize: devicesize.width * 0.05),
                 ),
               )
             ],
@@ -196,5 +253,14 @@ class _SignupState extends State<Signup> {
         backgroundColor: Colors.white,
       ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://flutter.io';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
