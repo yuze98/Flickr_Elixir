@@ -9,12 +9,20 @@ class Signup extends StatefulWidget {
   _SignupState createState() => _SignupState();
 }
 
+bool fnamebool = false;
+bool lnamebool = false;
+bool agebool = false;
+bool emailbool = false;
+bool pwbool = false;
+
 class _SignupState extends State<Signup> {
   final firstnameController = TextEditingController();
   final secondnameController = TextEditingController();
   final ageController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>(); //email address
 
   @override
   Widget build(BuildContext context) {
@@ -72,26 +80,37 @@ class _SignupState extends State<Signup> {
                     devicesize.height * 0.01,
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
-                child: TextField(
-                  controller: firstnameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    hintText: 'First name',
-                    fillColor: Colors.white,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                    validator: validatename,
+                    controller: firstnameController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      hintText: 'First name',
+                      fillColor: Colors.white,
+                    ),
                   ),
-                  //  ),
                 ),
               ), //first name
               Padding(
-                padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
-                child: TextField(
-                  controller: secondnameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    hintText: 'Second name',
-                    fillColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(
+                    devicesize.width * 0.06,
+                    devicesize.height * 0.01,
+                    devicesize.width * 0.06,
+                    devicesize.height * 0.01),
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                    validator: validatename,
+                    controller: secondnameController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      hintText: 'Second name',
+                      fillColor: Colors.white,
+                    ),
                   ),
                 ),
               ), // second name
@@ -101,13 +120,17 @@ class _SignupState extends State<Signup> {
                     devicesize.height * 0.01,
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
-                child: TextField(
-                  controller: ageController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    hintText: 'Your age',
-                    fillColor: Colors.white,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                    validator: validateage,
+                    controller: ageController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      hintText: 'Your age',
+                      fillColor: Colors.white,
+                    ),
                   ),
                 ),
               ), //your age
@@ -117,13 +140,17 @@ class _SignupState extends State<Signup> {
                     devicesize.height * 0.01,
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
-                child: TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    hintText: 'Email address',
-                    fillColor: Colors.white,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                    validator: validateEmail,
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      hintText: 'Email address',
+                      fillColor: Colors.white,
+                    ),
                   ),
                 ),
               ), //email address
@@ -133,13 +160,17 @@ class _SignupState extends State<Signup> {
                     devicesize.height * 0.01,
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
-                child: TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    hintText: 'Password',
-                    fillColor: Colors.white,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                    validator: validatepassword,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      hintText: 'Password',
+                      fillColor: Colors.white,
+                    ),
                   ),
                 ),
               ), // password
@@ -256,11 +287,56 @@ class _SignupState extends State<Signup> {
   }
 }
 
-_launchURL() async {
-  const url = 'https://flutter.io';
-  if (await canLaunch(url)) {
-    await launch(url);
+String validateEmail(String value) {
+  Pattern pattern =
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+      r"{0,253}[a-zA-Z0-9])?)*$"
+      r"[a-zA-Z0-9_-\.]+@[a-zA-Z0-9]+-?_?\.?[a-zA-Z0-9]+\.(com|net|org)";
+  RegExp regex = new RegExp(pattern);
+  if (!regex.hasMatch(value) || value == null)
+    return 'Enter a valid email address';
+  else {
+    return null;
+  }
+}
+
+String validatename(String value) {
+  Pattern pattern = r"^[a-z A-Z]+$";
+  RegExp regex = new RegExp(pattern);
+  if (!regex.hasMatch(value) || value == null)
+    return 'Enter a valid Name';
+  else {
+    return null;
+  }
+}
+
+String validateage(String value) {
+  Pattern pattern = r"^[1-9][0-9]?$";
+  RegExp regex = new RegExp(pattern);
+  if (!regex.hasMatch(value) || value == null)
+    return 'Enter a valid Age';
+  else {
+    return null;
+  }
+}
+
+String validatepassword(String value) {
+  Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+  RegExp regex = new RegExp(pattern);
+  if (!regex.hasMatch(value) || value == null) {
+    pwbool = false;
+    return 'Enter a valid Password (8 or more characters)';
   } else {
-    throw 'Could not launch $url';
+    pwbool = true;
+    return null;
+  }
+}
+
+String validateubmit(String value) {
+  if (!pwbool && !agebool && !fnamebool && !lnamebool && !emailbool) {
+    return 'Enter valid things';
+  } else {
+    return null;
   }
 }
