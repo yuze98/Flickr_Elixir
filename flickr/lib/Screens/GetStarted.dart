@@ -11,44 +11,48 @@ class GetStarted extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    var x=MediaQuery.of(context).size.height * 0.30;
+    var x = MediaQuery.of(context).size.height * 0.30;
+    var y = MediaQuery.of(context).size;
 
     return MaterialApp(
       //  title: 'Flickr',
       home: Scaffold(
         backgroundColor: Colors.grey,
         body: Swiper(
-          pagination: SwiperPagination(),
+          pagination: SwiperPagination(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: y.height * 0.5),
+          ),
           itemCount: MyImage.length,
           itemBuilder: (context, index) {
-            return Image.network(
-              MyImage[index],
-              fit: BoxFit.cover,
+            return Stack(
+              children: <Widget>[
+                Image.network(
+                  MyImage[index],
+                  fit: BoxFit.fill,
+                ),
+                Text(
+                  "data$index",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             );
           },
         ),
-
-
-
         floatingActionButton: FittedBox(
-
-fit: BoxFit.contain,
+          fit: BoxFit.contain,
           child: FloatingActionButton.extended(
             elevation: 4.0,
-
-            label:  Text('GetStarted',style: TextStyle(
-              fontSize:40.0 ,
-              fontWeight: FontWeight.bold,
+            label: Text(
+              'GetStarted',
+              style: TextStyle(
+                fontSize: 40.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-
-            )
-
-          ,
             backgroundColor: Colors.lightBlueAccent,
-            onPressed: (
-
-                ) {
-Navigator.pushNamed(context, '/third');
+            onPressed: () {
+              Navigator.pushNamed(context, '/third');
               print("heh");
             },
           ),

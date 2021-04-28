@@ -22,7 +22,11 @@ class _SignupState extends State<Signup> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>(); //email address
+  final firstKey = GlobalKey<FormState>(); //email address
+  final secondkey = GlobalKey<FormState>(); //email address
+  final ageKey = GlobalKey<FormState>(); //email address
+  final emailKey = GlobalKey<FormState>(); //email address
+  final pwKey = GlobalKey<FormState>(); //email address
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +85,14 @@ class _SignupState extends State<Signup> {
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
                 child: Form(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     validator: validatename,
                     controller: firstnameController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
-                      hintText: 'First name',
+                      labelText: 'First name',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -101,14 +105,14 @@ class _SignupState extends State<Signup> {
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
                 child: Form(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     validator: validatename,
                     controller: secondnameController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
-                      hintText: 'Second name',
+                      labelText: 'Second name',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -121,14 +125,14 @@ class _SignupState extends State<Signup> {
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
                 child: Form(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     validator: validateage,
                     controller: ageController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
-                      hintText: 'Your age',
+                      labelText: 'Your age',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -141,14 +145,14 @@ class _SignupState extends State<Signup> {
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
                 child: Form(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     validator: validateEmail,
                     controller: emailController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
-                      hintText: 'Email address',
+                      labelText: 'Email address',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -161,14 +165,14 @@ class _SignupState extends State<Signup> {
                     devicesize.width * 0.06,
                     devicesize.height * 0.01),
                 child: Form(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     validator: validatepassword,
                     controller: passwordController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
-                      hintText: 'Password',
+                      labelText: 'Password',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -198,6 +202,7 @@ class _SignupState extends State<Signup> {
                     print(emailController.text);
                     print(passwordController.text);
 
+                    print(validateubmit());
                     //Navigator.pop(context);
                   },
                   child: Text(
@@ -291,8 +296,7 @@ String validateEmail(String value) {
   Pattern pattern =
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
       r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-      r"{0,253}[a-zA-Z0-9])?)*$"
-      r"[a-zA-Z0-9_-\.]+@[a-zA-Z0-9]+-?_?\.?[a-zA-Z0-9]+\.(com|net|org)";
+      r"{0,253}[a-zA-Z0-9])?)*$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null)
     return 'Enter a valid email address';
@@ -333,10 +337,10 @@ String validatepassword(String value) {
   }
 }
 
-String validateubmit(String value) {
+String validateubmit() {
   if (!pwbool && !agebool && !fnamebool && !lnamebool && !emailbool) {
     return 'Enter valid things';
   } else {
-    return null;
+    return 'Everything is ready';
   }
 }
