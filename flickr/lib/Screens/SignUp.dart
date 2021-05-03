@@ -232,7 +232,7 @@ class _SignupState extends State<Signup> {
                     print(ageController.text);
                     print(emailController.text);
                     print(passwordController.text);
-
+                    showAlertDialog(context, validateubmit());
                     print(validateubmit());
                     //Navigator.pop(context);
                   },
@@ -411,9 +411,40 @@ String validatepassword(String value) {
 }
 
 String validateubmit() {
+  String str;
   if (!pwbool && !agebool && !fnamebool && !lnamebool && !emailbool) {
-    return 'Enter valid things';
+    str = 'Enter valid parameters';
   } else {
-    return 'Everything is ready';
+    str = 'Everything is ready';
   }
+  return str;
+}
+
+showAlertDialog(BuildContext context, String str) {
+  // Create button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      if (str == 'Everything is ready')
+        Navigator.pushNamed(context, "/second");
+      else
+        Navigator.of(context).pop();
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text(str),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
