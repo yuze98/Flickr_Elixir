@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.plugins.shim.ShimPluginRegistry;
 
 /**
  * Generated file. Do not edit.
@@ -13,6 +14,8 @@ import io.flutter.embedding.engine.FlutterEngine;
 @Keep
 public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
+    ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
+      com.roughike.facebooklogin.facebooklogin.FacebookLoginPlugin.registerWith(shimPluginRegistry.registrarFor("com.roughike.facebooklogin.facebooklogin.FacebookLoginPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
   }
 }

@@ -65,6 +65,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_facebook_login">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_facebook_login-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_page_indicator">
           <value>
             <list>
@@ -251,6 +258,7 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_facebook_login-3.0.0/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_page_indicator-0.0.3/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_swiper-1.1.6/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/lib" />

@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flickr">
    <application
-       android:label="flickr"
-        android:icon="@mipmap/ic_launcher">
+       android:label="flickr">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
