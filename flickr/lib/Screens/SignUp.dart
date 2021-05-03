@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:url_launcher/url_launcher.dart';
+//import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ bool agebool = false;
 bool emailbool = false;
 bool pwbool = false;
 
+//FB sign up
+
 class _SignupState extends State<Signup> {
   final firstnameController = TextEditingController();
   final secondnameController = TextEditingController();
@@ -22,12 +25,27 @@ class _SignupState extends State<Signup> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final firstKey = GlobalKey<FormState>(); //email address
-  final secondkey = GlobalKey<FormState>(); //email address
-  final ageKey = GlobalKey<FormState>(); //email address
-  final emailKey = GlobalKey<FormState>(); //email address
-  final pwKey = GlobalKey<FormState>(); //email address
+  bool _isLoggedIn = false;
+  Map _userObj = {};
 
+  // final firstKey = GlobalKey<FormState>(); //email address
+  // final secondkey = GlobalKey<FormState>(); //email address
+  // final ageKey = GlobalKey<FormState>(); //email address
+  // final emailKey = GlobalKey<FormState>(); //email address
+  // final pwKey = GlobalKey<FormState>(); //email address
+
+  /*void FBsignup() async {
+    FacebookAuth.instance
+        .login(permissions: ["public_profile", "email"]).then((value) {
+      FacebookAuth.instance.getUserData().then((userData) {
+        setState(() {
+          _isLoggedIn = true;
+          _userObj = userData;
+        });
+      });
+    });
+  }
+*/
   @override
   Widget build(BuildContext context) {
     var devicesize = MediaQuery.of(context).size;
@@ -187,7 +205,7 @@ class _SignupState extends State<Signup> {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     primary: Colors.white,
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.red[600],
                     shape: const BeveledRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(5.0),
@@ -214,6 +232,49 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
               ), //submit button
+              Center(
+                heightFactor: devicesize.height * 0.005,
+                child: SizedBox(
+                  child: Text(
+                    "OR",
+                    style: TextStyle(
+                        fontSize: devicesize.width * 0.04, color: Colors.black),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    devicesize.width * 0.05,
+                    devicesize.height * 0.01,
+                    devicesize.width * 0.05,
+                    devicesize.height * 0.01),
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Colors.blue[700],
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
+                    ),
+                    minimumSize: Size(devicesize.width, devicesize.height / 10),
+                  ),
+                  onPressed: () {
+                    //Add some functionalties to sign up for FB
+                  },
+                  icon: Image.asset(
+                    "images/fb.png",
+                    scale: devicesize.width * 0.03,
+                  ),
+                  label: Text(
+                    "Sign up with Facebook",
+                    style: TextStyle(
+                        letterSpacing: devicesize.width * 0.005,
+                        fontWeight: FontWeight.bold,
+                        fontSize: devicesize.width * 0.04),
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
                     devicesize.width * 0.06,
