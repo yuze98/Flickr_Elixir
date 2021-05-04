@@ -52,7 +52,7 @@ class GetStarted extends StatelessWidget {
             ),
             backgroundColor: Colors.lightBlueAccent,
             onPressed: () {
-              Navigator.pushNamed(context, '/third');
+              Navigator.pushNamed(context, 'Signup');
               print("heh");
             },
           ),

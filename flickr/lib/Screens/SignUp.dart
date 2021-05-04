@@ -274,6 +274,7 @@ class _SignupState extends State<Signup> {
                   ),
                   onPressed: () {
                     _login();
+                    Navigator.pushNamed(context, "GetStarted");
                     //Add some functionalties to sign up for FB
                   },
                   icon: Image.asset(
@@ -348,7 +349,7 @@ class _SignupState extends State<Signup> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/second');
+                  Navigator.pushNamed(context, 'LoginScreen');
                 },
                 child: Text(
                   "Log in here !",
@@ -426,7 +427,7 @@ showAlertDialog(BuildContext context, String str) {
     child: Text("OK"),
     onPressed: () {
       if (str == 'Everything is ready')
-        Navigator.pushNamed(context, "/second");
+        Navigator.pushNamed(context, "LoginScreen");
       else
         Navigator.of(context).pop();
     },

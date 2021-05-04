@@ -6,16 +6,14 @@ import 'Screens/SignUp.dart';
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: '/',
+      initialRoute: 'GetStarted',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => GetStarted(),
+        'GetStarted': (context) => GetStarted(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => LoginScreen(),
-        '/third': (context) => Signup(),
+        'LoginScreen': (context) => LoginScreen(),
+        'Signup': (context) => Signup(),
       },
     ),
   );
-
 }
-
