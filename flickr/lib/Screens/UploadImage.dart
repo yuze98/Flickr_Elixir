@@ -69,6 +69,7 @@ class _UserPage extends State<UserPage> {
                 ),
                 onPressed: () {
                   // do something
+                  Navigator.pushNamed(context, "about");
                 },
               ),
               RawMaterialButton(

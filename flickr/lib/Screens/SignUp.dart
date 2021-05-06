@@ -20,6 +20,18 @@ bool pwbool = false;
 
 //FB sign up
 class _SignupState extends State<Signup> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    fnamebool = false;
+    lnamebool = false;
+    agebool = false;
+    emailbool = false;
+    pwbool = false;
+
+    super.initState();
+  }
+
   final firstnameController = TextEditingController();
   final secondnameController = TextEditingController();
   final ageController = TextEditingController();
@@ -46,6 +58,7 @@ class _SignupState extends State<Signup> {
         break;
       case FacebookLoginStatus.cancelledByUser:
         _showMessage('Login cancelled by the user.');
+        await facebookSignIn.logOut();
         break;
       case FacebookLoginStatus.error:
         _showMessage('Something went wrong with the login process.\n'
@@ -199,7 +212,7 @@ class _SignupState extends State<Signup> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    //  validator: validatepassword,
+                    validator: validatepassword,
                     controller: passwordController,
                     decoration: InputDecoration(
                       filled: true,
@@ -233,7 +246,7 @@ class _SignupState extends State<Signup> {
                     print(ageController.text);
                     print(emailController.text);
                     print(passwordController.text);
-                    showAlertDialog(context, validateubmit());
+
                     print(validateubmit());
                     sending();
                     //Navigator.pop(context);
@@ -385,6 +398,12 @@ class _SignupState extends State<Signup> {
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateubmit());
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
   }
 }
 
@@ -395,6 +414,7 @@ String validateEmail(String value) {
   if (!regex.hasMatch(value) || value == null)
     return 'Enter a valid email address';
   else {
+    emailbool = true;
     return null;
   }
 }
@@ -405,6 +425,8 @@ String validatename(String value) {
   if (!regex.hasMatch(value) || value == null)
     return 'Enter a valid Name';
   else {
+    fnamebool = true;
+    lnamebool = true;
     return null;
   }
 }
@@ -415,6 +437,7 @@ String validateage(String value) {
   if (!regex.hasMatch(value) || value == null)
     return 'Enter a valid Age';
   else {
+    agebool = true;
     return null;
   }
 }
@@ -446,9 +469,11 @@ showAlertDialog(BuildContext context, String str) {
   Widget okButton = TextButton(
     child: Text("OK"),
     onPressed: () {
-      if (str == 'Everything is ready')
-        Navigator.pushNamed(context, "LoginScreen");
-      else
+      if (str == 'Everything is ready') {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        Navigator.pushNamed(context, "UserPage");
+      } else
         Navigator.of(context).pop();
     },
   );

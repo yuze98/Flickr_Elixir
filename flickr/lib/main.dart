@@ -5,7 +5,6 @@ import 'Screens/GetStarted.dart';
 import 'Screens/SignUp.dart';
 import 'Screens/ChangePassword.dart';
 import 'Screens/UploadImage.dart';
-import 'Screens/UserName.dart';
 import 'Screens/forgetPassPage.dart';
 import 'Screens/RedirectAbPage.dart';
 import 'Screens/about.dart';

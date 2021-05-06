@@ -100,7 +100,7 @@ class _GetstartedState extends State<GetStarted> {
                     backgroundColor: Colors.lightBlueAccent,
                     onPressed: () {
                       print(context);
-                      Navigator.pushNamed(context, "Signup");
+                      Navigator.pushNamed(context, "LoginScreen");
                     },
                   ),
                 ),

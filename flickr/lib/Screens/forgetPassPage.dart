@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'CheckInboxPage.dart';
 
 class forgetPass extends StatefulWidget {
+  forgetPass({this.receivedEmailController});
+
+  final receivedEmailController;
+
   @override
   _forgetPassState createState() => _forgetPassState();
 }
 
 class _forgetPassState extends State<forgetPass> {
   TextEditingController emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = widget.receivedEmailController;
+  }
 
   @override
   Widget build(BuildContext context) {
