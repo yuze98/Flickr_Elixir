@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'Screens/Login_page.dart';
 import 'Screens/GetStarted.dart';
 import 'Screens/SignUp.dart';
-import 'Screens/UserPage.dart';
 import 'Screens/ChangePassword.dart';
-import 'Screens/UploadImage.dart';
-
+import 'Screens/UserName.dart';
+import 'Screens/forgetPassPage.dart';
+import 'Screens/RedirectAbPage.dart';
+import 'Screens/about.dart';
+import 'Screens/CheckInboxPage.dart';
 
 void main() {
-
   runApp(
     MaterialApp(
       initialRoute: 'GetStarted',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        'GetStarted': (context) => GetStarted(),
+        'GetStarted': (context) => Getstarted(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         'LoginScreen': (context) => LoginScreen(),
         'Signup': (context) => Signup(),
+        'UserPage': (context) => userPage1(),
+        'about': (context) => AboutState(),
+        'forgetPass': (context) => forgetPass(),
       },
     ),
   );
