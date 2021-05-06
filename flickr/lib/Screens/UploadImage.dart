@@ -7,12 +7,12 @@ import 'package:flickr/Screens/SignUp.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UserPage1 extends StatefulWidget {
+class UserPage extends StatefulWidget {
   @override
-  _UserPage1 createState() => _UserPage1();
+  _UserPage createState() => _UserPage();
 }
 
-class _UserPage1 extends State<UserPage1> {
+class _UserPage extends State<UserPage> {
   // This widget is the root of your application.
   PickedFile _photofile;
   final ImagePicker _picker = ImagePicker();
