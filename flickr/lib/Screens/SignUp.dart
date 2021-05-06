@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
 
 class Signup extends StatefulWidget {
   @override
@@ -198,7 +199,7 @@ class _SignupState extends State<Signup> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validatepassword,
+                    //  validator: validatepassword,
                     controller: passwordController,
                     decoration: InputDecoration(
                       filled: true,
@@ -234,6 +235,7 @@ class _SignupState extends State<Signup> {
                     print(passwordController.text);
                     showAlertDialog(context, validateubmit());
                     print(validateubmit());
+                    sending();
                     //Navigator.pop(context);
                   },
                   child: Text(
@@ -349,7 +351,7 @@ class _SignupState extends State<Signup> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'LoginScreen');
+                  Navigator.pushNamed(context, 'UserPage1');
                 },
                 child: Text(
                   "Log in here !",
@@ -365,6 +367,24 @@ class _SignupState extends State<Signup> {
         backgroundColor: Colors.white,
       ),
     );
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUp?email=${emailController.text}&password=${passwordController.text}&firstname=${firstnameController.text}&lastname=${secondnameController.text}&age=${ageController.text}';
+
+    var response = await http.post(
+      Uri.parse(url),
+      body: {
+        "email": "${emailController.text}",
+        "password": "${passwordController.text}",
+        "firstName": "${firstnameController.text}",
+        "lastName": "${secondnameController.text}",
+        "age": "${ageController.text}",
+      },
+    );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   }
 }
 

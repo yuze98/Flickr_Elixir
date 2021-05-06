@@ -1,20 +1,13 @@
+import 'package:flickr/Screens/SignUp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class GetStarted extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Getstarted(),
-
-    );
-  }
-}
 
 
 
-class Getstarted extends StatefulWidget {
+
+class GetStarted extends StatefulWidget {
   @override
   _GetstartedState createState() => _GetstartedState();
 
@@ -23,10 +16,7 @@ class Getstarted extends StatefulWidget {
 
 }
 
-class _GetstartedState extends State<Getstarted> {
-
-
-
+class _GetstartedState extends State<GetStarted> {
 
   final myImage = [
     'images/photo3.png','images/photo1.jpg','images/photo2.jpg'
@@ -89,11 +79,6 @@ class _GetstartedState extends State<Getstarted> {
                   ),
                 ),
               ),
-
-
-
-
-
                     ),
               Container(
                 // width: 300 ,
@@ -130,8 +115,10 @@ class _GetstartedState extends State<Getstarted> {
                       onPressed: (
 
                           ) {
-                        Navigator.pushNamed(context, "LoginScreen");
-                        print("heh");
+                        print(context);
+                        Navigator.pushNamed(context, "Signup");
+
+
                       },
                     ),
                   ),

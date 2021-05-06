@@ -6,25 +6,17 @@ import 'package:flickr/Screens/SignUp.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 
 
-class UserPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: userPage(),
-
-    );
-  }
-}
 
 
 
-class userPage extends StatefulWidget {
+
+class UserPage extends StatefulWidget {
   @override
   _UserPage createState() => _UserPage();
 
 }
 
-class _UserPage extends  State<userPage> {
+class _UserPage extends  State<UserPage> {
   // This widget is the root of your application.
 
   @override

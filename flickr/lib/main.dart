@@ -1,3 +1,4 @@
+import 'package:flickr/Screens/UploadDetails.dart';
 import 'package:flutter/material.dart';
 import 'Screens/Login_page.dart';
 import 'Screens/GetStarted.dart';
@@ -6,9 +7,7 @@ import 'Screens/UserPage.dart';
 import 'Screens/ChangePassword.dart';
 import 'Screens/UploadImage.dart';
 
-
 void main() {
-
   runApp(
     MaterialApp(
       initialRoute: 'GetStarted',
@@ -17,7 +16,8 @@ void main() {
         'GetStarted': (context) => GetStarted(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         'LoginScreen': (context) => LoginScreen(),
-        'Signup': (context) => Signup(),
+        'Signup': (context) => UserPage1(),
+        'UserPage1': (context) => ImageDetails(),
       },
     ),
   );
