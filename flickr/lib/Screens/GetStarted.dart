@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
 class GetStarted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _GetstartedState extends State<Getstarted> {
   final myImage = [
     'images/photo3.png','images/photo1.jpg','images/photo2.jpg'
   ];
-  final mesgs=['Powerful\n','Save all of your photos and videos in one place'
+  final mesgs=['Powerful'
       ,'Step 2','Step 3'];
   int index2=0;
 
@@ -97,9 +98,9 @@ class _GetstartedState extends State<Getstarted> {
               Container(
                 // width: 300 ,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom:120),
+                  padding: const EdgeInsets.only(bottom:10),
                   child: Text(
-                    mesgs[index2+1],
+                    mesgs[index2],
 
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -113,7 +114,7 @@ class _GetstartedState extends State<Getstarted> {
                 child: Center(
                   child: FittedBox(
 
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                     child: FloatingActionButton.extended(
                       elevation: 4.0,
 
@@ -129,7 +130,7 @@ class _GetstartedState extends State<Getstarted> {
                       onPressed: (
 
                           ) {
-                        Navigator.pushNamed(context, '/third');
+                        Navigator.pushNamed(context, "LoginScreen");
                         print("heh");
                       },
                     ),

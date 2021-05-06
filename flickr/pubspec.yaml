@@ -32,7 +32,6 @@ dependencies:
 
   menu_button: ^1.4.2+1
   image_picker: ^0.6.7+4
-
   flutter_facebook_login: ^3.0.0
 
 
