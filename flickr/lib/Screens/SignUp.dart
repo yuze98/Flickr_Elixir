@@ -411,9 +411,10 @@ String validateEmail(String value) {
   Pattern pattern =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    emailbool = false;
     return 'Enter a valid email address';
-  else {
+  } else {
     emailbool = true;
     return null;
   }
@@ -422,9 +423,11 @@ String validateEmail(String value) {
 String validatename(String value) {
   Pattern pattern = r"^[a-z A-Z]+$";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    fnamebool = false;
+    lnamebool = false;
     return 'Enter a valid Name';
-  else {
+  } else {
     fnamebool = true;
     lnamebool = true;
     return null;
@@ -434,9 +437,10 @@ String validatename(String value) {
 String validateage(String value) {
   Pattern pattern = r"^[1-9][0-9]?$";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    agebool = false;
     return 'Enter a valid Age';
-  else {
+  } else {
     agebool = true;
     return null;
   }

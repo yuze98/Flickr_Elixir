@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   TextSpan(
-                      text: " Sign up here.",
+                      text: "Sign up here.",
                       style: TextStyle(
                         color: Colors.blue.shade600,
                       ),
