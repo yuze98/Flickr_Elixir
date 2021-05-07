@@ -247,6 +247,9 @@ class _SignupState extends State<Signup> {
                     print(emailController.text);
                     print(passwordController.text);
 
+                    print(pwbool);
+                    print(emailbool);
+
                     print(validateubmit());
                     sending();
                     //Navigator.pop(context);
@@ -460,7 +463,7 @@ String validatepassword(String value) {
 
 String validateubmit() {
   String str;
-  if (!pwbool && !agebool && !fnamebool && !lnamebool && !emailbool) {
+  if (!pwbool || !agebool || !fnamebool || !lnamebool || !emailbool) {
     str = 'Enter valid parameters';
   } else {
     str = 'Everything is ready';
