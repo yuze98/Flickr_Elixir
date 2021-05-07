@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ChangePassword extends StatefulWidget {
   @override
@@ -177,7 +178,7 @@ class _ChangePassword extends State<ChangePassword> {
                     onPressed: () {
 //                      primary:
                       //                    Colors.deepOrange;
-                      showAlertDialog(context, validateconfirm());
+
                       print('Pressed');
                     },
                     child: Text(
@@ -195,6 +196,27 @@ class _ChangePassword extends State<ChangePassword> {
         backgroundColor: Colors.white,
       ),
     );
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/changePassword?newPass=${NewPasswordController.text}&oldPass=${OldPasswordController.text}';
+
+    var response = await http.post(Uri.parse(url), body: {
+      "newPass": "${NewPasswordController.text}",
+      "oldPass": "${OldPasswordController.text}"
+    }, headers: {
+      'Authorization': 'Bearer asdasdkasdliuaslidas'
+    });
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateconfirm());
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
   }
 
   String validateoldpassword(String value) {

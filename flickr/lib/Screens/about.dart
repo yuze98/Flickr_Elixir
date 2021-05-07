@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'RedirectAbPage.dart';
+import 'package:http/http.dart' as http;
 
 // void main() {
 //   runApp(aboutPage());
@@ -118,9 +119,6 @@ class _AboutStateState extends State<AboutState> {
     var devicesize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('About Page'),
-      ),
       body: ListView(
         // padding: const EdgeInsets.all(8),
         children: <Widget>[
@@ -436,6 +434,18 @@ class _AboutStateState extends State<AboutState> {
         ],
       ),
     );
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/user/about/5?userId=5349b4ddd2781d08c09890f4';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   }
 }
 

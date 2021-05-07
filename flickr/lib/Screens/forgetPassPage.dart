@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CheckInboxPage.dart';
+import 'package:http/http.dart' as http;
 
 class forgetPass extends StatefulWidget {
   forgetPass({this.receivedEmailController});
@@ -18,6 +19,8 @@ class _forgetPassState extends State<forgetPass> {
     super.initState();
     emailController = widget.receivedEmailController;
   }
+
+  final EmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +78,20 @@ class _forgetPassState extends State<forgetPass> {
                   child: Row(
                     children: <Widget>[
                       Flexible(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter email',
-                            fillColor: Colors.white,
+                        child: Form(
+                          child: TextFormField(
+                            controller: EmailController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter email',
+                              fillColor: Colors.white,
+                            ),
+                            onFieldSubmitted: (text) {
+                              sending();
+                              print(emailController.text);
+                            },
                           ),
-                          controller: emailController,
-                          onSubmitted: (text) {
-                            print(emailController.text);
-                          },
                         ),
                       ),
                     ],
@@ -137,6 +143,61 @@ class _forgetPassState extends State<forgetPass> {
           ),
         ),
       ),
+    );
+  }
+
+  String validateubmit(int value) {
+    String str;
+    if (value != 200) {
+      str = 'Enter valid parameters';
+    } else {
+      str = 'Check your email';
+    }
+    return str;
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
+
+    var response = await http.get(Uri.parse(url));
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateubmit(200));
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
+  }
+
+  showAlertDialog(BuildContext context, String str) {
+    // Create button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        if (str == 'Check your email')
+          Navigator.pushNamed(context, "UserPage1");
+        else
+          Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Alert"),
+      content: Text(str),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
