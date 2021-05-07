@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -5,6 +7,7 @@ import 'SignUp.dart';
 import 'package:flutter/services.dart';
 import 'forgetPassPage.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -59,6 +62,32 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _message = message;
     });
+  }
+
+  Future<bool> sending() async {
+    const String baseURL =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+
+    var url =
+        '$baseURL/register/logIn?email=${emailController.text}&password=${passwordController.text}';
+    var response = await http.post(
+      Uri.parse(url),
+      body: {
+        "email": "${emailController.text}",
+        "password": "${passwordController.text}",
+      },
+    );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    // return response.statusCode;
+    if (response.statusCode == 200) {
+      return true;
+      // showAlertDialog(context, validateubmit());
+    } else {
+      return false;
+      // showAlertDialog(context, 'Enter valid parameters');
+    }
   }
 
   @override
@@ -207,10 +236,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     textColor: Colors.white,
                     minWidth: deviceSize.width * 0.88,
                     onPressed: () {
-                      // TODO Go to homepage
-                      previewPassword();
+                      // var passLogin;
+                      // if (passwordCheck && emailCheck) {
+                      //   passLogin = sending();
+                      //   if (passLogin == true) {
+                      //     Navigator.pop(context);
+                      //     Navigator.pushNamed(context, "UserPage");
+                      //   } else {
+                      //     showAlertDialog(context, 'Wrong email or password');
+                      //   }
+                      // } else {
+                      //   showAlertDialog(
+                      //       context, 'Enter valid email or password');
+                      // }
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, "UserPage");
                     },
-                    child: Text('Sign in'),
+                    child: Text('Login'),
                   ),
                 ),
               ),
@@ -331,10 +373,10 @@ String validatePassword(String value) {
   Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
-    //pwbool = false;
+    passwordCheck = false;
     return 'Enter a valid Password (8 or more characters)';
   } else {
-    //pwbool = true;
+    passwordCheck = true;
     return null;
   }
 }
