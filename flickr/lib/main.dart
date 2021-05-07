@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'Screens/Login_page.dart';
 import 'Screens/GetStarted.dart';
 import 'Screens/SignUp.dart';
-import 'Screens/ChangePassword.dart';
 import 'Screens/UploadImage.dart';
 import 'Screens/forgetPassPage.dart';
-import 'Screens/RedirectAbPage.dart';
 import 'Screens/about.dart';
-import 'Screens/CheckInboxPage.dart';
 
 void main() {
   runApp(
