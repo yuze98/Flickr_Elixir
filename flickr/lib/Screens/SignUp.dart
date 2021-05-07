@@ -241,15 +241,6 @@ class _SignupState extends State<Signup> {
                     minimumSize: Size(devicesize.width, devicesize.height / 10),
                   ),
                   onPressed: () {
-                    print(firstnameController.text);
-                    print(secondnameController.text);
-                    print(ageController.text);
-                    print(emailController.text);
-                    print(passwordController.text);
-
-                    print(pwbool);
-                    print(emailbool);
-
                     print(validateubmit());
                     sending();
                     //Navigator.pop(context);

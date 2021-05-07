@@ -6,6 +6,7 @@ import 'Screens/SignUp.dart';
 import 'Screens/UploadImage.dart';
 import 'Screens/forgetPassPage.dart';
 import 'Screens/about.dart';
+import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
 
 void main() {
   runApp(
