@@ -12,7 +12,7 @@ import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycl
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: 'GetStarted',
+      initialRoute: 'UserPage',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         'GetStarted': (context) => GetStarted(),

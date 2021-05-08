@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'about.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class DescripData extends StatefulWidget {
   @override
@@ -50,8 +53,7 @@ class _DescripDataState extends State<DescripData> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
-                      Navigator.pop(context, dataController.text);
-                      print(dataController.text);
+                      sending();
                     },
                   ),
                 ),
@@ -62,6 +64,75 @@ class _DescripDataState extends State<DescripData> {
       ),
     );
   }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/user/about/5?userId=5349b4ddd2781d08c09890f4';
+
+    var response = await http.get(Uri.parse(url));
+    var decoded = jsonDecode(response.body)['description'];
+    print('Response status: ${response.statusCode}');
+    print('Response body: $decoded');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateubmit(200), dataController.text);
+      // Navigator.pop(context, dataController.text);
+      //  print("ttttt")+
+      ;
+      print(dataController.text);
+    } else {
+      showAlertDialog(context, 'Enter valid parameters', dataController.text);
+    }
+  }
+}
+
+showAlertDialog(BuildContext context, String str, String controller) {
+  // Create button
+
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      if (str == 'Data entry successful') {
+        print("success");
+        print("Controller is  $controller");
+        Navigator.of(context).pop();
+
+        Navigator.pop(context, controller);
+      } else {
+        print("fail");
+
+        Navigator.of(context).pop();
+      }
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text("Alert"),
+    content: Text(str),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+String validateubmit(int value) {
+  String str;
+  print("Value is ");
+  print(value);
+  if (value != 200) {
+    str = 'Enter valid parameters';
+  } else {
+    str = 'Data entry successful';
+  }
+  return str;
 }
 
 class AddressData extends StatefulWidget {

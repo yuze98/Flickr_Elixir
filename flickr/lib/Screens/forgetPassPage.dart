@@ -88,8 +88,7 @@ class _forgetPassState extends State<forgetPass> {
                               fillColor: Colors.white,
                             ),
                             onFieldSubmitted: (text) {
-                              sending();
-                              print(emailController.text);
+                              //     print(emailController.text);
                             },
                           ),
                         ),
@@ -119,16 +118,11 @@ class _forgetPassState extends State<forgetPass> {
                                     MaterialStateProperty.all(Colors.blue)),
                             onPressed: () {
                               // setState(() {
-                              print(emailController.text);
+                              //
+                              print(EmailController.text);
                               // sendMail(emailController.text);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      checkInbox(email: emailController.text),
-                                ),
-                                // print("Immm innnnnnnnnnnnnnnnnnnnnnnn");
-                              );
+                              sending();
+
                               // };
                               //The user picked true.
                             },
@@ -148,6 +142,8 @@ class _forgetPassState extends State<forgetPass> {
 
   String validateubmit(int value) {
     String str;
+    print("Value is ");
+    print(value);
     if (value != 200) {
       str = 'Enter valid parameters';
     } else {
@@ -160,7 +156,8 @@ class _forgetPassState extends State<forgetPass> {
     var url =
         'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
 
-    var response = await http.get(Uri.parse(url));
+    var response =
+        await http.post(Uri.parse(url), body: {"email": "test@test.com"});
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -177,9 +174,16 @@ class _forgetPassState extends State<forgetPass> {
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        if (str == 'Check your email')
-          Navigator.pushNamed(context, "UserPage1");
-        else
+        if (str == 'Check your email') {
+          // Navigator.pushNamed(context, "UserPage1");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => checkInbox(email: EmailController.text),
+            ),
+            // print("Immm innnnnnnnnnnnnnnnnnnnnnnn");
+          );
+        } else
           Navigator.of(context).pop();
       },
     );
