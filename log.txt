@@ -1,0 +1,315 @@
+commit 22dfd27729ebe1ea29cf732bcfe38c0ef8955818
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 17:03:26 2021 +0200
+
+    Update AndroidManifest.xml
+
+commit 01be5c37ea7562761ed8b5199c861400f54e1bc2
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 15:31:51 2021 +0200
+
+    done for logging in and signup with thirdparty access tokens
+
+commit 697aa8a4fc4cc6545063b50422e9249ab7892431
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 14:57:31 2021 +0200
+
+    done
+
+commit 2fce59c9e2bc99d2ed7f95c7d83ab755c6455cf8
+Merge: 3a60ac7 7eb9616
+Author: yhelwa <67173550+yhelwa@users.noreply.github.com>
+Date:   Sat May 8 14:49:02 2021 -0700
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit 3a60ac79d6e3fb12f32c36969ce80de6659febf0
+Author: yhelwa <67173550+yhelwa@users.noreply.github.com>
+Date:   Sat May 8 14:46:19 2021 -0700
+
+    Final changes by Helwa-007
+
+commit 7eb9616eeed88ccf31d65a97d730a0f7bd77e3b6
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 14:20:31 2021 +0200
+
+    poping right
+    
+    signup and login are synced with pops and push.
+    added about and help launchers
+
+commit f5e37893246660d4176afdebe795a17875effbe9
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat May 8 04:35:16 2021 +0200
+
+    Push Modifications
+
+commit 27f453c740c0606126167b903cbe22ea36fc4d8c
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 02:19:20 2021 +0200
+
+    changesss
+
+commit 9d86e78054280d74e3fb0e3742c0da064073c190
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat May 8 01:41:33 2021 +0200
+
+    done stuff
+
+commit f3a54e4efaa390a3360b69814b9bf638f81cbd33
+Merge: e88da3d 7ed4a3c
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat May 8 01:06:09 2021 +0200
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit e88da3d5c617c35b47d9bfddba9728fd299aa35c
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat May 8 01:04:35 2021 +0200
+
+    Added Api
+
+commit 7ed4a3cc2ab845eafc2374ef13a3a20b26a2a2b2
+Merge: f48de61 3ce54d5
+Author: abdallahwaseem <abdallahwm1@gmail.com>
+Date:   Sat May 8 00:49:02 2021 +0200
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit f48de61d54b3a0e59e591f8e5f4d06e46acc4665
+Author: abdallahwaseem <abdallahwm1@gmail.com>
+Date:   Sat May 8 00:45:35 2021 +0200
+
+    with ignored files
+
+commit 4cb52d145cf023d48c236811e14a715bf68fa3e2
+Merge: 604c398 3ce54d5
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat May 8 00:34:07 2021 +0200
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit 604c39853bccff2076fe28a4cf8da7ceba49ebe3
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat May 8 00:33:23 2021 +0200
+
+    Api Modifications
+
+commit 58e583f5721fdd2a4315b2440fd9392902a39fe5
+Author: abdallahwaseem <abdallahwm1@gmail.com>
+Date:   Sat May 8 00:05:56 2021 +0200
+
+    Login done
+
+commit 3ce54d58bbf4e72e3a9a8f8f0ca17a624b16dc88
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Fri May 7 23:56:16 2021 +0200
+
+    mistakes were made again
+
+commit 5bb80715162cfefcfd3aede832f49642a7b4815f
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Fri May 7 23:37:35 2021 +0200
+
+    some mistakes were made
+
+commit 059524c7630949c87d5109684b2068862795981c
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Thu May 6 18:29:57 2021 +0200
+
+    done
+
+commit cb7489e35e23dd88dc57616540227023056ac95b
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 11:55:18 2021 +0200
+
+    Extra Modifications
+
+commit 3cd361640d84c96d369ce468144f80b7706bf191
+Merge: 0578958 6994d71
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 11:38:34 2021 +0200
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit 0578958f87b5eb3c8d5f584226191b247a6c3679
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 11:28:57 2021 +0200
+
+    Added API & Some Modifications
+
+commit 6994d7163463ceb27bfce86ca7f09a27ae879048
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Thu May 6 06:44:33 2021 +0200
+
+    Semi Integration
+
+commit 0090556f313c976902bd8a1359a3aa35bf18f233
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 05:00:35 2021 +0200
+
+    New changes
+
+commit 0452bc9aa78d5f42aeeac11518a5849c5981d300
+Merge: 1bd1a80 f08ceac
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 04:40:19 2021 +0200
+
+    Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+
+commit 1bd1a80f605a8a696d6f755310fcb978cae55fc1
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Thu May 6 04:37:29 2021 +0200
+
+    Added Some Screens
+
+commit f08ceacb5e7bdd39eacefb3bf7b750f00354a974
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue May 4 22:40:52 2021 +0200
+
+    some adjustments
+
+commit 4779391ad3e34275bcaa8e5ac80fb42d338e9e0a
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue May 4 01:14:09 2021 +0200
+
+    alertbox handled
+
+commit 59be2d33060a849c2bdfe4b9a4660dfe6bf774b1
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue May 4 00:45:00 2021 +0200
+
+    someaddups
+
+commit 5aca69bf83bb8a5531641c07e3016a6a3148c9ea
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Mon May 3 23:32:52 2021 +0200
+
+    Signup with finally facebook
+
+commit 8ea8ea085f43404d941cd3b18d6e0abb9632c49b
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Mon May 3 23:02:27 2021 +0200
+
+    with part fb
+
+commit 6c808293920ff7d044052213a03f3a1f517d6a20
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Wed Apr 28 02:39:29 2021 +0200
+
+    signupstuff
+
+commit cd73bcbc052f6559a3ed467c29099ab2cb042975
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue Apr 27 21:49:37 2021 +0200
+
+    validation in signup
+
+commit b6147a6549a0e4f2c8e1f7209e3cde1cfd676c95
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue Apr 27 05:49:45 2021 +0200
+
+    changes again in signup
+
+commit 2558e109200acd803d351572a693effdb1372461
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue Apr 27 05:06:22 2021 +0200
+
+    added some stuff for the signup
+
+commit 00f5f576a9b50629ba51caa2abdcdb0098e664c5
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Tue Apr 27 04:50:04 2021 +0200
+
+    Update SignUp.dart
+
+commit 31f02cd592e3ed9c769bf3076d071907de2ccaee
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sun Apr 25 05:58:03 2021 +0200
+
+    New Modifications
+
+commit b234a591ff673ba252d0d068a64fe948f3e933c4
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sun Apr 25 05:26:21 2021 +0200
+
+    clean without builds and with gitignore
+
+commit 42b953f53e3ee12fdf11401c829e873a24cea7d8
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sun Apr 25 05:14:17 2021 +0200
+
+    Create .gitignore
+
+commit 6d0880a30eaf71e4668103d31db9162ea6ddfa46
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sun Apr 25 05:03:12 2021 +0200
+
+    changed main to call pages/getstarted
+
+commit 6725df449fbcb10d5600d1fbcce28ab87fc27b47
+Merge: 8ca4eb4 bd2d4d9
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sun Apr 25 04:09:49 2021 +0200
+
+    njkj
+
+commit 8ca4eb476fd5fe8fed82b5dfff92f9fff54bb8bf
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sun Apr 25 03:59:56 2021 +0200
+
+    GetStarted
+
+commit bd2d4d9366b7d7275e810d195e66b3039cd95cd0
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sun Apr 25 03:28:40 2021 +0200
+
+    Added some signup
+
+commit 1e3dd98820fd68dc608c4b3749483b7ccef4b0ab
+Author: Fat7y99 <67173807+Fat7y99@users.noreply.github.com>
+Date:   Sat Apr 24 23:35:44 2021 +0200
+
+    Added GetStarted
+
+commit 3d4110f8e060976eb2e6a135c7d9397b3a530930
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat Apr 24 00:55:44 2021 +0200
+
+    Update widget_test.dart
+
+commit fc290f5e57ab81ee1ed80f4c1042f6b05bff187a
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat Apr 24 00:47:33 2021 +0200
+
+    call from main
+
+commit 195550269811948d36d0eb4f65a8d0c60ae31376
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat Apr 24 00:27:18 2021 +0200
+
+    created login page
+
+commit aa4eec7f821acaee165031a7eb106b70d28738ff
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Sat Apr 24 00:02:50 2021 +0200
+
+    rounded appbar
+
+commit 0b91ae6f9030e993718fce6a0a8b53328ccb97e0
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Fri Apr 23 23:21:31 2021 +0200
+
+    changed to app bar flickr
+
+commit b6a9c75415374e421926da2c111ac44bfa5b8772
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Fri Apr 23 21:30:25 2021 +0200
+
+    Add files via upload
+
+commit 5e7adbc4e2ce997c1e97b0c666cdeefb67c183b9
+Author: Youssef Hatem <65419885+yuze98@users.noreply.github.com>
+Date:   Fri Apr 23 21:25:32 2021 +0200
+
+    Initial commit
