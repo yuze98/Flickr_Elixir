@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'Screens/Login_page.dart';
 import 'Screens/GetStarted.dart';
 import 'Screens/SignUp.dart';
-import 'Screens/UploadImage.dart';
+import 'Screens/SubProfile.dart';
 import 'Screens/forgetPassPage.dart';
 import 'Screens/about.dart';
+import 'Screens/UserPage.dart';
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
 
 void main() {

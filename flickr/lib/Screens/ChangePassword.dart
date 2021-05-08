@@ -165,30 +165,31 @@ class _ChangePassword extends State<ChangePassword> {
               child: Container(
                 width: deviceSizewidth * .8,
                 child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(deviceSizewidth * .5),
-                          side: BorderSide(color: Colors.white),
-                        ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(deviceSizewidth * .5),
+                        side: BorderSide(color: Colors.white),
                       ),
                     ),
-                    onPressed: () {
+                  ),
+                  onPressed: () {
 //                      primary:
-                      //                    Colors.deepOrange;
-
-                      print('Pressed');
-                    },
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                        color: Colors.white,
-                      ),
-                    )),
+                    sending();
+                    //                    Colors.deepOrange;
+                    print('Pressed');
+                  },
+                  child: Text(
+                    'Confirm',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -279,7 +280,7 @@ class _ChangePassword extends State<ChangePassword> {
       child: Text("OK"),
       onPressed: () {
         if (str == 'Password is changed successfully')
-          Navigator.pushNamed(context, "UserPage1");
+          Navigator.pushNamedAndRemoveUntil(context, "UserPage", (r) => false);
         else
           Navigator.of(context).pop();
       },

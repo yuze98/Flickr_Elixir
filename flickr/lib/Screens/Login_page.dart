@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<bool> sending() async {
+  void sending() async {
     const String baseURL =
         'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 
@@ -80,13 +80,26 @@ class _LoginScreenState extends State<LoginScreen> {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
-    // return response.statusCode;
+    var passLogin;
+
     if (response.statusCode == 200) {
-      return true;
+      passLogin = true;
       // showAlertDialog(context, validateubmit());
     } else {
-      return false;
+      passLogin = false;
       // showAlertDialog(context, 'Enter valid parameters');
+    }
+
+    if (passwordCheck && emailCheck) {
+      print(passLogin);
+      if (passLogin == true) {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, "UserPage");
+      } else {
+        showAlertDialog(context, 'Wrong email or password');
+      }
+    } else {
+      showAlertDialog(context, 'Enter valid email or password');
     }
   }
 
@@ -100,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //debugShowCheckedModeBanner: false,
       title: 'Flickr',
       home: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Color(0xFF202023),
             leading: Image.asset(
@@ -165,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: TextFormField(
                       validator: validatePassword,
+                      obscureText: true,
                       controller: passwordController,
                       decoration: InputDecoration(
                         filled: true,
@@ -236,21 +251,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     textColor: Colors.white,
                     minWidth: deviceSize.width * 0.88,
                     onPressed: () {
-                      // var passLogin;
-                      // if (passwordCheck && emailCheck) {
-                      //   passLogin = sending();
-                      //   if (passLogin == true) {
-                      //     Navigator.pop(context);
-                      //     Navigator.pushNamed(context, "UserPage");
-                      //   } else {
-                      //     showAlertDialog(context, 'Wrong email or password');
-                      //   }
-                      // } else {
-                      //   showAlertDialog(
-                      //       context, 'Enter valid email or password');
-                      // }
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, "UserPage");
+                      sending();
+                      // Navigator.pop(context);
+                      // Navigator.pushNamed(context, "UserPage");
                     },
                     child: Text('Login'),
                   ),
@@ -318,7 +321,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(top: deviceSize.height * 0.4),
+                  padding: EdgeInsets.only(top: deviceSize.height * 0.3),
                   child: Row(
                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.end,

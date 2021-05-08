@@ -7,15 +7,15 @@ import 'package:flickr/Screens/SignUp.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'about.dart';
-import 'UploadImage.dart';
+import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
 
-class UserPage2 extends StatefulWidget {
+class UserPage extends StatefulWidget {
   @override
-  _UserPage2 createState() => _UserPage2();
+  _UserPage createState() => _UserPage();
 }
 
-class _UserPage2 extends State<UserPage2> {
+class _UserPage extends State<UserPage> {
   // This widget is the root of your application.
   PickedFile _photofile;
   final ImagePicker _picker = ImagePicker();
@@ -87,7 +87,7 @@ class _UserPage2 extends State<UserPage2> {
         ],
         toolbarHeight: deviceSizeheight * .07,
       ),
-      body: UserPage(
+      body: SubProfile(
         photoFile: _photofile,
       ),
     );

@@ -6,18 +6,18 @@ import 'package:flickr/Screens/Menu Class.dart';
 import 'package:flickr/Screens/SignUp.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
-import 'UploadImage1.dart';
+import 'UserPage.dart';
 
 import 'about.dart';
 
-class UserPage extends StatefulWidget {
+class SubProfile extends StatefulWidget {
   PickedFile photoFile;
-  UserPage({Key key, @required this.photoFile}) : super(key: key);
+  SubProfile({Key key, @required this.photoFile}) : super(key: key);
   @override
-  _UserPage createState() => _UserPage();
+  _SubProfile createState() => _SubProfile();
 }
 
-class _UserPage extends State<UserPage> {
+class _SubProfile extends State<SubProfile> {
   // This widget is the root of your application.
 
   //PickedFile  photoFile;
@@ -119,7 +119,6 @@ class _UserPage extends State<UserPage> {
                           'Groups',
                         ),
                       ],
-
                       isScrollable: true,
                     ),
                   ),
@@ -139,105 +138,6 @@ class _UserPage extends State<UserPage> {
         ),
       ),
     );
-
-    //
-    //
-    //         Scaffold(
-    //       appBar: AppBar(
-    //
-    //         backgroundColor: Colors.black,
-    //         actions: <Widget>[
-    //           RawMaterialButton(
-    //             constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-    //             child: Icon(
-    //               Icons.photo_size_select_actual_outlined,
-    //               color: Colors.white,
-    //             ),
-    //             onPressed: () {
-    //               // do something
-    //             },
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.all(0.0),
-    //             child: RawMaterialButton(
-    //               constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-    //               child: Icon(
-    //                 Icons.search,
-    //                 color: Colors.white,
-    //               ),
-    //               onPressed: () {
-    //                 // do something
-    //               },
-    //             ),
-    //           ),
-    //           RawMaterialButton(
-    //             constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-    //             child: Icon(
-    //               Icons.museum_rounded,
-    //               color: Colors.white,
-    //             ),
-    //             onPressed: () {
-    //               // do something
-    //             },
-    //           ),
-    //           RawMaterialButton(
-    //             constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-    //             child: Icon(
-    //               Icons.notifications,
-    //               color: Colors.white,
-    //             ),
-    //             onPressed: () {
-    //               // do something
-    //               Navigator.pushNamed(context, "about");
-    //             },
-    //           ),
-    //           RawMaterialButton(
-    //             constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-    //             onPressed: () {
-    //               showModalBottomSheet(
-    //                 context: context,
-    //                 builder: ((builder) => CustomisedBottomSheet(context)),
-    //               );
-    //             },
-    //             child: Icon(Icons.camera_alt_outlined),
-    //           ),
-    //           //onPressed: () {
-    //           // do something
-    //         ],
-    //         toolbarHeight: deviceSizeheight * .07,
-    //       ),
-    //       body: Container(
-    //         width: deviceSizewidth,
-    //         height: deviceSizeheight,
-    //         child: Stack(children: <Widget>[
-    //           Wrap(
-    //               alignment: WrapAlignment.start,
-    //               spacing: 10,
-    //               runSpacing: 4,
-    //               direction: Axis.horizontal,
-    //               children: [
-    //                 tempImage() /*,tempImage(),tempImage(),tempImage(),tempImage(),tempImage(),tempImage(),tempImage()*/
-    //               ]),
-    //           Positioned(
-    //             //top:deviceSizeheight*.45,
-    //             left: deviceSizewidth * .85,
-    //
-    //             child: PopupMenuButton(
-    //               onSelected: MovingTo,
-    //               color: Colors.white,
-    //               itemBuilder: (BuildContext context) {
-    //                 return menu.Menu.map((String s) {
-    //                   return PopupMenuItem<String>(
-    //                     value: s,
-    //                     child: Text(s),
-    //                   );
-    //                 }).toList();
-    //               },
-    //             ),
-    //           ),
-    //         ]),
-    //       )),
-    // );
   }
 
   Widget tempImage() {
@@ -250,7 +150,9 @@ class _UserPage extends State<UserPage> {
               //borderRadius: BorderRadius.all(Radius.circular(.05)),//add border radius here
               widget.photoFile == null
                   ? AssetImage('images/photo1.jpg')
-                  : FileImage(File(widget.photoFile.path)),
+                  : FileImage(
+                      File(widget.photoFile.path),
+                    ),
           fit: BoxFit.fitHeight, //add image location here
         ),
       ),
