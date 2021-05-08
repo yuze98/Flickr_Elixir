@@ -358,7 +358,7 @@ class _SignupState extends State<Signup> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'LoginScreen');
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Log in here !",
