@@ -47,6 +47,26 @@ class _LoginScreenState extends State<LoginScreen> {
          Permissions: ${accessToken.permissions}
          Declined permissions: ${accessToken.declinedPermissions}
          ''');
+        //sending access token to our server
+        var url =
+            'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUpWithFacebook?loginType=Facebook&accessToken=$accessToken';
+
+        var response = await http.post(
+          Uri.parse(url),
+          body: {
+            "loginType": "Facebook",
+            "accessToken": "$accessToken",
+          },
+        );
+        print('FB Response status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+
+        //checks if the user is already sign up
+        if (response.statusCode == 200) {
+          showAlertDialog(context, 'Logged in successfully');
+        } else {
+          showAlertDialog(context, 'User doesn\'t exist');
+        }
         break;
       case FacebookLoginStatus.cancelledByUser:
         _showMessage('Login cancelled by the user.');
