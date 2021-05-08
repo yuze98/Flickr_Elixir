@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:flickr/Screens/GetStarted.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Screens/Menu Class.dart';
-import 'package:flickr/Screens/SignUp.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
-import 'UserPage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'about.dart';
 
@@ -171,6 +169,12 @@ class _SubProfile extends State<SubProfile> {
             MaterialPageRoute(builder: (context) => ChangePassword()),
           );
         }
+      }
+      if (destination == menu.About) {
+        launch('https://www.flickr.com/about');
+      }
+      if (destination == menu.Help) {
+        launch('https://www.flickr.com/help/terms');
       }
       print(destination);
     });

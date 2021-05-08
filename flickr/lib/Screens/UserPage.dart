@@ -1,12 +1,8 @@
 import 'dart:io';
 
-import 'package:flickr/Screens/GetStarted.dart';
 import 'package:flutter/material.dart';
-import 'package:flickr/Screens/Menu Class.dart';
-import 'package:flickr/Screens/SignUp.dart';
-import 'package:flickr/Screens/ChangePassword.dart';
+
 import 'package:image_picker/image_picker.dart';
-import 'about.dart';
 import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +23,7 @@ class _UserPage extends State<UserPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         actions: <Widget>[
           RawMaterialButton(
@@ -187,24 +184,4 @@ class _UserPage extends State<UserPage> {
     });
     // ConvertingPhoto();
   }
-
-  void MovingTo(String destination) {
-    setState(() {
-      if (destination == menu.Signout) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GetStarted()),
-        );
-      }
-      if (destination == menu.ChangePassword) {
-        {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChangePassword()),
-          );
-        }
-      }
-      print(destination);
-    });
-  }
-}
+} //assef gedan

@@ -253,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       sending();
                       // Navigator.pop(context);
-                      // Navigator.pushNamed(context, "UserPage");
+                      //Navigator.pushNamed(context, "UserPage");
                     },
                     child: Text('Login'),
                   ),
@@ -310,7 +310,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.of(context).pop();
+                          //Navigator.of(context).pop();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
