@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ChangePassword extends StatefulWidget {
   @override
@@ -164,30 +165,31 @@ class _ChangePassword extends State<ChangePassword> {
               child: Container(
                 width: deviceSizewidth * .8,
                 child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(deviceSizewidth * .5),
-                          side: BorderSide(color: Colors.white),
-                        ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(deviceSizewidth * .5),
+                        side: BorderSide(color: Colors.white),
                       ),
                     ),
-                    onPressed: () {
+                  ),
+                  onPressed: () {
 //                      primary:
-                      //                    Colors.deepOrange;
-                      showAlertDialog(context, validateconfirm());
-                      print('Pressed');
-                    },
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                        color: Colors.white,
-                      ),
-                    )),
+                    sending();
+                    //                    Colors.deepOrange;
+                    print('Pressed');
+                  },
+                  child: Text(
+                    'Confirm',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -195,6 +197,27 @@ class _ChangePassword extends State<ChangePassword> {
         backgroundColor: Colors.white,
       ),
     );
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/changePassword?newPass=${NewPasswordController.text}&oldPass=${OldPasswordController.text}';
+
+    var response = await http.post(Uri.parse(url), body: {
+      "newPass": "${NewPasswordController.text}",
+      "oldPass": "${OldPasswordController.text}"
+    }, headers: {
+      'Authorization': 'Bearer asdasdkasdliuaslidas'
+    });
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateconfirm());
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
   }
 
   String validateoldpassword(String value) {
@@ -257,7 +280,7 @@ class _ChangePassword extends State<ChangePassword> {
       child: Text("OK"),
       onPressed: () {
         if (str == 'Password is changed successfully')
-          Navigator.pushNamed(context, "UserPage1");
+          Navigator.pushNamedAndRemoveUntil(context, "UserPage", (r) => false);
         else
           Navigator.of(context).pop();
       },

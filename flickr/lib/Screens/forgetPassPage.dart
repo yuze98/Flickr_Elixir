@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CheckInboxPage.dart';
+import 'package:http/http.dart' as http;
 
 class forgetPass extends StatefulWidget {
   forgetPass({this.receivedEmailController});
@@ -18,6 +19,8 @@ class _forgetPassState extends State<forgetPass> {
     super.initState();
     emailController = widget.receivedEmailController;
   }
+
+  final EmailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +78,19 @@ class _forgetPassState extends State<forgetPass> {
                   child: Row(
                     children: <Widget>[
                       Flexible(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter email',
-                            fillColor: Colors.white,
+                        child: Form(
+                          child: TextFormField(
+                            controller: EmailController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter email',
+                              fillColor: Colors.white,
+                            ),
+                            onFieldSubmitted: (text) {
+                              //     print(emailController.text);
+                            },
                           ),
-                          controller: emailController,
-                          onSubmitted: (text) {
-                            print(emailController.text);
-                          },
                         ),
                       ),
                     ],
@@ -113,16 +118,11 @@ class _forgetPassState extends State<forgetPass> {
                                     MaterialStateProperty.all(Colors.blue)),
                             onPressed: () {
                               // setState(() {
-                              print(emailController.text);
+                              //
+                              print(EmailController.text);
                               // sendMail(emailController.text);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      checkInbox(email: emailController.text),
-                                ),
-                                // print("Immm innnnnnnnnnnnnnnnnnnnnnnn");
-                              );
+                              sending();
+
                               // };
                               //The user picked true.
                             },
@@ -137,6 +137,71 @@ class _forgetPassState extends State<forgetPass> {
           ),
         ),
       ),
+    );
+  }
+
+  String validateubmit(int value) {
+    String str;
+    print("Value is ");
+    print(value);
+    if (value != 200) {
+      str = 'Enter valid parameters';
+    } else {
+      str = 'Check your email';
+    }
+    return str;
+  }
+
+  void sending() async {
+    var url =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
+
+    var response =
+        await http.post(Uri.parse(url), body: {"email": "test@test.com"});
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      showAlertDialog(context, validateubmit(200));
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
+  }
+
+  showAlertDialog(BuildContext context, String str) {
+    // Create button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        if (str == 'Check your email') {
+          // Navigator.pushNamed(context, "UserPage1");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => checkInbox(email: EmailController.text),
+            ),
+            // print("Immm innnnnnnnnnnnnnnnnnnnnnnn");
+          );
+        } else
+          Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Alert"),
+      content: Text(str),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

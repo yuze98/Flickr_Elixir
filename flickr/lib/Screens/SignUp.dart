@@ -241,12 +241,6 @@ class _SignupState extends State<Signup> {
                     minimumSize: Size(devicesize.width, devicesize.height / 10),
                   ),
                   onPressed: () {
-                    print(firstnameController.text);
-                    print(secondnameController.text);
-                    print(ageController.text);
-                    print(emailController.text);
-                    print(passwordController.text);
-
                     print(validateubmit());
                     sending();
                     //Navigator.pop(context);
@@ -364,7 +358,7 @@ class _SignupState extends State<Signup> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'LoginScreen');
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Log in here !",
@@ -411,9 +405,10 @@ String validateEmail(String value) {
   Pattern pattern =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    emailbool = false;
     return 'Enter a valid email address';
-  else {
+  } else {
     emailbool = true;
     return null;
   }
@@ -422,9 +417,11 @@ String validateEmail(String value) {
 String validatename(String value) {
   Pattern pattern = r"^[a-z A-Z]+$";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    fnamebool = false;
+    lnamebool = false;
     return 'Enter a valid Name';
-  else {
+  } else {
     fnamebool = true;
     lnamebool = true;
     return null;
@@ -434,9 +431,10 @@ String validatename(String value) {
 String validateage(String value) {
   Pattern pattern = r"^[1-9][0-9]?$";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null)
+  if (!regex.hasMatch(value) || value == null) {
+    agebool = false;
     return 'Enter a valid Age';
-  else {
+  } else {
     agebool = true;
     return null;
   }
@@ -456,7 +454,7 @@ String validatepassword(String value) {
 
 String validateubmit() {
   String str;
-  if (!pwbool && !agebool && !fnamebool && !lnamebool && !emailbool) {
+  if (!pwbool || !agebool || !fnamebool || !lnamebool || !emailbool) {
     str = 'Enter valid parameters';
   } else {
     str = 'Everything is ready';
