@@ -162,10 +162,7 @@ class _SubProfile extends State<SubProfile> {
   void MovingTo(String destination) {
     setState(() {
       if (destination == menu.Signout) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GetStarted()),
-        );
+        Navigator.pushNamedAndRemoveUntil(context, "GetStarted", (r) => false);
       }
       if (destination == menu.ChangePassword) {
         {
