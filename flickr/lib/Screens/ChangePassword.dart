@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'RequestAndResponses.dart';
 
 class ChangePassword extends StatefulWidget {
   @override
@@ -9,15 +10,15 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePassword extends State<ChangePassword> {
   // This widget is the root of your application.
-  final OldPasswordController = TextEditingController();
-  final NewPasswordController = TextEditingController();
-  final ConfirmPasswordController = TextEditingController();
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  final ConfirmPassword = TextEditingController();
-  bool oldbool = false;
-  bool newbool = false;
-  bool confirmbool = false;
-  var NewPassword;
+  final confirmPassword = TextEditingController();
+  bool oldBool = false;
+  bool newBool = false;
+  bool confirmBool = false;
+  var newPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +64,8 @@ class _ChangePassword extends State<ChangePassword> {
               child: Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
-                  validator: validateoldpassword,
-                  controller: OldPasswordController,
+                  validator: validateOldPassword,
+                  controller: oldPasswordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -102,8 +103,8 @@ class _ChangePassword extends State<ChangePassword> {
               child: Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
-                  validator: validatenewpassword,
-                  controller: NewPasswordController,
+                  validator: validateNewPassword,
+                  controller: newPasswordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -141,8 +142,8 @@ class _ChangePassword extends State<ChangePassword> {
               child: Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
-                  validator: validateconfirmpassword,
-                  controller: ConfirmPasswordController,
+                  validator: validateConfirmPassword,
+                  controller: confirmPasswordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -177,7 +178,7 @@ class _ChangePassword extends State<ChangePassword> {
                   ),
                   onPressed: () {
 //                      primary:
-                    sending();
+                    changePassword();
                     //                    Colors.deepOrange;
                     print('Pressed');
                   },
@@ -199,79 +200,68 @@ class _ChangePassword extends State<ChangePassword> {
     );
   }
 
-  void sending() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/changePassword?newPass=${NewPasswordController.text}&oldPass=${OldPasswordController.text}';
-
-    var response = await http.post(Uri.parse(url), body: {
-      "newPass": "${NewPasswordController.text}",
-      "oldPass": "${OldPasswordController.text}"
-    }, headers: {
-      'Authorization': 'Bearer asdasdkasdliuaslidas'
-    });
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      showAlertDialog(context, validateconfirm());
-    } else {
-      showAlertDialog(context, 'Enter valid parameters');
-    }
-  }
-
-  String validateoldpassword(String value) {
+  String validateOldPassword(String value) {
     Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
-      oldbool = false;
+      oldBool = false;
       return 'Enter a valid Password (8 or more characters)';
     } else {
-      oldbool = true;
+      oldBool = true;
       return null;
     }
   }
 
-  String validatenewpassword(String value) {
+  String validateNewPassword(String value) {
     Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
     RegExp regex = new RegExp(pattern);
-    NewPassword = value;
+    newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
-      oldbool = false;
+      oldBool = false;
       return 'Enter a valid Password (8 or more characters)';
     } else {
-      oldbool = true;
+      oldBool = true;
       return null;
     }
   }
 
-  String validateconfirmpassword(String value) {
+  String validateConfirmPassword(String value) {
     Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
-      oldbool = false;
+      oldBool = false;
       return 'Enter a valid Password (8 or more characters)';
-    } else if (value == OldPasswordController.text ||
-        NewPassword == OldPasswordController.text) {
-      oldbool = false;
+    } else if (value == oldPasswordController.text ||
+        newPassword == oldPasswordController.text) {
+      oldBool = false;
       return "New Password can't be the old password";
-    } else if (value != NewPassword) {
-      oldbool = false;
+    } else if (value != newPassword) {
+      oldBool = false;
       return 'Unmatched Passwords! Enter it again';
     } else {
-      oldbool = true;
+      oldBool = true;
       return null;
     }
   }
 
-  String validateconfirm() {
+  String validateConfirm() {
     String str;
-    if (!oldbool && !newbool && !confirmbool) {
+    if (!oldBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
     } else {
       str = 'Password is changed successfully';
     }
     return str;
+  }
+
+  void changePassword() async {
+    int statusCode = await FlickrRequestsAndResponses.changePassword(
+        newPasswordController, oldPasswordController);
+    if (statusCode == 200) {
+      showAlertDialog(context, validateConfirm());
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
   }
 
   showAlertDialog(BuildContext context, String str) {

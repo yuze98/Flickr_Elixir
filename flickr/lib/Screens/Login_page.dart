@@ -1,5 +1,6 @@
 // import 'dart:html';
-
+import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'forgetPassPage.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
+import 'CommonVars.dart';
+import 'RequestAndResponses.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -113,6 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (passwordCheck && emailCheck) {
       print(passLogin);
       if (passLogin == true) {
+        CommonVars.followers = await FlickrRequestsAndResponses.getFollowings();
+        CommonVars.followings = await FlickrRequestsAndResponses.getFollowers();
+
         Navigator.pop(context);
         Navigator.pushNamed(context, "UserPage");
       } else {

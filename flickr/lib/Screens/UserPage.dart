@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
@@ -13,85 +11,100 @@ class UserPage extends StatefulWidget {
 
 class _UserPage extends State<UserPage> {
   // This widget is the root of your application.
-  PickedFile _photofile;
+  PickedFile photoFile;
   final ImagePicker _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;
-
+    double buttonWidth = deviceSizewidth / 5;
+    final ImagePicker _picker = ImagePicker();
+    PickedFile _photofile;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-        actions: <Widget>[
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.photo_size_select_actual_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: RawMaterialButton(
-              constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
+      body: DefaultTabController(
+        length: 5,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool Scroll) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverSafeArea(
+                  top: false,
+                  sliver: SliverAppBar(
+                    //  floating: true,
+                    toolbarHeight: deviceSizeheight * .05,
+
+                    backgroundColor: Colors.black,
+                    bottom: TabBar(
+                      indicatorColor: Colors.grey[800],
+                      unselectedLabelColor: Colors.grey[500],
+                      labelColor: Colors.grey[800],
+
+                      // These are the widgets to put in each tab in the tab bar.
+                      tabs: [
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.photo_size_select_actual_outlined,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.museum_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.notifications,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        RawMaterialButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: ((builder) =>
+                                  customisedBottomSheet(context)),
+                            );
+                          },
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              onPressed: () {
-                // do something
-              },
-            ),
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.museum_rounded,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: ((builder) => CustomisedBottomSheet(context)),
-              );
-            },
-            child: Icon(Icons.camera_alt_outlined),
-          ),
-          //onPressed: () {
-          // do something
-        ],
-        toolbarHeight: deviceSizeheight * .07,
-      ),
-      body: SubProfile(
-        photoFile: _photofile,
+            ];
+          },
+          body: TabBarView(
+              // These are the contents of the tab views, below the tabs.
+              children: [
+                Icon(Icons.camera),
+                Icon(Icons.public),
+                SubProfile(photoFile: photoFile),
+                Icon(Icons.album_sharp),
+                Icon(Icons.group),
+              ]),
+        ),
       ),
     );
   }
 
-  void ConvertingPhoto() async {
-    final bytes = await _photofile.readAsBytes();
+  void convertingPhoto() async {
+    final bytes = await photoFile.readAsBytes();
     sending(bytes);
     print(bytes);
   }
@@ -126,26 +139,26 @@ class _UserPage extends State<UserPage> {
         image: DecorationImage(
           image:
               //borderRadius: BorderRadius.all(Radius.circular(.05)),//add border radius here
-              _photofile == null
+              photoFile == null
                   ? AssetImage('images/photo1.jpg')
-                  : FileImage(File(_photofile.path)),
+                  : FileImage(File(photoFile.path)),
           fit: BoxFit.fitHeight, //add image location here
         ),
       ),
     );
   }
 
-  Widget CustomisedBottomSheet(BuildContext context) {
-    double deviceSizeheight = MediaQuery.of(context).size.height;
-    double deviceSizewidth = MediaQuery.of(context).size.width;
+  Widget customisedBottomSheet(BuildContext context) {
+    double deviceSizeHeight = MediaQuery.of(context).size.height;
+    double deviceSizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: deviceSizewidth * .4,
-      width: deviceSizewidth,
+      height: deviceSizeWidth * .4,
+      width: deviceSizeWidth,
 //margin: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 40),
       child: Column(
         children: <Widget>[
           Text("Choose your photo", style: TextStyle(fontSize: 30)),
-          SizedBox(height: deviceSizeheight * .04),
+          SizedBox(height: deviceSizeHeight * .04),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -153,7 +166,7 @@ class _UserPage extends State<UserPage> {
                 //   constraints: BoxConstraints.tight(Size(80, 80)),
                 child: Icon(Icons.camera_alt_sharp, size: 40),
                 onPressed: () {
-                  phototaker(ImageSource.camera);
+                  photoTaker(ImageSource.camera);
                 },
               ),
               SizedBox(
@@ -167,7 +180,7 @@ class _UserPage extends State<UserPage> {
                 ),
                 onPressed: () {
                   print("gallery");
-                  phototaker(ImageSource.gallery);
+                  photoTaker(ImageSource.gallery);
                 },
               ),
             ],
@@ -177,10 +190,10 @@ class _UserPage extends State<UserPage> {
     );
   }
 
-  void phototaker(ImageSource source) async {
+  void photoTaker(ImageSource source) async {
     final token = await _picker.getImage(source: source);
     setState(() {
-      _photofile = token;
+      photoFile = token;
     });
     // ConvertingPhoto();
   }
