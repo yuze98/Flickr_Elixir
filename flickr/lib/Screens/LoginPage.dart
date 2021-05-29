@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'SignUp.dart';
 import 'package:flutter/services.dart';
-import 'forgetPassPage.dart';
+import 'ForgetPass.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
-import 'CommonVars.dart';
-import 'RequestAndResponses.dart';
+import '../Essentials/CommonVars.dart';
+import '../api/RequestAndResponses.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'CommonVars.dart';
+import '../Essentials/CommonVars.dart';
 
 class FlickrRequestsAndResponses {
   static Future<int> changePassword(

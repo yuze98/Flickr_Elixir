@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'about.dart';
+import 'About.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
