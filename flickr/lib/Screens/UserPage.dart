@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
+import 'package:flickr/Components/ExploreDetails.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -92,11 +93,11 @@ class _UserPage extends State<UserPage> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                Icon(Icons.camera),
-                Icon(Icons.public),
+                ExploreDetails(),
+                Icon(Icons.search),
                 SubProfile(photoFile: photoFile),
-                Icon(Icons.album_sharp),
-                Icon(Icons.group),
+                Icon(Icons.notifications),
+                Icon(Icons.camera),
               ]),
         ),
       ),

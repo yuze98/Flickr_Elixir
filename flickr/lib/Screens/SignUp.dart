@@ -6,97 +6,58 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
+import 'package:flickr/api/RequestAndResponses.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 
 class Signup extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
 }
 
-bool fnamebool = false;
-bool lnamebool = false;
-bool agebool = false;
-bool emailbool = false;
-bool pwbool = false;
+bool fnameBool = false;
+bool lnameBool = false;
+bool ageBool = false;
+bool emailBool = false;
+bool pwBool = false;
 
 //FB sign up
 class _SignupState extends State<Signup> {
   @override
   void initState() {
     // TODO: implement initState
-    fnamebool = false;
-    lnamebool = false;
-    agebool = false;
-    emailbool = false;
-    pwbool = false;
+    fnameBool = false;
+    lnameBool = false;
+    ageBool = false;
+    emailBool = false;
+    pwBool = false;
 
     super.initState();
   }
 
-  final firstnameController = TextEditingController();
-  final secondnameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final secondNameController = TextEditingController();
   final ageController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   static final FacebookLogin facebookSignIn = new FacebookLogin();
-  String _message = 'Log in/out by pressing the buttons below.';
-
-  Future<Null> _login() async {
+  Future<Null> SingUpFB() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
-        _showMessage('''
-         Logged in!
-         Token: ${accessToken.token}
-         User id: ${accessToken.userId}
-         Expires: ${accessToken.expires}
-         Permissions: ${accessToken.permissions}
-         Declined permissions: ${accessToken.declinedPermissions}
-         ''');
-        //sending access token to our server
-        var url =
-            'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUpWithFacebook?loginType=Facebook&accessToken=$accessToken';
+    int response = await FlickrRequestsAndResponses.Login(facebookSignIn);
 
-        var response = await http.post(
-          Uri.parse(url),
-          body: {
-            "loginType": "Facebook",
-            "accessToken": "$accessToken",
-          },
-        );
-        print('FB Response status: ${response.statusCode}');
-        print('Response body: ${response.body}');
-
-        //checks if the user is already sign up
-        if (response.statusCode == 200) {
-          showAlertDialog(context, 'Signed up successfully');
-        } else {
-          showAlertDialog(context, 'User Exists');
-        }
-
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        _showMessage('Login cancelled by the user.');
-        await facebookSignIn.logOut();
-        break;
-      case FacebookLoginStatus.error:
-        _showMessage('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
+    //checks if the user is already sign up
+    if (response == 200) {
+      showAlertDialog(context, 'Signed up successfully');
+    } else {
+      showAlertDialog(context, 'User Exists');
+      await facebookSignIn.logOut(); //user should
     }
-  }
-
-  void _showMessage(String message) {
-    setState(() {
-      _message = message;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var devicesize = MediaQuery.of(context).size;
+    var deviceSize = MediaQuery.of(context).size;
 
     return MaterialApp(
       title: 'Flickr',
@@ -105,16 +66,16 @@ class _SignupState extends State<Signup> {
           backgroundColor: Colors.black,
           leading: Image.asset(
             'images/flickricon.png',
-            scale: devicesize.width * 0.03,
+            scale: deviceSize.width * 0.03,
           ),
           title: Text(
             'flickr',
             style: TextStyle(
-              fontSize: devicesize.width * 0.07,
+              fontSize: deviceSize.width * 0.07,
               fontWeight: FontWeight.bold,
             ),
           ),
-          toolbarHeight: devicesize.height * 0.15,
+          toolbarHeight: deviceSize.height * 0.15,
           actions: [
             IconButton(
                 icon: Icon(Icons.close),
@@ -125,7 +86,7 @@ class _SignupState extends State<Signup> {
         ),
         body: Padding(
           padding: EdgeInsets.fromLTRB(
-              devicesize.width * 0.01, 0, devicesize.width * 0.01, 0),
+              deviceSize.width * 0.01, 0, deviceSize.width * 0.01, 0),
           child: ListView(
             children: [
               SizedBox(
@@ -133,28 +94,28 @@ class _SignupState extends State<Signup> {
               ),
               Image.asset(
                 'images/flickricon.png',
-                height: devicesize.height * 0.04,
+                height: deviceSize.height * 0.04,
               ),
               Center(
                 child: Text(
                   'Sign up for Flickr',
                   style: TextStyle(
-                    fontSize: devicesize.width * 0.06,
+                    fontSize: deviceSize.width * 0.06,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validatename,
-                    controller: firstnameController,
+                    validator: validateName,
+                    controller: firstNameController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
@@ -166,15 +127,15 @@ class _SignupState extends State<Signup> {
               ), //first name
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validatename,
-                    controller: secondnameController,
+                    validator: validateName,
+                    controller: secondNameController,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),
@@ -186,14 +147,14 @@ class _SignupState extends State<Signup> {
               ), // second name
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validateage,
+                    validator: validateAge,
                     controller: ageController,
                     decoration: InputDecoration(
                       filled: true,
@@ -206,10 +167,10 @@ class _SignupState extends State<Signup> {
               ), //your age
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
@@ -226,14 +187,14 @@ class _SignupState extends State<Signup> {
               ), //email address
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validatepassword,
+                    validator: validatePassword,
                     controller: passwordController,
                     decoration: InputDecoration(
                       filled: true,
@@ -246,10 +207,10 @@ class _SignupState extends State<Signup> {
               ), // password
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.05,
-                    devicesize.height * 0.07,
-                    devicesize.width * 0.05,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.05,
+                    deviceSize.height * 0.07,
+                    deviceSize.width * 0.05,
+                    deviceSize.height * 0.01),
                 child: TextButton(
                   style: TextButton.styleFrom(
                     primary: Colors.white,
@@ -259,38 +220,38 @@ class _SignupState extends State<Signup> {
                         Radius.circular(5.0),
                       ),
                     ),
-                    minimumSize: Size(devicesize.width, devicesize.height / 10),
+                    minimumSize: Size(deviceSize.width, deviceSize.height / 10),
                   ),
                   onPressed: () {
-                    print(validateubmit());
+                    print(validateSubmit());
                     sending();
                     //Navigator.pop(context);
                   },
                   child: Text(
                     "Sign up",
                     style: TextStyle(
-                        letterSpacing: devicesize.width * 0.005,
+                        letterSpacing: deviceSize.width * 0.005,
                         fontWeight: FontWeight.bold,
-                        fontSize: devicesize.width * 0.06),
+                        fontSize: deviceSize.width * 0.06),
                   ),
                 ),
               ), //submit button
               Center(
-                heightFactor: devicesize.height * 0.005,
+                heightFactor: deviceSize.height * 0.005,
                 child: SizedBox(
                   child: Text(
                     "OR",
                     style: TextStyle(
-                        fontSize: devicesize.width * 0.04, color: Colors.black),
+                        fontSize: deviceSize.width * 0.04, color: Colors.black),
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.05,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.05,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.05,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.05,
+                    deviceSize.height * 0.01),
                 child: TextButton.icon(
                   style: TextButton.styleFrom(
                     primary: Colors.white,
@@ -300,32 +261,32 @@ class _SignupState extends State<Signup> {
                         Radius.circular(5.0),
                       ),
                     ),
-                    minimumSize: Size(devicesize.width, devicesize.height / 10),
+                    minimumSize: Size(deviceSize.width, deviceSize.height / 10),
                   ),
                   onPressed: () {
-                    _login();
+                    SingUpFB();
                     Navigator.pushNamed(context, "LoginScreen");
                     //Add some functionalties to sign up for FB
                   },
                   icon: Image.asset(
                     "images/fb.png",
-                    scale: devicesize.width * 0.03,
+                    scale: deviceSize.width * 0.03,
                   ),
                   label: Text(
                     "Sign up with Facebook",
                     style: TextStyle(
-                        letterSpacing: devicesize.width * 0.005,
+                        letterSpacing: deviceSize.width * 0.005,
                         fontWeight: FontWeight.bold,
-                        fontSize: devicesize.width * 0.04),
+                        fontSize: deviceSize.width * 0.04),
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01,
-                    devicesize.width * 0.06,
-                    devicesize.height * 0.01),
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01,
+                    deviceSize.width * 0.06,
+                    deviceSize.height * 0.01),
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -333,13 +294,13 @@ class _SignupState extends State<Signup> {
                       TextSpan(
                         text: 'By signing up you agree with Flickr\'s ',
                         style: TextStyle(
-                            fontSize: devicesize.width * 0.035,
+                            fontSize: deviceSize.width * 0.035,
                             color: Colors.grey[600]),
                       ),
                       TextSpan(
                         text: 'Terms of Services ',
                         style: TextStyle(
-                            fontSize: devicesize.width * 0.035,
+                            fontSize: deviceSize.width * 0.035,
                             color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
@@ -349,13 +310,13 @@ class _SignupState extends State<Signup> {
                       TextSpan(
                         text: 'and ',
                         style: TextStyle(
-                            fontSize: devicesize.width * 0.035,
+                            fontSize: deviceSize.width * 0.035,
                             color: Colors.grey[600]),
                       ),
                       TextSpan(
                         text: 'Privacy Policy.',
                         style: TextStyle(
-                            fontSize: devicesize.width * 0.035,
+                            fontSize: deviceSize.width * 0.035,
                             color: Colors.blue),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
@@ -367,12 +328,12 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Divider(
-                thickness: devicesize.height * 0.004,
+                thickness: deviceSize.height * 0.004,
               ),
               Text(
                 'Already a Flickr member?',
                 style: TextStyle(
-                  fontSize: devicesize.width * 0.04,
+                  fontSize: deviceSize.width * 0.04,
                   fontWeight: FontWeight.w400,
                 ),
                 textAlign: TextAlign.center,
@@ -386,7 +347,7 @@ class _SignupState extends State<Signup> {
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Colors.teal,
-                      fontSize: devicesize.width * 0.05),
+                      fontSize: deviceSize.width * 0.05),
                 ),
               )
             ],
@@ -398,24 +359,16 @@ class _SignupState extends State<Signup> {
   }
 
   void sending() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUp?email=${emailController.text}&password=${passwordController.text}&firstname=${firstnameController.text}&lastname=${secondnameController.text}&age=${ageController.text}';
+    int response = await FlickrRequestsAndResponses.SignupRequests(
+        context,
+        passwordController,
+        emailController,
+        firstNameController,
+        secondNameController,
+        ageController);
 
-    var response = await http.post(
-      Uri.parse(url),
-      body: {
-        "email": "${emailController.text}",
-        "password": "${passwordController.text}",
-        "firstName": "${firstnameController.text}",
-        "lastName": "${secondnameController.text}",
-        "age": "${ageController.text}",
-      },
-    );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      showAlertDialog(context, validateubmit());
+    if (response == 200) {
+      showAlertDialog(context, validateSubmit());
     } else {
       showAlertDialog(context, 'Enter valid parameters');
     }
@@ -427,55 +380,55 @@ String validateEmail(String value) {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
-    emailbool = false;
+    emailBool = false;
     return 'Enter a valid email address';
   } else {
-    emailbool = true;
+    emailBool = true;
     return null;
   }
 }
 
-String validatename(String value) {
+String validateName(String value) {
   Pattern pattern = r"^[a-z A-Z]+$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
-    fnamebool = false;
-    lnamebool = false;
+    fnameBool = false;
+    lnameBool = false;
     return 'Enter a valid Name';
   } else {
-    fnamebool = true;
-    lnamebool = true;
+    fnameBool = true;
+    lnameBool = true;
     return null;
   }
 }
 
-String validateage(String value) {
+String validateAge(String value) {
   Pattern pattern = r"^[1-9][0-9]?$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
-    agebool = false;
+    ageBool = false;
     return 'Enter a valid Age';
   } else {
-    agebool = true;
+    ageBool = true;
     return null;
   }
 }
 
-String validatepassword(String value) {
+String validatePassword(String value) {
   Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
-    pwbool = false;
+    pwBool = false;
     return 'Enter a valid Password (8 or more characters)';
   } else {
-    pwbool = true;
+    pwBool = true;
     return null;
   }
 }
 
-String validateubmit() {
+String validateSubmit() {
   String str;
-  if (!pwbool || !agebool || !fnamebool || !lnamebool || !emailbool) {
+  if (!pwBool || !ageBool || !fnameBool || !lnameBool || !emailBool) {
     str = 'Enter valid parameters';
   } else {
     str = 'Everything is ready';

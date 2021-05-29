@@ -36,11 +36,13 @@ dependencies:
   http: ^0.13.0
   flutter_spinkit: "^4.1.2"
   flutter_plugin_android_lifecycle: ^2.0.1
+  bot_toast: ^4.0.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 
 flutter:
