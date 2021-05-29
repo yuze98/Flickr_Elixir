@@ -34,16 +34,25 @@ class _ExploreDetailsState extends State<ExploreDetails> {
               ),
             ),
             // OverLay(context),
+
             GestureDetector(
               onTap: () {
                 print(tapped);
-
-                if (tapped) {
-                  OverLay(context);
-                }
-                tapped = !tapped;
+                setState(() {
+                  if (tapped) {
+                    //OverLay(context);
+                  }
+                  tapped = !tapped;
+                });
               },
             ),
+
+            AnimatedOpacity(
+                opacity: tapped ? 1.0 : 0.0,
+                duration: Duration(
+                  milliseconds: 250,
+                ),
+                child: OverLay(context)),
           ],
         ),
       ),
@@ -56,7 +65,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          height: 0.15 * devSize.height,
+          color: Color.fromRGBO(200, 2, 1, 0.1),
+          height: 0.1 * devSize.height,
           width: double.infinity,
           child: Row(
             children: <Widget>[
