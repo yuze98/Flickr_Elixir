@@ -34,6 +34,37 @@ class _CommentsSectionState extends State<CommentsSection> {
   Widget CommentInfo(BuildContext context, String profilePic, String userName,
       String comment) {
     var devSize = MediaQuery.of(context).size;
-    return Container();
+    return Card(
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            backgroundImage: NetworkImage(profilePic),
+            radius: devSize.height * 0.04,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '$userName',
+                  style: TextStyle(
+                      fontSize: devSize.height * 0.02,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text('$comment haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+                TextButton(
+                  onPressed: () => {},
+                  child: Text(
+                    'Reply',
+                    style: TextStyle(
+                        fontSize: devSize.height * 0.02, color: Colors.black87),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
