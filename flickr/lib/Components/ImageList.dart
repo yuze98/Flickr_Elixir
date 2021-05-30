@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Essentials/CommonFunctions.dart';
 
 class ImageList extends StatefulWidget {
   @override
@@ -159,7 +160,8 @@ class _ImageListState extends State<ImageList> {
                   ),
                   tooltip: 'Share it with friends',
                   onPressed: () {
-                    showAlertDialog(context, index);
+                    CommonFunctions()
+                        .showAlertDialog(context, imageList[index]);
                   },
                 ),
               ),
@@ -220,38 +222,38 @@ class _ImageListState extends State<ImageList> {
       ),
     );
   }
-
-  showAlertDialog(BuildContext context, int index) {
-    // Create button
-    Widget okButton = Row(
-      children: <Widget>[
-        TextButton(
-          child: Text(
-            "Share with friends",
-            style:
-                TextStyle(fontSize: MediaQuery.of(context).size.height * 0.025),
-          ),
-          onPressed: () {
-            //share function
-          },
-        ),
-      ],
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: Text("Share this photo"),
-      content: Image.network(imageList[index]),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  //
+  // showAlertDialog(BuildContext context, int index) {
+  //   // Create button
+  //   Widget okButton = Row(
+  //     children: <Widget>[
+  //       TextButton(
+  //         child: Text(
+  //           "Share with friends",
+  //           style:
+  //               TextStyle(fontSize: MediaQuery.of(context).size.height * 0.025),
+  //         ),
+  //         onPressed: () {
+  //           //share function
+  //         },
+  //       ),
+  //     ],
+  //   );
+  //
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text("Share this photo"),
+  //     content: Image.network(imageList[index]),
+  //     actions: [
+  //       okButton,
+  //     ],
+  //   );
+  //
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 }
