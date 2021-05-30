@@ -24,11 +24,11 @@ class FlickrRequestsAndResponses {
     return response.statusCode;
   }
 
-  static Future<int> getFollowings() async {
+  static Future<int> getUserID() async {
     const String baseURL =
         'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 
-    var url = '$baseURL/user/followings/:5349b4ddd2781d08c09890f4';
+    var url = '$baseURL/user/Loginauser/:5349b4ddd2781d08c09890f4';
 
     var response = await http.get(
       Uri.parse(url),
@@ -41,11 +41,29 @@ class FlickrRequestsAndResponses {
     return followings.length;
   }
 
-  static Future<int> getFollowers() async {
+  static Future<int> getFollowings(String id) async {
     const String baseURL =
         'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 
-    var url = '$baseURL/user/followers/:5349b4ddd2781d08c09890f4';
+//5349b4ddd2781d08c09890f4
+    var url = '$baseURL/user/followings/:$id';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+
+    Map<String, dynamic> decoded = jsonDecode(response.body);
+    List<dynamic> followings = decoded['Following'];
+    CommonVars.followings = followings.length;
+    print("size is ${followings.length}");
+    return followings.length;
+  }
+
+  static Future<int> getFollowers(String id) async {
+    const String baseURL =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+//5349b4ddd2781d08c09890f4
+    var url = '$baseURL/user/followers/:$id';
     var response = await http.get(
       Uri.parse(url),
     );

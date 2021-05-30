@@ -116,8 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (passwordCheck && emailCheck) {
       print(passLogin);
       if (passLogin == true) {
-        CommonVars.followers = await FlickrRequestsAndResponses.getFollowings();
-        CommonVars.followings = await FlickrRequestsAndResponses.getFollowers();
+        CommonVars.followers = await FlickrRequestsAndResponses.getFollowings(
+            '5349b4ddd2781d08c09890f4');
+        CommonVars.followings = await FlickrRequestsAndResponses.getFollowers(
+            '5349b4ddd2781d08c09890f4');
 
         Navigator.pop(context);
         Navigator.pushNamed(context, "UserPage");

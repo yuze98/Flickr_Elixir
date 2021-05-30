@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 
 class FavoritesSection extends StatefulWidget {
   @override
@@ -13,15 +14,22 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   String userName = 'Thor';
   int picNum = 0;
   int followersNum = 0;
-  bool isFollowed = false;
+  bool isFollowing = false;
 
   List<Widget> FollowersCard = [];
+
   @override
   Widget build(BuildContext context) {
-    Widget widgy = FollowerInfo(
-        context, profilePic, userName, followersNum, picNum, isFollowed);
+    Widget widgy =
+        FollowerInfo(profilePic, userName, followersNum, picNum, isFollowing);
     FollowersCard.add(widgy);
 
+    void folllows() async {
+      followersNum = await FlickrRequestsAndResponses.getFollowers(
+          "5349b4ddd2781d08c09890f4");
+    }
+
+    folllows();
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -34,8 +42,8 @@ class _FavoritesSectionState extends State<FavoritesSection> {
     );
   }
 
-  Widget FollowerInfo(BuildContext context, String profilePic, String userName,
-      int followersNum, int picNum, bool isFollowed) {
+  Widget FollowerInfo(String profilePic, String userName, int followersNum,
+      int picNum, bool isFollowed) {
     var devSize = MediaQuery.of(context).size;
     return Center(
       child: Container(
@@ -68,12 +76,16 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(devSize.height * 0.05),
                 ))),
-                onPressed: () => {
+                onPressed: () {
                   //func follow
+                  setState(() {
+                    isFollowed = !isFollowed;
+                    print(isFollowed);
+                  });
                 },
                 child: Row(
                   children: <Widget>[
-                    !isFollowed ? Icon(Icons.add) : Icon(Icons.remove),
+                    Icon(isFollowed ? Icons.remove : Icons.add),
                     isFollowed ? Text('Follwing') : Text('Follow'),
                   ],
                 ),
