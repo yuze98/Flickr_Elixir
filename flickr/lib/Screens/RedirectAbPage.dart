@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flickr/Components/ExploreDetails.dart';
 import 'About.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -392,6 +392,8 @@ class FeatPhots extends StatefulWidget {
   _FeatPhotsState createState() => _FeatPhotsState();
 }
 
+bool tapped = false;
+
 class _FeatPhotsState extends State<FeatPhots> {
   @override
   Widget build(BuildContext context) {
@@ -402,11 +404,30 @@ class _FeatPhotsState extends State<FeatPhots> {
         body: new Center(
           child: new ListView(
             children: [
-              Image.asset(
-                'images/Wanda.jpg',
-                //width: 20.0,
-                //  height: devicesize.height * 0.5,
-                fit: BoxFit.cover,
+              GestureDetector(
+                child: Container(
+                  height: devicesize.height * 0.5,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/Wanda.jpg'),
+                      //width: 20.0,
+                      //  height: devicesize.height * 0.5,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ExploreDetails(
+                                profilePic:
+                                    'https://www.denofgeek.com/wp-content/uploads/2021/02/wandavision-episode-7-elizabeth-olsen-disney-marvel.jpg?resize=768%2C432',
+                                photoFile:
+                                    'https://www.denofgeek.com/wp-content/uploads/2021/02/wandavision-episode-7-elizabeth-olsen-disney-marvel.jpg?resize=768%2C432')));
+                  });
+                },
               ),
               Image.asset(
                 'images/AppIcon.jpg',

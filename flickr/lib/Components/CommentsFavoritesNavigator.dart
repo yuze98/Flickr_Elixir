@@ -36,6 +36,7 @@ class _CommentsFavoritesNavigatorState
           ),
         ),
         body: DefaultTabController(
+          initialIndex: 1,
           length: 2,
           child: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool Scroll) {

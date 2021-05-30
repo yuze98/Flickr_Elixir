@@ -12,7 +12,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: ImageList(),
+        body: Container(
+          child: ImageList(),
+        ),
       ),
     );
   }

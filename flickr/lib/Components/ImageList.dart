@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
+import 'package:flickr/Screens/RedirectAbPage.dart';
 
 class ImageList extends StatefulWidget {
   @override
@@ -32,13 +33,12 @@ class _ImageListState extends State<ImageList> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-            child: ListView.builder(
+    return SafeArea(
+      child: Container(
+        child: ListView.builder(
           itemCount: imageList.length,
           itemBuilder: (context, index) => OuterInfo(context, index),
-        )),
+        ),
       ),
     );
   }

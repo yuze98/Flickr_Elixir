@@ -56,6 +56,7 @@ class _AboutStateState extends State<AboutState> {
             context,
             MaterialPageRoute(builder: (context) => DescripData()),
           );
+
           setState(() => descrip = result);
         }
         break;

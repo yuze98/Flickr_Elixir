@@ -96,7 +96,7 @@ class _UserPage extends State<UserPage> {
                 body: TabBarView(
                     // These are the contents of the tab views, below the tabs.
                     children: [
-                      ExploreScreen(),
+                      ImageList(),
                       Icon(Icons.search),
                       SubProfile(photoFile: photoFile),
                       Icon(Icons.notifications),

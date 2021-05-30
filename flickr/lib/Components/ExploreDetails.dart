@@ -24,7 +24,6 @@ class _ExploreDetailsState extends State<ExploreDetails> {
     var deviceSize = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
-        extendBodyBehindAppBar: false,
         body: Stack(
           children: <Widget>[
             Container(
