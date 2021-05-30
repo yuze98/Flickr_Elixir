@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'file:///D:/UNI%20STUFF/swproject/Flickr_Elixir/flickr/lib/Essentials/CommonVars.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
