@@ -39,9 +39,8 @@ class _UserPage extends State<UserPage> {
                       sliver: SliverSafeArea(
                         top: false,
                         sliver: SliverAppBar(
-                          //  floating: true,
+                          // floating: true,
                           toolbarHeight: deviceSizeheight * .05,
-
                           backgroundColor: Colors.black,
                           bottom: TabBar(
                             indicatorColor: Colors.grey[800],
@@ -97,7 +96,7 @@ class _UserPage extends State<UserPage> {
                 body: TabBarView(
                     // These are the contents of the tab views, below the tabs.
                     children: [
-                      ImageList(),
+                      ExploreScreen(),
                       Icon(Icons.search),
                       SubProfile(photoFile: photoFile),
                       Icon(Icons.notifications),
