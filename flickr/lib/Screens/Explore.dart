@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flickr/Components/ImageList.dart';
 
 class ExploreScreen extends StatefulWidget {
   @override
@@ -9,6 +10,10 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: Scaffold(
+        body: ImageList(),
+      ),
+    );
   }
 }
