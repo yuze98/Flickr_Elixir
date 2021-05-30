@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'CommentSection.dart';
 import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
+import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
   final String photoFile, profilePic;
@@ -23,6 +24,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
     var deviceSize = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
+        extendBodyBehindAppBar: false,
         body: Stack(
           children: <Widget>[
             Container(
@@ -164,7 +166,12 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         color: Colors.grey,
                       ),
                       tooltip: 'info about this image',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AboutPhoto()));
+                      },
                     ),
                   ),
                 ],
