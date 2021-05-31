@@ -47,7 +47,7 @@ class _ImageListState extends State<ImageList> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    PrepareExplore();
+    // PrepareExplore();
   }
 
   @override

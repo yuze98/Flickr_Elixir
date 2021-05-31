@@ -39,4 +39,34 @@ class CommonFunctions {
       },
     );
   }
+
+  void EditWithIcon(
+      BuildContext context, String title, bool isEditable, double fontSizing) {
+    // Create button
+    Widget okButton = Column(
+      children: <Widget>[
+        Text(
+          'LICENSE',
+          style: TextStyle(fontSize: fontSizing * 2, color: Colors.grey),
+        ),
+        IconButton(icon: Icon(Icons.edit), onPressed: () => {})
+      ],
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text('$title'),
+      content: Text('Here will be a text Form'),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

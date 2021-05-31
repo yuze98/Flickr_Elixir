@@ -19,21 +19,19 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   List<Widget> FollowersCard = [];
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    FollowersCard.add(
-        FollowerInfo(profilePic, userName, followersNum, picNum, isFollowing));
+    followersNum = await FlickrRequestsAndResponses.getFollowers(
+        '5349b4ddd2781d08c09890f4');
+    setState(() {
+      FollowersCard.add(FollowerInfo(
+          profilePic, userName, followersNum, picNum, isFollowing));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    void folllows() async {
-      followersNum = await FlickrRequestsAndResponses.getFollowers(
-          "5349b4ddd2781d08c09890f4");
-    }
-
-    folllows();
     return MaterialApp(
       home: Scaffold(
         body: Container(
