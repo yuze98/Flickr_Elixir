@@ -143,4 +143,22 @@ class FlickrRequestsAndResponses {
     }
     return statusCode;
   }
+
+  static Future<int> Comments(String id) async {
+    const String baseURL =
+        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+
+//5349b4ddd2781d08c09890f4
+    var url = '$baseURL/user/followings/:$id';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+
+    Map<String, dynamic> decoded = jsonDecode(response.body);
+    List<dynamic> followings = decoded['Following'];
+    CommonVars.followings = followings.length;
+    print("size is ${followings.length}");
+    return followings.length;
+  }
 }
