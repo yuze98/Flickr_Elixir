@@ -5,6 +5,8 @@ import 'CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flickr/Screens/RedirectAbPage.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
+import 'package:flickr/Models/Photos.dart';
 
 class ImageList extends StatefulWidget {
   @override
@@ -23,13 +25,30 @@ class _ImageListState extends State<ImageList> {
     'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
   ];
 
-  String userFav1 = "fathy";
-  String userFav2 = "youssef";
+  String userSecondName = "fathy";
   int favCount = 100;
-  String userComment = "mohamed ismail";
-  String Comment = "eh el 7alawa dih";
+  //String userComment = "mohamed ismail";
+  int comment = 0;
   String userName = "yuze";
   String title = "gamed fash5";
+
+  void PrepareExplore() async {
+    Photos posts = await FlickrRequestsAndResponses.GetExplore();
+
+    //final List<dynamic> exploreImages = [];
+    userName = posts.firstName;
+    userSecondName = posts.lastName;
+    title = posts.title;
+    favCount = posts.favoriteCount;
+    imageList.add(posts.url);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    PrepareExplore();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +110,7 @@ class _ImageListState extends State<ImageList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$userName ",
+                          "$userName $userSecondName",
                           style: TextStyle(
                             fontSize: devSize.height * 0.03,
                             fontWeight: FontWeight.bold,
@@ -183,7 +202,7 @@ class _ImageListState extends State<ImageList> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: devSize.width * 0.05),
-                    child: Text('$userFav1, $userFav2 and $favCount faved',
+                    child: Text('$favCount faved',
                         style: TextStyle(
                             fontSize: devSize.height * 0.025,
                             fontWeight: FontWeight.bold)),
@@ -205,7 +224,7 @@ class _ImageListState extends State<ImageList> {
                 Padding(
                   padding: EdgeInsets.only(left: devSize.width * 0.05),
                   child: Text(
-                    '$userComment and $Comment',
+                    '$comment commented',
                     style: TextStyle(
                         fontSize: devSize.height * 0.025,
                         fontWeight: FontWeight.bold),

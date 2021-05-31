@@ -31,6 +31,7 @@ class _CommentsSectionState extends State<CommentsSection> {
     Comments();
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: <Widget>[
             Container(

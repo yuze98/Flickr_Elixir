@@ -4,8 +4,12 @@ import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flickr/Models/Photos.dart';
 
 class FlickrRequestsAndResponses {
+  static final String baseURL =
+      'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+
   static Future<int> changePassword(
       final newPasswordController, final oldPasswordController) async {
     var url =
@@ -25,8 +29,8 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<int> getUserID() async {
-    const String baseURL =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+    // const String baseURL =
+    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 
     var url = '$baseURL/user/Loginauser/:5349b4ddd2781d08c09890f4';
 
@@ -42,8 +46,8 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<int> getFollowings(String id) async {
-    const String baseURL =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+    // const String baseURL =
+    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 
 //5349b4ddd2781d08c09890f4
     var url = '$baseURL/user/followings/:$id';
@@ -60,8 +64,8 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<int> getFollowers(String id) async {
-    const String baseURL =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+    // const String baseURL =
+    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
 //5349b4ddd2781d08c09890f4
     var url = '$baseURL/user/followers/:$id';
     var response = await http.get(
@@ -83,7 +87,7 @@ class FlickrRequestsAndResponses {
       final secondNameController,
       final ageController) async {
     var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUp?email=${emailController.text}&password=${passwordController.text}&firstname=${firstNameController.text}&lastname=${secondNameController.text}&age=${ageController.text}';
+        '$baseURL/register/signUp?email=${emailController.text}&password=${passwordController.text}&firstname=${firstNameController.text}&lastname=${secondNameController.text}&age=${ageController.text}';
 
     var response = await http.post(
       Uri.parse(url),
@@ -118,7 +122,7 @@ class FlickrRequestsAndResponses {
          ''');
         //sending access token to our server
         var url =
-            'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/signUpWithFacebook?loginType=Facebook&accessToken=$accessToken';
+            '$baseURL/register/signUpWithFacebook?loginType=Facebook&accessToken=$accessToken';
 
         var response = await http.post(
           Uri.parse(url),
@@ -144,21 +148,45 @@ class FlickrRequestsAndResponses {
     return statusCode;
   }
 
-  static Future<int> Comments(String id) async {
-    const String baseURL =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
-
+  static Future<Photos> GetExplore() async {
 //5349b4ddd2781d08c09890f4
-    var url = '$baseURL/user/followings/:$id';
+    var url = '$baseURL/photo/explore';
 
     var response = await http.get(
       Uri.parse(url),
     );
 
-    Map<String, dynamic> decoded = jsonDecode(response.body);
-    List<dynamic> followings = decoded['Following'];
-    CommonVars.followings = followings.length;
-    print("size is ${followings.length}");
-    return followings.length;
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("resposed success explore");
+      return Photos.fromJson(jsonDecode(response.body));
+    } else {
+      print("responsed failure explore");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
+  static Future AddToFavorite(
+      /*String Authorization,*/ String photoFaved) async {
+//5349b4ddd2781d08c09890f4
+
+    var url = '$baseURL/photo/addToFavorites';
+    var response = await http.post(Uri.parse(url),
+        body: {'photoId': '$photoFaved'},
+        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("resposed success Favorited a pic");
+    } else {
+      print("responsed failure Favorited a pic");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load Fav');
+    }
   }
 }

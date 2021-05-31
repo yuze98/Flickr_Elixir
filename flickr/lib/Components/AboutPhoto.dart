@@ -32,6 +32,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
             padding: EdgeInsets.all(devSize.height * 0.03),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
                   "TITLE",
