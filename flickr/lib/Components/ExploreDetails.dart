@@ -1,3 +1,4 @@
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
@@ -129,6 +130,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         setState(
                           () {
                             hasPressed = !hasPressed;
+                            FlickrRequestsAndResponses.AddToFavorite(
+                                "60953562224d432a505e8d07");
                           },
                         );
                       },

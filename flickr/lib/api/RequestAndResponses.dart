@@ -184,11 +184,15 @@ class FlickrRequestsAndResponses {
       /*String Authorization,*/ String photoIDFaved) async {
 //5349b4ddd2781d08c09890f4
 
-    var url = '$baseURL/photo/addToFavorites';
+    var tempBaseURL =
+        'https://3ed4bc68-bd73-4483-b1eb-4cdd8f1ab446.mock.pstmn.io';
+
+    var url = '$tempBaseURL/photo/addToFavorites';
     var response = await http.post(Uri.parse(url),
         body: {'photoId': '$photoIDFaved'},
         headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
 
+    print(response.statusCode);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.

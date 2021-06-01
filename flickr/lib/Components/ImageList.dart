@@ -168,6 +168,10 @@ class _ImageListState extends State<ImageList> {
                     setState(
                       () {
                         hasPressed = !hasPressed;
+
+                        if (hasPressed)
+                          FlickrRequestsAndResponses.AddToFavorite(
+                              "60953562224d432a505e8d07");
                       },
                     );
                   },
@@ -179,26 +183,6 @@ class _ImageListState extends State<ImageList> {
                     commentNum[index],
                     favCount[index],
                     '${userName[index]} ${userSecondName[index]}'),
-                //   child: IconButton(
-                //     icon: Icon(
-                //       Icons.comment,
-                //       color: Colors.grey,
-                //     ),
-                //     tooltip: 'Open comment Section',
-                //     onPressed: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => CommentsFavoritesNavigator(
-                //             commentsNumber: commentNum[index],
-                //             favoriteNumber: favCount[index],
-                //             userName:
-                //                 '${userName[index]} ${userSecondName[index]}',
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //),
               ),
               Expanded(
                 child: IconButton(
