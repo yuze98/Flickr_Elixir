@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flickr/Screens/ChangePassword.dart';
+import 'package:flickr/Screens/CameraRoll.dart';
 import 'package:flickr/Screens/UploadDetails.dart';
 import 'package:flutter/material.dart';
 import 'Screens/Login_page.dart';
@@ -25,6 +26,7 @@ void main() {
         'UserPage1': (context) => ImageDetails(),
         'signUp': (context) => Signup(),
         'UserPage': (context) => UserPage(),
+        'CameraRoll': (context) => CameraRoll(),
         'about': (context) => AboutState(),
         'forgetPass': (context) => forgetPass(),
         'ChangePassword': (context) => ChangePassword(),

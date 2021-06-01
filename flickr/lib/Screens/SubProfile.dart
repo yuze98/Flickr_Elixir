@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:flickr/Screens/CameraRoll.dart';
+import 'package:flickr/Screens/Public.dart';
+import 'package:flickr/Screens/CameraRoll.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Screens/CommonVars.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
@@ -191,8 +194,8 @@ class _SubProfile extends State<SubProfile> {
               // These are the contents of the tab views, below the tabs.
               children: [
                 AboutState(),
-                Icon(Icons.camera),
-                Icon(Icons.public),
+                CameraRoll(),
+                Public(),
                 Icon(Icons.album_sharp),
                 Icon(Icons.group),
               ]),

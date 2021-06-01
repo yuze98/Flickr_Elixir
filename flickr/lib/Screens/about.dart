@@ -44,7 +44,7 @@ class _AboutStateState extends State<AboutState> {
   @override
   void initState() {
     // TODO: implement initState
-    emailaddress();
+    // emailaddress();
     super.initState();
   }
 
