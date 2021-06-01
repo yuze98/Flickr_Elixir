@@ -10,19 +10,23 @@ import 'Screens/SubProfile.dart';
 import 'Screens/forgetPassPage.dart';
 import 'Screens/about.dart';
 import 'Screens/UserPage.dart';
-
+import 'Screens/LoadingScreen.dart';
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
+import 'Screens/UploadDetails.dart';
+import 'Screens/Tags.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: 'UserPage',
+      initialRoute: 'GetStarted',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         'GetStarted': (context) => GetStarted(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         'LoginScreen': (context) => LoginScreen(),
-        'UserPage1': (context) => ImageDetails(),
+        'LoadingScreen': (context) => App(),
+        'UploadDetails': (context) => ImageDetails(),
+        'Tags': (context) => Tags(),
         'signUp': (context) => Signup(),
         'UserPage': (context) => UserPage(),
         'about': (context) => AboutState(),

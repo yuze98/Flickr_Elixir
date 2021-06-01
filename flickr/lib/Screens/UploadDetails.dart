@@ -9,11 +9,14 @@ class ImageDetails extends StatefulWidget {
 
 class _ImageDetails extends State<ImageDetails> {
   // This widget is the root of your application.
-
+  bool descriptionBool = false;
+  bool titleBool = false;
   @override
   Widget build(BuildContext context) {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
+    final descriptionController = TextEditingController();
+    final titleController = TextEditingController();
 
     return MaterialApp(
       title: 'Flickr',
@@ -23,6 +26,14 @@ class _ImageDetails extends State<ImageDetails> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: Image.asset('images/flickricon.png'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.navigate_next, color: Colors.white),
+              onPressed: () {
+                uploadPhoto();
+              },
+            ),
+          ],
           title: Text(
             'Image Details ',
             style: TextStyle(
@@ -33,10 +44,134 @@ class _ImageDetails extends State<ImageDetails> {
           toolbarHeight: deviceSizeheight * .1,
         ),
         body: Column(
-          children: [],
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  deviceSizewidth * 0.06,
+                  deviceSizeheight * 0.01,
+                  deviceSizewidth * 0.06,
+                  deviceSizeheight * 0.01),
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: TextFormField(
+                  validator: validateTitle,
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    hintText: 'Title',
+                    fillColor: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  deviceSizewidth * 0.06,
+                  deviceSizeheight * 0.01,
+                  deviceSizewidth * 0.06,
+                  deviceSizeheight * 0.01),
+              child: Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: TextFormField(
+                  validator: validateDescription,
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    hintText: 'Description',
+                    fillColor: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: deviceSizewidth * .7),
+              child: FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "Tags");
+                  },
+                  icon: Icon(Icons.label, color: Colors.black26),
+                  color: Colors.transparent,
+                  label: Text("Tags   ",
+                      style: TextStyle(color: Colors.black26, fontSize: 16.0))),
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
       ),
+    );
+  }
+
+  String validateTitle(String value) {
+    Pattern pattern = r"^[a-z A-Z]+$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null) {
+      descriptionBool = false;
+      titleBool = false;
+      return 'Enter a valid Title';
+    } else {
+      descriptionBool = true;
+      titleBool = true;
+      return 'A valid Title';
+    }
+  }
+
+  String validateConfirm() {
+    String str;
+    if (!descriptionBool || !titleBool) {
+      str = 'Please enter valid parameters!';
+    } else {
+      str = 'done';
+    }
+    return str;
+  }
+
+  void uploadPhoto() async {
+    int statusCode = 200;
+    /*await FlickrRequestsAndResponses.changePassword(
+        newPasswordController, oldPasswordController);*/
+    if (statusCode == 200) {
+      showAlertDialog(context, validateConfirm());
+    } else {
+      showAlertDialog(context, 'Enter valid parameters');
+    }
+  }
+
+  String validateDescription(String value) {
+    Pattern pattern = r"^[a-z A-Z]+$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null) {
+      return 'Enter a valid Description';
+    } else {
+      return null;
+    }
+  }
+
+  showAlertDialog(BuildContext context, String str) {
+    // Create button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        if (str == 'Enter a valid Description')
+          Navigator.pushNamedAndRemoveUntil(context, "UserPage", (r) => false);
+        else
+          Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Alert"),
+      content: Text(str),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
