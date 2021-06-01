@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flickr/Models/Photos.dart';
 import 'package:flickr/Models/PictureFavorites.dart';
+import 'package:flickr/Models/PictureComments.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL =
@@ -254,6 +255,37 @@ class FlickrRequestsAndResponses {
       print("resposed failure favorite dudes");
 
       throw Exception('Failed to load album');
+    }
+  }
+
+  //comment photo id 5349b4ddd2781d08c09890f4
+  static Future<List<PictureComments>> GetComments(String picId) async {
+//5349b4ddd2781d08c09890f4
+    var tempBaseURL =
+        'https://3ed4bc68-bd73-4483-b1eb-4cdd8f1ab446.mock.pstmn.io';
+
+    var urll = '$tempBaseURL/photo/getComments';
+
+    var response =
+        await http.post(Uri.parse(urll), body: {"photoId": '$picId'});
+
+    if (response.statusCode == 200) {
+      print("resposed success Comments");
+
+      final CommentList = json.decode(response.body);
+
+      List<PictureComments> vo = [];
+      for (var i in CommentList['comments']) {
+        vo.add(PictureComments.fromJson(i));
+      }
+
+      print('3ada');
+      return vo;
+    } else {
+      print("resposed failure Comments");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load Comments');
     }
   }
 }
