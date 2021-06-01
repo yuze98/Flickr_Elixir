@@ -235,4 +235,25 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to load album');
     }
   }
+
+  static Future AddComment(String picId, String userComment) async {
+//5349b4ddd2781d08c09890f4
+
+    var tempBaseURL =
+        'https://3ed4bc68-bd73-4483-b1eb-4cdd8f1ab446.mock.pstmn.io';
+
+    var urll = '$tempBaseURL/photo/:$picId/comment';
+    //picid 60953562224d432a505e8d07
+
+    var response =
+        await http.post(Uri.parse(urll), body: {'comment': '$userComment'});
+
+    if (response.statusCode == 200) {
+      print("resposed success Commented Awesome");
+    } else {
+      print("resposed failure favorite dudes");
+
+      throw Exception('Failed to load album');
+    }
+  }
 }

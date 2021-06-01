@@ -1,7 +1,10 @@
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CommentsSection extends StatefulWidget {
+  final photoId;
+  CommentsSection({Key key, this.photoId}) : super(key: key);
   @override
   _CommentsSectionState createState() => _CommentsSectionState();
 }
@@ -66,6 +69,8 @@ class _CommentsSectionState extends State<CommentsSection> {
                         ),
                         onPressed: () {
                           //send first to server then clear
+                          FlickrRequestsAndResponses.AddComment(
+                              widget.photoId, sendComment.text);
                           sendComment.clear();
                         },
                       ),

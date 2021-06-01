@@ -138,21 +138,6 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                     ),
                   ),
                   Expanded(
-                    // child: IconButton(
-                    //   icon: Icon(
-                    //     Icons.comment,
-                    //     color: Colors.grey,
-                    //   ),
-                    //   tooltip: 'Open comment Section',
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) =>
-                    //               CommentsFavoritesNavigator()),
-                    //     );
-                    //   },
-                    // ),
                     child: CommonFunctions().CommentsFunction(
                         context,
                         widget.commentNum,

@@ -11,6 +11,7 @@ import 'Screens/ForgetPass.dart';
 import 'Screens/About.dart';
 import 'Screens/UserPage.dart';
 import 'package:flickr/Screens/Tags.dart';
+import 'package:flickr/Screens/CameraRoll.dart';
 
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
 
@@ -27,6 +28,7 @@ void main() {
         'Tags': (context) => Tags(),
         'signUp': (context) => Signup(),
         'UserPage': (context) => UserPage(),
+        'CameraRoll': (context) => CameraRoll(),
         'about': (context) => AboutState(),
         'forgetPass': (context) => forgetPass(),
         'ChangePassword': (context) => ChangePassword(),

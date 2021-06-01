@@ -34,7 +34,7 @@ class _AboutStateState extends State<AboutState> {
     var response = await http.get(Uri.parse(url));
     var decoded = jsonDecode(response.body)['email'];
     email = decoded;
-    print('email is $email');
+    //print('email is $email');
     // if (response.statusCode == 200) {
     //   Navigator.pop(context); // pop current page
     //   Navigator.pushNamed(context, "UserPage");

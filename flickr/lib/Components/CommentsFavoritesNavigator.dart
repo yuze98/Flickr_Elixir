@@ -18,6 +18,8 @@ class _CommentsFavoritesNavigatorState
     extends State<CommentsFavoritesNavigator> {
   String photoName = "The dude's";
 
+  String picId = '60953562224d432a505e8d07';
+
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
@@ -83,7 +85,9 @@ class _CommentsFavoritesNavigatorState
               // These are the contents of the tab views, below the tabs.
               children: [
                 FavoritesSection(),
-                CommentsSection(),
+                CommentsSection(
+                  photoId: picId,
+                ),
               ],
             ),
           ),
