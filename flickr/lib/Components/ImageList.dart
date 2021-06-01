@@ -1,12 +1,13 @@
 import 'package:flickr/Components/ExploreDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'CommentsFavoritesNavigator.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
-import 'package:flickr/Essentials/CommonFunctions.dart';
-import 'package:flickr/Screens/RedirectAbPage.dart';
+// import 'CommentsFavoritesNavigator.dart';
+// import 'package:flickr/Essentials/CommonVars.dart';
+// import 'package:flickr/Essentials/CommonFunctions.dart';
+// import 'package:flickr/Screens/RedirectAbPage.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Models/Photos.dart';
+import 'package:flickr/Essentials/CommonFunctions.dart';
 
 class ImageList extends StatefulWidget {
   @override
@@ -104,6 +105,8 @@ class _ImageListState extends State<ImageList> {
                       profilePic: profileImage[index],
                       userName: '${userName[index]} ${userSecondName[index]}',
                       title: title[index],
+                      commentNum: commentNum[index],
+                      favCount: favCount[index],
                     ),
                   ),
                 ),
@@ -171,20 +174,31 @@ class _ImageListState extends State<ImageList> {
                 ),
               ),
               Expanded(
-                child: IconButton(
-                  icon: Icon(
-                    Icons.comment,
-                    color: Colors.grey,
-                  ),
-                  tooltip: 'Open comment Section',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CommentsFavoritesNavigator()),
-                    );
-                  },
-                ),
+                child: CommonFunctions().CommentsFunction(
+                    context,
+                    commentNum[index],
+                    favCount[index],
+                    '${userName[index]} ${userSecondName[index]}'),
+                //   child: IconButton(
+                //     icon: Icon(
+                //       Icons.comment,
+                //       color: Colors.grey,
+                //     ),
+                //     tooltip: 'Open comment Section',
+                //     onPressed: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => CommentsFavoritesNavigator(
+                //             commentsNumber: commentNum[index],
+                //             favoriteNumber: favCount[index],
+                //             userName:
+                //                 '${userName[index]} ${userSecondName[index]}',
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //),
               ),
               Expanded(
                 child: IconButton(

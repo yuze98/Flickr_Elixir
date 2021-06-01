@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CommentsFavoritesNavigator extends StatefulWidget {
+  final String commentsNumber, favoriteNumber, userName;
+  CommentsFavoritesNavigator(
+      {Key key, this.commentsNumber, this.favoriteNumber, this.userName})
+      : super(key: key);
   @override
   _CommentsFavoritesNavigatorState createState() =>
       _CommentsFavoritesNavigatorState();
@@ -12,20 +16,11 @@ class CommentsFavoritesNavigator extends StatefulWidget {
 
 class _CommentsFavoritesNavigatorState
     extends State<CommentsFavoritesNavigator> {
-  int commentsNum = 0;
-  int FavesNum = 0;
   String photoName = "The dude's";
-
-  void CountsNav() async {
-    FavesNum = await FlickrRequestsAndResponses.getFollowers(
-        '5349b4ddd2781d08c09890f4');
-  }
 
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
-
-    CountsNav();
 
     return MaterialApp(
       home: Scaffold(
@@ -38,7 +33,7 @@ class _CommentsFavoritesNavigatorState
             },
           ),
           title: Text(
-            "$photoName photo",
+            "${widget.userName}'s photo",
             style: TextStyle(
               fontSize: 0.03 * MediaQuery.of(context).size.height,
             ),
@@ -67,12 +62,12 @@ class _CommentsFavoritesNavigatorState
                         // These are the widgets to put in each tab in the tab bar.
                         tabs: [
                           Text(
-                            "$commentsNum Faves    ",
+                            "${widget.favoriteNumber} Faves    ",
                             style:
                                 TextStyle(fontSize: deviceSize.height * 0.028),
                           ),
                           Text(
-                            "    $FavesNum Comments",
+                            "    ${widget.commentsNumber} Comments",
                             style:
                                 TextStyle(fontSize: deviceSize.height * 0.028),
                           ),

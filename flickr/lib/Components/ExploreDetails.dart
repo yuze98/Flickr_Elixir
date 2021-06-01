@@ -5,9 +5,16 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
-  final String photoFile, profilePic, userName, title;
+  final String photoFile, profilePic, userName, title, commentNum, favCount;
+
   ExploreDetails(
-      {Key key, this.photoFile, this.profilePic, this.userName, this.title})
+      {Key key,
+      this.photoFile,
+      this.profilePic,
+      this.userName,
+      this.title,
+      this.favCount,
+      this.commentNum})
       : super(key: key);
 
   @override
@@ -128,21 +135,26 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                     ),
                   ),
                   Expanded(
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.comment,
-                        color: Colors.grey,
-                      ),
-                      tooltip: 'Open comment Section',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  CommentsFavoritesNavigator()),
-                        );
-                      },
-                    ),
+                    // child: IconButton(
+                    //   icon: Icon(
+                    //     Icons.comment,
+                    //     color: Colors.grey,
+                    //   ),
+                    //   tooltip: 'Open comment Section',
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) =>
+                    //               CommentsFavoritesNavigator()),
+                    //     );
+                    //   },
+                    // ),
+                    child: CommonFunctions().CommentsFunction(
+                        context,
+                        widget.commentNum,
+                        widget.favCount,
+                        '${widget.userName}'),
                   ),
                   Expanded(
                     child: IconButton(
