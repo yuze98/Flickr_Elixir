@@ -62,8 +62,6 @@ class _ImageListState extends State<ImageList> {
 
   @override
   Widget build(BuildContext context) {
-    //posts = FlickrRequestsAndResponses.GetExplore();
-
     return SafeArea(
       child: Container(
         child: FutureBuilder<List<Photos>>(
@@ -128,6 +126,8 @@ class _ImageListState extends State<ImageList> {
                     builder: (context) => ExploreDetails(
                       photoFile: imageList[index],
                       profilePic: profileImage[index],
+                      userName: '${userName[index]} ${userSecondName[index]}',
+                      title: title[index],
                     ),
                   ),
                 ),

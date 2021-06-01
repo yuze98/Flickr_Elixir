@@ -5,8 +5,10 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
-  final String photoFile, profilePic;
-  ExploreDetails({Key key, this.photoFile, this.profilePic}) : super(key: key);
+  final String photoFile, profilePic, userName, title;
+  ExploreDetails(
+      {Key key, this.photoFile, this.profilePic, this.userName, this.title})
+      : super(key: key);
 
   @override
   _ExploreDetailsState createState() => _ExploreDetailsState();
@@ -80,7 +82,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                 Padding(
                   padding: EdgeInsets.only(left: devSize.width * 0.05),
                   child: Text(
-                    "Thor Odin",
+                    "${widget.userName}",
                     style: TextStyle(
                         fontSize: devSize.height * 0.025,
                         color: Colors.white,
@@ -95,7 +97,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Title of photo",
+                "${widget.title}",
                 style: TextStyle(fontSize: 20, color: Colors.white54),
               ),
             ),
