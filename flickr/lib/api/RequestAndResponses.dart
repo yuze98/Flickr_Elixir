@@ -179,12 +179,12 @@ class FlickrRequestsAndResponses {
   }
 
   static Future AddToFavorite(
-      /*String Authorization,*/ String photoFaved) async {
+      /*String Authorization,*/ String photoIDFaved) async {
 //5349b4ddd2781d08c09890f4
 
     var url = '$baseURL/photo/addToFavorites';
     var response = await http.post(Uri.parse(url),
-        body: {'photoId': '$photoFaved'},
+        body: {'photoId': '$photoIDFaved'},
         headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
 
     if (response.statusCode == 200) {
