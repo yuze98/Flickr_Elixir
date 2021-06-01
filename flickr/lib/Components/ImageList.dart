@@ -14,27 +14,10 @@ class ImageList extends StatefulWidget {
 }
 
 class _ImageListState extends State<ImageList> {
-  final List<String> imageList = [
-    // 'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
-    // 'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
-    // 'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
-    //
-  ];
-  final List<String> profileImage = [
-    // 'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
-    // 'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
-    // 'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
-    //
-  ];
+  final List<String> imageList = [];
+  final List<String> profileImage = [];
 
   Future<List<Photos>> posts;
-
-  // String userSecondName = "fathy";
-  // String favCount = '100';
-  // //String userComment = "mohamed ismail";
-  // String comment = '100';
-  // String userName = "yuze";
-  // String title = "gamed fash5";
 
   List<String> title = [];
   List<String> favCount = [];
@@ -49,19 +32,15 @@ class _ImageListState extends State<ImageList> {
     posts = FlickrRequestsAndResponses.GetExplore();
   }
 
-  // void PrepareExplore() async {
-  //   posts = FlickrRequestsAndResponses.GetExplore();
-  //
-  //   //final List<dynamic> exploreImages = [];
-  //   userName = posts.firstName;
-  //   userSecondName = posts.lastName;
-  //   title = posts.title;
-  //   favCount = posts.favoriteCount;
-  //   imageList.add(posts.url);
-  // }
-
   @override
   Widget build(BuildContext context) {
+    title.clear();
+    favCount.clear();
+    commentNum.clear();
+    userSecondName.clear();
+    userName.clear();
+    imageList.clear();
+    profileImage.clear();
     return SafeArea(
       child: Container(
         child: FutureBuilder<List<Photos>>(
@@ -77,9 +56,6 @@ class _ImageListState extends State<ImageList> {
                 title.add(i.title);
                 favCount.add(i.favoriteCount);
                 commentNum.add(i.commentsNum);
-                print(i.favoriteCount);
-
-                print(i.url);
               }
               return ListView.builder(
                 itemCount: imageList.length,

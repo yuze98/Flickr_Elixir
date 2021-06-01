@@ -1,3 +1,4 @@
+import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
@@ -8,44 +9,55 @@ class FavoritesSection extends StatefulWidget {
 }
 
 class _FavoritesSectionState extends State<FavoritesSection> {
-  String profilePic =
-      'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg';
+  List<Widget> followersCard = [];
 
-  String userName = 'Thor';
-  int picNum = 0;
-  int followersNum = 0;
-  bool isFollowing = false;
-
-  List<Widget> FollowersCard = [];
+  Future<List<PictureFavorites>> favPics;
 
   @override
-  void didChangeDependencies() async {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    followersNum = await FlickrRequestsAndResponses.getFollowers(
-        '5349b4ddd2781d08c09890f4');
-    setState(() {
-      FollowersCard.add(FollowerInfo(
-          profilePic, userName, followersNum, picNum, isFollowing));
-    });
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    favPics =
+        FlickrRequestsAndResponses.GetFavoiteUsers('60953562224d432a505e8d07');
   }
 
   @override
   Widget build(BuildContext context) {
+    followersCard.clear();
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          child: ListView.builder(
-            itemCount: FollowersCard.length,
-            itemBuilder: (context, index) => FollowersCard[index],
+          child: FutureBuilder<List<PictureFavorites>>(
+            future: favPics,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<PictureFavorites> data = snapshot.data;
+                for (var i in data) {
+                  followersCard.add(FollowerInfo(
+                      i.profilePhoto,
+                      '${i.firstName} ${i.lastName}',
+                      i.followersNum,
+                      i.photosCount,
+                      i.isFollowing));
+                }
+                return ListView.builder(
+                  itemCount: followersCard.length,
+                  itemBuilder: (context, index) => followersCard[index],
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default show a loading spinner.
+              return CircularProgressIndicator();
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget FollowerInfo(String profilePic, String userName, int followersNum,
-      int picNum, bool isFollowed) {
+  Widget FollowerInfo(String profilePic, String userName, String followersNum,
+      String picNum, bool isFollowed) {
     var devSize = MediaQuery.of(context).size;
     return Center(
       child: Container(

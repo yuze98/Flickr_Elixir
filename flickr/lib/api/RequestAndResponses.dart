@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'dart:convert';
+import 'package:flickr/Components/FavoritesSection.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flickr/Models/Photos.dart';
+import 'package:flickr/Models/PictureFavorites.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL =
@@ -196,6 +198,37 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load Fav');
+    }
+  }
+
+  static Future<List<PictureFavorites>> GetFavoiteUsers(String picId) async {
+//5349b4ddd2781d08c09890f4
+    var tempBaseURL =
+        'https://3ed4bc68-bd73-4483-b1eb-4cdd8f1ab446.mock.pstmn.io';
+
+    var urll = '$tempBaseURL/photo/whoFavortied/:$picId';
+    //picid 60953562224d432a505e8d07
+
+    var response = await http.get(Uri.parse(urll),
+        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
+
+    if (response.statusCode == 200) {
+      print("resposed success favorite dudes");
+
+      final favorites = json.decode(response.body);
+
+      List<PictureFavorites> vo = [];
+      for (var i in favorites['user']) {
+        vo.add(PictureFavorites.fromJson(i));
+      }
+
+      print('3ada');
+      return vo;
+    } else {
+      print("resposed failure favorite dudes");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
     }
   }
 }
