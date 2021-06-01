@@ -148,19 +148,28 @@ class FlickrRequestsAndResponses {
     return statusCode;
   }
 
-  static Future<Photos> GetExplore() async {
+  static Future<List<Photos>> GetExplore() async {
 //5349b4ddd2781d08c09890f4
-    var url = '$baseURL/photo/explore';
+    var tempBaseURL =
+        'https://3ed4bc68-bd73-4483-b1eb-4cdd8f1ab446.mock.pstmn.io';
+
+    var urll = '$tempBaseURL/photo/explore';
 
     var response = await http.get(
-      Uri.parse(url),
+      Uri.parse(urll),
     );
-
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
       print("resposed success explore");
-      return Photos.fromJson(jsonDecode(response.body));
+
+      final photos = json.decode(response.body);
+
+      List<Photos> vo = [];
+      for (var i in photos['photos']) {
+        vo.add(Photos.fromJson(i));
+      }
+
+      print('3ada');
+      return vo;
     } else {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,

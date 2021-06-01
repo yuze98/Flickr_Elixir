@@ -15,49 +15,89 @@ class ImageList extends StatefulWidget {
 
 class _ImageListState extends State<ImageList> {
   final List<String> imageList = [
-    'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
-    'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
-    'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
+    // 'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
+    // 'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
+    // 'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
+    //
   ];
   final List<String> profileImage = [
-    'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
-    'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
-    'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
+    // 'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg',
+    // 'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg',
+    // 'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5'
+    //
   ];
 
-  String userSecondName = "fathy";
-  int favCount = 100;
-  //String userComment = "mohamed ismail";
-  int comment = 0;
-  String userName = "yuze";
-  String title = "gamed fash5";
+  Future<List<Photos>> posts;
 
-  void PrepareExplore() async {
-    Photos posts = await FlickrRequestsAndResponses.GetExplore();
+  // String userSecondName = "fathy";
+  // String favCount = '100';
+  // //String userComment = "mohamed ismail";
+  // String comment = '100';
+  // String userName = "yuze";
+  // String title = "gamed fash5";
 
-    //final List<dynamic> exploreImages = [];
-    userName = posts.firstName;
-    userSecondName = posts.lastName;
-    title = posts.title;
-    favCount = posts.favoriteCount;
-    imageList.add(posts.url);
-  }
+  List<String> title = [];
+  List<String> favCount = [];
+  List<String> commentNum = [];
+  List<String> userSecondName = [];
+  List<String> userName = [];
 
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    // PrepareExplore();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    posts = FlickrRequestsAndResponses.GetExplore();
   }
+
+  // void PrepareExplore() async {
+  //   posts = FlickrRequestsAndResponses.GetExplore();
+  //
+  //   //final List<dynamic> exploreImages = [];
+  //   userName = posts.firstName;
+  //   userSecondName = posts.lastName;
+  //   title = posts.title;
+  //   favCount = posts.favoriteCount;
+  //   imageList.add(posts.url);
+  // }
 
   @override
   Widget build(BuildContext context) {
+    //posts = FlickrRequestsAndResponses.GetExplore();
+
     return SafeArea(
       child: Container(
-        child: ListView.builder(
-          itemCount: imageList.length,
-          itemBuilder: (context, index) => OuterInfo(context, index),
+        child: FutureBuilder<List<Photos>>(
+          future: posts,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Photos> data = snapshot.data;
+              for (var i in data) {
+                userName.add(i.firstName);
+                imageList.add(i.url);
+                profileImage.add(i.url);
+                userSecondName.add(i.lastName);
+                title.add(i.title);
+                favCount.add(i.favoriteCount);
+                commentNum.add(i.commentsNum);
+                print(i.favoriteCount);
+
+                print(i.url);
+              }
+              return ListView.builder(
+                itemCount: imageList.length,
+                itemBuilder: (context, index) => OuterInfo(context, index),
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            // By default show a loading spinner.
+            return CircularProgressIndicator();
+          },
         ),
+        // child: ListView.builder(
+        //   itemCount: imageList.length,
+        //   itemBuilder: (context, index) => OuterInfo(context, index),
+        // ),
       ),
     );
   }
@@ -110,14 +150,14 @@ class _ImageListState extends State<ImageList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$userName $userSecondName",
+                          "${userName[index]} ${userSecondName[index]}",
                           style: TextStyle(
                             fontSize: devSize.height * 0.03,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          "$title",
+                          "${title[index]}",
                           style: TextStyle(
                             fontSize: devSize.height * 0.025,
                           ),
@@ -202,7 +242,7 @@ class _ImageListState extends State<ImageList> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: devSize.width * 0.05),
-                    child: Text('$favCount faved',
+                    child: Text('${favCount[index]} faved',
                         style: TextStyle(
                             fontSize: devSize.height * 0.025,
                             fontWeight: FontWeight.bold)),
@@ -224,7 +264,7 @@ class _ImageListState extends State<ImageList> {
                 Padding(
                   padding: EdgeInsets.only(left: devSize.width * 0.05),
                   child: Text(
-                    '$comment commented',
+                    '${commentNum[index]} comments',
                     style: TextStyle(
                         fontSize: devSize.height * 0.025,
                         fontWeight: FontWeight.bold),

@@ -3,8 +3,8 @@ class Photos {
   final String title;
   final String firstName;
   final String lastName;
-  final int favoriteCount;
-  final int commentsNum;
+  final String favoriteCount;
+  final String commentsNum;
 
   Photos({
     this.url,
@@ -21,7 +21,7 @@ class Photos {
       firstName: json['creator']['firstName'],
       title: json['title'],
       lastName: json['creator']['lastName'],
-      favoriteCount: json['favoriteCount'],
+      favoriteCount: json['favouriteCount'],
       commentsNum: json['commentsNum'],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flickr/Components/CommentSection.dart';
 import 'package:flickr/Components/FavoritesSection.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +12,20 @@ class CommentsFavoritesNavigator extends StatefulWidget {
 
 class _CommentsFavoritesNavigatorState
     extends State<CommentsFavoritesNavigator> {
+  int commentsNum = 0;
+  int FavesNum = 0;
+  String photoName = "The dude's";
+
+  void CountsNav() async {
+    FavesNum = await FlickrRequestsAndResponses.getFollowers(
+        '5349b4ddd2781d08c09890f4');
+  }
+
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
-    int commentsNum = 0;
-    int FavesNum = 0;
-    String photoName = "The dude's";
+
+    CountsNav();
 
     return MaterialApp(
       home: Scaffold(
