@@ -1,8 +1,5 @@
-import 'package:flickr/Components/ImageList.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'CommentSection.dart';
 import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';

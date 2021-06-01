@@ -10,6 +10,7 @@ import 'Screens/SubProfile.dart';
 import 'Screens/ForgetPass.dart';
 import 'Screens/About.dart';
 import 'Screens/UserPage.dart';
+import 'package:flickr/Screens/Tags.dart';
 
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
 
@@ -22,7 +23,8 @@ void main() {
         'GetStarted': (context) => GetStarted(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         'LoginScreen': (context) => LoginScreen(),
-        'UserPage1': (context) => ImageDetails(),
+        'UploadDetails': (context) => ImageDetails(),
+        'Tags': (context) => Tags(),
         'signUp': (context) => Signup(),
         'UserPage': (context) => UserPage(),
         'about': (context) => AboutState(),

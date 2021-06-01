@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flickr/Components/ImageList.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Screens/Explore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
-import 'package:flickr/Essentials/CommonVars.dart';
+import 'dart:ui';
+import 'dart:convert';
 
 class UserPage extends StatefulWidget {
   @override
@@ -28,81 +30,75 @@ class _UserPage extends State<UserPage> {
     return Scaffold(
       body: DefaultTabController(
         length: 5,
-        child: CommonVars.hideAppBar
-            ? Null
-            : NestedScrollView(
-                headerSliverBuilder: (BuildContext context, bool Scroll) {
-                  return <Widget>[
-                    SliverOverlapAbsorber(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
-                      sliver: SliverSafeArea(
-                        top: false,
-                        sliver: SliverAppBar(
-                          // floating: true,
-                          toolbarHeight: deviceSizeheight * .05,
-                          backgroundColor: Colors.black,
-                          bottom: TabBar(
-                            indicatorColor: Colors.grey[800],
-                            unselectedLabelColor: Colors.grey[500],
-                            labelColor: Colors.grey[800],
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool Scroll) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverSafeArea(
+                  top: false,
+                  sliver: SliverAppBar(
+                    //  floating: true,
+                    toolbarHeight: deviceSizeheight * .05,
 
-                            // These are the widgets to put in each tab in the tab bar.
-                            tabs: [
-                              RawMaterialButton(
-                                child: Icon(
-                                  Icons.photo_size_select_actual_outlined,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              RawMaterialButton(
-                                child: Icon(
-                                  Icons.search,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              RawMaterialButton(
-                                child: Icon(
-                                  Icons.museum_rounded,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              RawMaterialButton(
-                                child: Icon(
-                                  Icons.notifications,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              RawMaterialButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: ((builder) =>
-                                        customisedBottomSheet(context)),
-                                  );
-                                },
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                            ],
+                    backgroundColor: Colors.black,
+                    bottom: TabBar(
+                      indicatorColor: Colors.grey[800],
+                      unselectedLabelColor: Colors.grey[500],
+                      labelColor: Colors.grey[800],
+
+                      // These are the widgets to put in each tab in the tab bar.
+                      tabs: [
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.photo_size_select_actual_outlined,
                           ),
                         ),
-                      ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.search,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.museum_rounded,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.notifications,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: ((builder) =>
+                                  customisedBottomSheet(context)),
+                            );
+                          },
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                          ),
+                        ),
+                      ],
                     ),
-                  ];
-                },
-                body: TabBarView(
-                    // These are the contents of the tab views, below the tabs.
-                    children: [
-                      ImageList(),
-                      Icon(Icons.search),
-                      SubProfile(photoFile: photoFile),
-                      Icon(Icons.notifications),
-                      Icon(Icons.camera),
-                    ]),
+                  ),
+                ),
               ),
+            ];
+          },
+          body: TabBarView(
+              // These are the contents of the tab views, below the tabs.
+              children: [
+                ImageList(),
+                Icon(Icons.public),
+                SubProfile(photoFile: photoFile),
+                Icon(Icons.album_sharp),
+                Icon(Icons.group),
+              ]),
+        ),
       ),
     );
   }
@@ -197,8 +193,44 @@ class _UserPage extends State<UserPage> {
   void photoTaker(ImageSource source) async {
     final token = await _picker.getImage(source: source);
     setState(() {
-      photoFile = token;
+      CommonVars.photoFile = token;
     });
+    Navigator.pushNamed(context, "LoadingScreen");
+    // Navigator.pushNamed(context, "Tags");
+
+    var baseUrl =
+        ("https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/photo/upload");
+/*{
+  "photo" : <binary data>,
+  "isPublic": true,
+  "title": "Cairo Tower",
+  "allowCommenting": true,
+   "title"
+  "description": "A photo of Cairo tower at the sunset"
+}*/
+    print(1);
+    var request = http.MultipartRequest('POST', Uri.parse(baseUrl));
+    print(2);
+    request.headers['photo'] = 'bearer jnklkm';
+    request.fields['isPublic'] = "true";
+    request.fields['allowCommenting'] = "true";
+    request.fields['title'] = "";
+    request.fields['description'] = "";
+    request.files.add(await http.MultipartFile.fromPath(
+        'ImagePaths', CommonVars.photoFile.path));
+    print(3);
+    var response = await request.send();
+    print(4);
+    print(response.stream);
+    print(response.statusCode);
+    final res = await http.Response.fromStream(response);
+    print(5);
+    print(res.body);
+    print(response.statusCode);
+    print(response);
+    Navigator.of(context).pop();
+    Navigator.pushNamed(context, "UploadDetails");
+
     // ConvertingPhoto();
   }
 } //assef gedan
