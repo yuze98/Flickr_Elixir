@@ -11,24 +11,50 @@ import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 
 class FlickrRequestsAndResponses {
-  static final String baseURL = 'https://api.qasaqees.tech';
+  static final String baseURL = 'https://api.qasaqees.tech/';
+  static Future<http.Response> logIn(final email, final password) async {
+    const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
-  static Future<int> changePassword(
-      final newPasswordController, final oldPasswordController) async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/changePassword?newPass=${newPasswordController.text}&oldPass=${oldPasswordController.text}';
-
-    var response = await http.post(Uri.parse(url), body: {
-      "newPass": "${newPasswordController.text}",
-      "oldPass": "${oldPasswordController.text}"
-    }, headers: {
-      'Authorization': 'Bearer asdasdkasdliuaslidas'
-    });
+    var jso = {
+      "email": "${email.text}",
+      "password": "${password.text}",
+    };
+    var url = '$baseURL/register/logIn';
+    var response = await http.post(
+      Uri.parse(baseURL),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(jso),
+    );
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
-    return response.statusCode;
+    return response;
+  }
+
+  static Future<http.Response> changePassword(
+      final newPasswordController, final oldPasswordController) async {
+    var url = "https://api.qasaqees.tech/register/changePassword";
+
+    var jso = {
+      'newPass': '${newPasswordController.text}',
+      'oldPass': '${oldPasswordController.text}'
+    };
+    print("heeeh");
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjYxMzIxYWZjNDFjMDAxMjJlZGI5NSIsImlhdCI6MTYyMjU4MjIwNywiZXhwIjoxNjIyNjY4NjA3fQ.nCb-Mk9kuyN4cvBsnFUewBhVLAV7TTZtfrVHBSm4_Oc'
+      },
+      body: jsonEncode(jso),
+    );
+
+    print('Response1 status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    return response;
   }
 
   static Future<int> getUserID() async {
@@ -81,6 +107,23 @@ class FlickrRequestsAndResponses {
     print("size is ${followers.length}");
     return followers.length;
   }
+
+/****************************************************************************/
+  static Future<int> signOutRequest() async {
+    var urll = 'https://api.qasaqees.tech';
+    var url = '$urll/register/logOut';
+
+    var response = await http.post(Uri.parse(url), headers: {
+      "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+    });
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    return response.statusCode;
+  }
+
+/**************************************************************************/
 
   static Future<int> SignupRequests(
       final contextCon,

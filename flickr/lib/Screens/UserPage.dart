@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'Explore.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
@@ -7,6 +8,7 @@ import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:ui';
 import 'dart:convert';
+import 'package:async/async.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -38,6 +40,7 @@ class _UserPage extends State<UserPage> {
                 sliver: SliverSafeArea(
                   top: false,
                   sliver: SliverAppBar(
+                    automaticallyImplyLeading: false,
                     //  floating: true,
                     toolbarHeight: deviceSizeheight * .05,
 
@@ -194,42 +197,30 @@ class _UserPage extends State<UserPage> {
     setState(() {
       CommonVars.photoFile = token;
     });
-    Navigator.pushNamed(context, "LoadingScreen");
-    // Navigator.pushNamed(context, "Tags");
 
-    var baseUrl =
-        ("https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/photo/upload");
-/*{
-  "photo" : <binary data>,
-  "isPublic": true,
-  "title": "Cairo Tower",
-  "allowCommenting": true,
-   "title"
-  "description": "A photo of Cairo tower at the sunset"
-}*/
-    print(1);
-    var request = http.MultipartRequest('POST', Uri.parse(baseUrl));
-    print(2);
-    request.headers['photo'] = 'bearer jnklkm';
+    const String baseURL = 'https://api.qasaqees.tech/photo/upload';
+
+    var request = http.MultipartRequest('POST', Uri.parse(baseURL));
+    request.headers['Authorization'] =
+        "Bearer ${CommonVars.loginRes["accessToken"]}";
     request.fields['isPublic'] = "true";
+    request.fields['title'] = "Cairo Tower";
     request.fields['allowCommenting'] = "true";
-    request.fields['title'] = "";
-    request.fields['description'] = "";
-    request.files.add(await http.MultipartFile.fromPath(
-        'ImagePaths', CommonVars.photoFile.path));
-    print(3);
-    var response = await request.send();
-    print(4);
-    print(response.stream);
-    print(response.statusCode);
-    final res = await http.Response.fromStream(response);
-    print(5);
-    print(res.body);
-    print(response.statusCode);
-    print(response);
-    Navigator.of(context).pop();
-    Navigator.pushNamed(context, "UploadDetails");
+    request.fields['tags'] = "kolya";
+    request.fields['safetyOption'] = "";
+    request.fields['description'] = "A photo of Cairo tower at the sunset";
+    request.files.add(
+        await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
+    var res = await request.send();
+    //ٍ  return res.reasonPhrase;
 
-    // ConvertingPhoto();
+    print('Response22 status: ${res.statusCode}');
+    var response = await http.Response.fromStream(res);
+
+    print('Response33 body: ${response.body}');
+
+    /*Navigator.of(context).pop();
+    Navigator.pushNamed(context, "UploadDetails");
+*/
   }
 } //assef gedan
