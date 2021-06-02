@@ -89,19 +89,20 @@ class FlickrRequestsAndResponses {
       final firstNameController,
       final secondNameController,
       final ageController) async {
-    var url =
-        '$baseURL/register/signUp?email=${emailController.text}&password=${passwordController.text}&firstname=${firstNameController.text}&lastname=${secondNameController.text}&age=${ageController.text}';
+    var urll = 'https://api.qasaqees.tech';
+    var url = '$urll/register/signUp';
 
-    var response = await http.post(
-      Uri.parse(url),
-      body: {
-        "email": "${emailController.text}",
-        "password": "${passwordController.text}",
-        "firstName": "${firstNameController.text}",
-        "lastName": "${secondNameController.text}",
-        "age": "${ageController.text}",
-      },
-    );
+    final bodyy = {
+      "email": "${emailController.text}",
+      "password": "${passwordController.text}",
+      "firstName": "${firstNameController.text}",
+      "lastName": "${secondNameController.text}",
+      "age": "${ageController.text}",
+    };
+
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}, body: jsonEncode(bodyy));
+
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
@@ -124,15 +125,17 @@ class FlickrRequestsAndResponses {
          Declined permissions: ${accessToken.declinedPermissions}
          ''');
         //sending access token to our server
-        var url =
-            '$baseURL/register/signUpWithFacebook?loginType=Facebook&accessToken=$accessToken';
+        var urll = 'https://api.qasaqees.tech';
+        var url = '$urll/register/signUpWithFacebook';
 
+        final bodyy = {
+          "loginType": "Facebook",
+          "accessToken": "${accessToken.token}",
+        };
         var response = await http.post(
           Uri.parse(url),
-          body: {
-            "loginType": "Facebook",
-            "accessToken": "$accessToken",
-          },
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(bodyy),
         );
         print('FB Response status: ${response.statusCode}');
         print('Response body: ${response.body}');
