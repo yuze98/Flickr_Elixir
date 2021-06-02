@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flickr/api/RequestAndResponses.dart';
-
 import 'Explore.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/material.dart';
