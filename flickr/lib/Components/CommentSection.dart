@@ -1,7 +1,11 @@
+import 'package:flickr/Models/PictureComments.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CommentsSection extends StatefulWidget {
+  final photoId;
+  CommentsSection({Key key, this.photoId}) : super(key: key);
   @override
   _CommentsSectionState createState() => _CommentsSectionState();
 }
@@ -16,29 +20,50 @@ class _CommentsSectionState extends State<CommentsSection> {
 
   List<Widget> commentsList = [];
 
-  void Comments() {
-    commentsList.add(CommentInfo(context, profilePic, userName, comment));
-  }
+  Future<List<PictureComments>> picComments;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Comments();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    picComments = FlickrRequestsAndResponses.GetComments(widget.photoId);
   }
 
   @override
   Widget build(BuildContext context) {
-    Comments();
+    commentsList.clear();
     return MaterialApp(
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: <Widget>[
             Container(
-              child: ListView.builder(
-                itemCount: commentsList.length,
-                itemBuilder: (context, index) => commentsList[index],
+              child: FutureBuilder<List<PictureComments>>(
+                future: picComments,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<PictureComments> data = snapshot.data;
+                    for (var i in data) {
+                      commentsList.add(
+                        CommentInfo(context, i.profilePhotoUrl,
+                            '${i.firstName} ${i.lastName}', i.commment),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: commentsList.length,
+                      itemBuilder: (context, index) => commentsList[index],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error} ");
+                  }
+                  // By default show a loading spinner.
+                  return CircularProgressIndicator();
+                },
               ),
+              // child: ListView.builder(
+              //   itemCount: commentsList.length,
+              //   itemBuilder: (context, index) => commentsList[index],
+              // ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -66,6 +91,8 @@ class _CommentsSectionState extends State<CommentsSection> {
                         ),
                         onPressed: () {
                           //send first to server then clear
+                          FlickrRequestsAndResponses.AddComment(
+                              widget.photoId, sendComment.text);
                           sendComment.clear();
                         },
                       ),

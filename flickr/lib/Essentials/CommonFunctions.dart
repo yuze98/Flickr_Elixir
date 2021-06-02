@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flickr/Components/ExploreDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
 
 class CommonFunctions {
   void showAlertDialog(BuildContext context, String imageList) {
@@ -40,32 +40,27 @@ class CommonFunctions {
     );
   }
 
-  void EditWithIcon(
-      BuildContext context, String title, bool isEditable, double fontSizing) {
+  Widget CommentsFunction(BuildContext context, String commentsNum,
+      String favCount, String userName) {
     // Create button
-    Widget okButton = Column(
-      children: <Widget>[
-        Text(
-          'LICENSE',
-          style: TextStyle(fontSize: fontSizing * 2, color: Colors.grey),
-        ),
-        IconButton(icon: Icon(Icons.edit), onPressed: () => {})
-      ],
-    );
 
-    AlertDialog alert = AlertDialog(
-      title: Text('$title'),
-      content: Text('Here will be a text Form'),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
+    return IconButton(
+      icon: Icon(
+        Icons.comment,
+        color: Colors.grey,
+      ),
+      tooltip: 'Open comment Section',
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CommentsFavoritesNavigator(
+              commentsNumber: commentsNum,
+              favoriteNumber: favCount,
+              userName: userName,
+            ),
+          ),
+        );
       },
     );
   }

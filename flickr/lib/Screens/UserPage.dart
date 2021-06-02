@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flickr/Components/ImageList.dart';
+import 'Explore.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
-import 'package:flickr/Screens/Explore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';

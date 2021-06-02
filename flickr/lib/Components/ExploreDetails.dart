@@ -1,3 +1,4 @@
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
@@ -5,9 +6,16 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
-  final String photoFile, profilePic, userName, title;
+  final String photoFile, profilePic, userName, title, commentNum, favCount;
+
   ExploreDetails(
-      {Key key, this.photoFile, this.profilePic, this.userName, this.title})
+      {Key key,
+      this.photoFile,
+      this.profilePic,
+      this.userName,
+      this.title,
+      this.favCount,
+      this.commentNum})
       : super(key: key);
 
   @override
@@ -122,27 +130,19 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         setState(
                           () {
                             hasPressed = !hasPressed;
+                            FlickrRequestsAndResponses.AddToFavorite(
+                                "60953562224d432a505e8d07");
                           },
                         );
                       },
                     ),
                   ),
                   Expanded(
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.comment,
-                        color: Colors.grey,
-                      ),
-                      tooltip: 'Open comment Section',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  CommentsFavoritesNavigator()),
-                        );
-                      },
-                    ),
+                    child: CommonFunctions().CommentsFunction(
+                        context,
+                        widget.commentNum,
+                        widget.favCount,
+                        '${widget.userName}'),
                   ),
                   Expanded(
                     child: IconButton(
