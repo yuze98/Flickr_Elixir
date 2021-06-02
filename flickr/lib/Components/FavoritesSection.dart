@@ -44,7 +44,8 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                       '${i.firstName} ${i.lastName}',
                       i.followersNum.toString(),
                       i.photosCount.toString(),
-                      k));
+                      k,
+                      i.id));
                   k++;
                 }
                 return ListView.builder(
@@ -64,7 +65,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   }
 
   Widget FollowerInfo(String profilePic, String userName, String followersNum,
-      String picNum, int index) {
+      String picNum, int index, String id) {
     var devSize = MediaQuery.of(context).size;
     return Center(
       child: Container(
@@ -99,6 +100,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                 ))),
                 onPressed: () {
                   //func follow
+                  FlickrRequestsAndResponses.FollowUser(id);
                   setState(() {
                     CommonVars.favoriteUsersFollow[index] =
                         !CommonVars.favoriteUsersFollow[index];

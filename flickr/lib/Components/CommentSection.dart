@@ -1,3 +1,4 @@
+import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
 import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';

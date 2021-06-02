@@ -512,4 +512,30 @@ class FlickrRequestsAndResponses {
     print(response.statusCode);
     print(response.body);
   }
+
+  static Future FollowUser(String userTobeFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeFollowed");
+
+    var urll = '$baseURL/user/followUser';
+
+    var bodyy = {'userId': userTobeFollowed};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success followed a user");
+    } else {
+      print("resposed failure cant Follow a user");
+
+      print(response.body);
+      throw Exception('Failed to load follow');
+    }
+  }
 }
