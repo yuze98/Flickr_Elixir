@@ -365,4 +365,64 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to load info of the pic');
     }
   }
+
+  /*******************************************************************************/
+
+  static Future<String> uploadImage() async {
+    const String baseURL = 'https://api.qasaqees.tech/photo/upload';
+
+    var request = http.MultipartRequest('POST', Uri.parse(baseURL));
+    request.headers['Authorization'] =
+        "Bearer ${CommonVars.loginRes["accessToken"]}";
+    request.fields['isPublic'] = "true";
+    request.fields['title'] = "Cairo Tower";
+    request.fields['allowCommenting'] = "true";
+    request.fields['tags'] = "kolya";
+    request.fields['safetyOption'] = "";
+    request.fields['description'] = "A photo of Cairo tower at the sunset";
+    request.files.add(
+        await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
+    var res = await request.send();
+    //ٍ  return res.reasonPhrase;
+
+    print('Response22 status: ${res.statusCode}');
+    var response = await http.Response.fromStream(res);
+
+    print('Response33 body: ${response.body}');
+    var body = jsonDecode(response.body);
+    return body["_id"];
+  }
+
+/*********************************************************************************/
+
+  static changeCoverPhoto(String id) async {
+    print("Coverrrrrrrrrrrrrrrrrrrrr");
+    const String baseURL = 'https://api.qasaqees.tech';
+    var urll = 'https://api.qasaqees.tech/user/editCoverPhoto';
+
+    var body = {"photoId": "60b7b5f81a80520012f3de2b"};
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+        },
+        body: jsonEncode(body));
+    print(response.body);
+  }
+
+  static profileCoverPhoto(String id) async {
+    print("profilleeeeeeeeeeeeeeeeeeee");
+    const String baseURL = 'https://api.qasaqees.tech';
+    var urll = 'https://api.qasaqees.tech/user/editProfilePhoto';
+
+    var body = {"photoId": id};
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+        },
+        body: jsonEncode(body));
+    print(response.statusCode);
+    print(response.body);
+  }
 }

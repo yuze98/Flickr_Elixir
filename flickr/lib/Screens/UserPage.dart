@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flickr/api/RequestAndResponses.dart';
+
 import 'Explore.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/material.dart';
@@ -105,34 +107,6 @@ class _UserPage extends State<UserPage> {
     );
   }
 
-  void convertingPhoto() async {
-    final bytes = await photoFile.readAsBytes();
-    sending(bytes);
-    print(bytes);
-  }
-
-  void sending(final bytes) async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/photo/upload?photo=$bytes&isPublic=true&title=Cairo Tower&allowCommenting=true&license=""&contentType=""&safetyOption=""&description=""';
-
-    var response = await http.post(Uri.parse(url), body: {
-      {
-        "photo":
-            "[255, 216, 255, 225, 1, 25, 69, 120, 105, 102, 0, 0, 77, 77, 0, 42, 0, 0, 0, 8, 0, 5, 1, 0, 0, 3, 0, 0, 0, 1, 4, 56, 0, 0, 1, 1, 0, 3, 0, 0, 0, 1, 9, 96, 0, 0, 1, 49, 0, 2, 0, 0, 0, 38, 0, 0, 0, 74, 135, 105, 0, 4, 0, 0, 0, 1, 0, 0, 0, 112, 1, 18, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 65, 110, 100, 114, 111, 105, 100, 32, 82, 80, 49, 65, 46, 50, 48, 48, 55, 50, 48, 46, 48, 49, 50, 46, 65, 53, 49, 53, 70, 88, 88, 85, 52, 68, 85, 66, 49, 0, 0, 4, 144, 3, 0, 2, 0, 0, 0, 20, 0, 0, 0, 166, 146, 145, 0, 2, 0, 0, 0, 4, 55, 48, 49, 0, 144, 17, 0, 2, 0, 0, 0, 7, 0, 0, 0, 186, 146, 8, 0, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 48, 50, 49, 58, 48, 53, 58, 48, 55, 32, 50, 50, 58, 48, 48, 58, 48, 52, 0, 43, 48, 50, 58, 48, 48, 0, 0, 3, 1, 0, 0, 3, 0, 0, 0, 1, 4, 56, 0, 0, 1, 49, 0, 2, 0, 0, 0, 38, 0, 0, 0, 235, 1, 1, 0, 3, 0, 0, 0, 1, 9, 96, 0, 0, 0, 0, 0, 0, 65, 110, 100, 114, 111, 105, 100, 32, 82, 80, 49, 65, 46, 50, 48, 48, 55, 50, 48, 46, 48, 49, 50, 46, 65, 53, 49, 53, 70, 88, 88, 85, 52, 68, 85, 66, 49, 0]",
-        "isPublic": "true",
-        "title": "Cairo Tower",
-        "allowCommenting": "true",
-        "license": "",
-        "contentType": "",
-        "safetyOption": "",
-        "description": "A photo of Cairo tower at the sunset"
-      }
-    });
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-  }
-
   Widget tempImage() {
     return Container(
       width: 100,
@@ -197,30 +171,6 @@ class _UserPage extends State<UserPage> {
     setState(() {
       CommonVars.photoFile = token;
     });
-
-    const String baseURL = 'https://api.qasaqees.tech/photo/upload';
-
-    var request = http.MultipartRequest('POST', Uri.parse(baseURL));
-    request.headers['Authorization'] =
-        "Bearer ${CommonVars.loginRes["accessToken"]}";
-    request.fields['isPublic'] = "true";
-    request.fields['title'] = "Cairo Tower";
-    request.fields['allowCommenting'] = "true";
-    request.fields['tags'] = "kolya";
-    request.fields['safetyOption'] = "";
-    request.fields['description'] = "A photo of Cairo tower at the sunset";
-    request.files.add(
-        await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
-    var res = await request.send();
-    //ٍ  return res.reasonPhrase;
-
-    print('Response22 status: ${res.statusCode}');
-    var response = await http.Response.fromStream(res);
-
-    print('Response33 body: ${response.body}');
-
-    /*Navigator.of(context).pop();
-    Navigator.pushNamed(context, "UploadDetails");
-*/
+    FlickrRequestsAndResponses.uploadImage();
   }
 } //assef gedan
