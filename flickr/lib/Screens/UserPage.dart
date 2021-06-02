@@ -4,6 +4,7 @@ import 'package:flickr/Screens/Explore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
+import 'SearchScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flickr/Essentials/CommonVars.dart';
 
@@ -97,7 +98,7 @@ class _UserPage extends State<UserPage> {
                     // These are the contents of the tab views, below the tabs.
                     children: [
                       ExploreScreen(),
-                      Icon(Icons.search),
+                      SearchScreen(),
                       SubProfile(photoFile: photoFile),
                       Icon(Icons.notifications),
                       Icon(Icons.camera),

@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:flickr/Screens/AlbumScreen.dart';
 import 'package:flutter/material.dart';
-import 'file:///D:/UNI%20STUFF/swproject/Flickr_Elixir/flickr/lib/Essentials/CommonVars.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'About.dart';
+import 'AlbumScreen.dart';
 
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
@@ -193,7 +195,7 @@ class _SubProfile extends State<SubProfile> {
                 AboutState(),
                 Icon(Icons.camera),
                 Icon(Icons.public),
-                Icon(Icons.album_sharp),
+                AlbumScreen(),
                 Icon(Icons.group),
               ]),
         ),
