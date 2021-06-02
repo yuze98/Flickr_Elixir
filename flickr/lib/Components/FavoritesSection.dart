@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
 
   @override
   Widget build(BuildContext context) {
+    //CommonVars.favoriteUsersFollow.clear();
     followersCard.clear();
     return MaterialApp(
       home: Scaffold(
@@ -34,13 +36,17 @@ class _FavoritesSectionState extends State<FavoritesSection> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<PictureFavorites> data = snapshot.data;
+                int k = 0;
                 for (var i in data) {
+                  CommonVars.favoriteUsersFollow.add(i.isFollowing);
                   followersCard.add(FollowerInfo(
                       i.profilePhoto,
                       '${i.firstName} ${i.lastName}',
-                      i.followersNum,
-                      i.photosCount,
-                      i.isFollowing));
+                      i.followersNum.toString(),
+                      i.photosCount.toString(),
+                      k,
+                      i.id));
+                  k++;
                 }
                 return ListView.builder(
                   itemCount: followersCard.length,
@@ -59,7 +65,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   }
 
   Widget FollowerInfo(String profilePic, String userName, String followersNum,
-      String picNum, bool isFollowed) {
+      String picNum, int index, String id) {
     var devSize = MediaQuery.of(context).size;
     return Center(
       child: Container(
@@ -94,15 +100,21 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                 ))),
                 onPressed: () {
                   //func follow
+                  FlickrRequestsAndResponses.FollowUser(id);
                   setState(() {
-                    isFollowed = !isFollowed;
-                    print(isFollowed);
+                    CommonVars.favoriteUsersFollow[index] =
+                        !CommonVars.favoriteUsersFollow[index];
+                    print(CommonVars.favoriteUsersFollow[index]);
                   });
                 },
                 child: Row(
                   children: <Widget>[
-                    Icon(isFollowed ? Icons.remove : Icons.add),
-                    isFollowed ? Text('Follwing') : Text('Follow'),
+                    Icon(CommonVars.favoriteUsersFollow[index]
+                        ? Icons.remove
+                        : Icons.add),
+                    CommonVars.favoriteUsersFollow[index]
+                        ? Text('Follwing')
+                        : Text('Follow'),
                   ],
                 ),
               )

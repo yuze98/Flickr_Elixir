@@ -307,15 +307,12 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<List<PictureFavorites>> GetFavoiteUsers(String picId) async {
-//5349b4ddd2781d08c09890f4
-
-    var urll = '$baseURL/photo/whoFavortied/:$picId';
+    var urll = '$baseURL/photo/whoFavorited/$picId';
 
     var response = await http.get(Uri.parse(urll), headers: {
       'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
     });
 
-    print(response.body);
     if (response.statusCode == 200) {
       //   print("resposed success favorite dudes");
 
@@ -386,7 +383,7 @@ class FlickrRequestsAndResponses {
       print("Email is");
       print(about);
       print(CommonVars.email);
-      print(CommonVars.numberOfPhotos);
+      // print(CommonVars.numberOfPhotos);
     } else {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
@@ -521,5 +518,31 @@ class FlickrRequestsAndResponses {
         body: jsonEncode(body));
     print(response.statusCode);
     print(response.body);
+  }
+
+  static Future FollowUser(String userTobeFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeFollowed");
+
+    var urll = '$baseURL/user/followUser';
+
+    var bodyy = {'userId': userTobeFollowed};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success followed a user");
+    } else {
+      print("resposed failure cant Follow a user");
+
+      print(response.body);
+      throw Exception('Failed to load follow');
+    }
   }
 }

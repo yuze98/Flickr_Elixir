@@ -37,6 +37,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
   bool albumBool = false;
   bool tagsBool = false;
   bool moreBool = false;
+  bool isUser = false;
 
   AboutPhotoModel aboutPic;
 
@@ -51,23 +52,27 @@ class _AboutPhotoState extends State<AboutPhoto> {
       tagList = aboutPic.tags;
       takenBy = '${aboutPic.firstName} ${aboutPic.lastName}';
       image = '${aboutPic.albumPic}';
+      if (widget.userId == CommonVars.userId) {
+        isUser = true;
+      } else {
+        isUser = false;
+      }
+      print("widget user ${widget.userId}");
+      print("commonvars user${CommonVars.userId}");
     });
   }
-
-  bool isUser = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.userId == CommonVars.userId ? isUser = true : isUser = false;
+
     prepareAbout();
   }
 
   @override
   Widget build(BuildContext context) {
     var devSize = MediaQuery.of(context).size;
-
     return MaterialApp(
         home: SafeArea(
       child: Scaffold(

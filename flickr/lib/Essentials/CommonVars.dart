@@ -39,6 +39,8 @@ class CommonVars {
 
   static List<bool> hasPressed = [];
 
+  static List<bool> favoriteUsersFollow = [];
+
   static const String album = 'Add to Album';
 
   static List<String> imageList = <String>[

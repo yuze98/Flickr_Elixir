@@ -126,7 +126,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
             ),
             Container(
               color: Color.fromRGBO(20, 2, 1, 0.1),
-              height: 0.1 * devSize.height,
+              height: 0.08 * devSize.height,
               width: double.infinity,
               child: Row(
                 children: <Widget>[
