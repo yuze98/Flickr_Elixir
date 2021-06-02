@@ -14,6 +14,7 @@ class CommonVars {
   static const String private = 'Private';
   static String userName = "";
   static bool hideAppBar = false;
+  static String userId = '';
   static int followings = -1;
   static int followers = -1;
   static String description = '';
@@ -27,6 +28,8 @@ class CommonVars {
     changePassword,
     signOut
   ];
+
+  static List<bool> hasPressed = [];
 
   static const String album = 'Add to Album';
 

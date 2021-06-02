@@ -309,12 +309,12 @@ class FlickrRequestsAndResponses {
 //5349b4ddd2781d08c09890f4
 
     var urll = '$baseURL/photo/whoFavortied/:$picId';
-    //picid 60953562224d432a505e8d07
 
     var response = await http.get(Uri.parse(urll), headers: {
       'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
     });
 
+    print(response.body);
     if (response.statusCode == 200) {
       print("resposed success favorite dudes");
 
@@ -331,7 +331,7 @@ class FlickrRequestsAndResponses {
       print("resposed failure favorite dudes");
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load get favorite');
     }
   }
 

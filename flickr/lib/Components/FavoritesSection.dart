@@ -20,8 +20,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    favPics =
-        FlickrRequestsAndResponses.GetFavoiteUsers('60953562224d432a505e8d07');
+    favPics = FlickrRequestsAndResponses.GetFavoiteUsers(widget.picId);
   }
 
   @override

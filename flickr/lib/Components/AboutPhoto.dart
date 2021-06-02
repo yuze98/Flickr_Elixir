@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +8,12 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flutter/rendering.dart';
 
 class AboutPhoto extends StatefulWidget {
-  final picId;
-  AboutPhoto({Key key, this.picId}) : super(key: key);
+  final picId, userId;
+  AboutPhoto({
+    Key key,
+    this.picId,
+    this.userId,
+  }) : super(key: key);
 
   @override
   _AboutPhotoState createState() => _AboutPhotoState();
@@ -49,17 +54,20 @@ class _AboutPhotoState extends State<AboutPhoto> {
     });
   }
 
+  bool isUser = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    widget.userId == CommonVars.userId ? isUser = true : isUser = false;
     prepareAbout();
   }
 
   @override
   Widget build(BuildContext context) {
     var devSize = MediaQuery.of(context).size;
-    bool isUser = false;
+
     return MaterialApp(
         home: SafeArea(
       child: Scaffold(

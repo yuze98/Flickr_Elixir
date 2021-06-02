@@ -1,4 +1,5 @@
 import 'package:flickr/Components/ExploreDetails.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'CommentsFavoritesNavigator.dart';
@@ -60,6 +61,7 @@ class _ImageListState extends State<ImageList> {
                 title.add(i.title);
                 favCount.add(i.favoriteCount.toString());
                 commentNum.add(i.commentsNum.toString());
+                CommonVars.hasPressed.add(false);
               }
               return ListView.builder(
                 itemCount: imageList.length,
@@ -111,6 +113,7 @@ class _ImageListState extends State<ImageList> {
                       title: title[index],
                       commentNum: commentNum[index].toString(),
                       favCount: favCount[index].toString(),
+                      hasPressed: CommonVars.hasPressed[index],
                     ),
                   ),
                 ),
@@ -165,15 +168,17 @@ class _ImageListState extends State<ImageList> {
                 child: IconButton(
                   icon: Icon(
                     Icons.favorite,
-                    color: hasPressed ? Colors.red : Colors.grey,
+                    color:
+                        CommonVars.hasPressed[index] ? Colors.red : Colors.grey,
                   ),
                   tooltip: 'Press Favorite',
                   onPressed: () {
                     setState(
                       () {
-                        hasPressed = !hasPressed;
+                        CommonVars.hasPressed[index] =
+                            !CommonVars.hasPressed[index];
 
-                        if (hasPressed)
+                        if (CommonVars.hasPressed[index])
                           FlickrRequestsAndResponses.AddToFavorite(
                               picId[index]);
                       },
