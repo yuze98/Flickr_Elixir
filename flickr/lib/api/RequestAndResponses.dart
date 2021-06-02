@@ -11,8 +11,7 @@ import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 
 class FlickrRequestsAndResponses {
-  static final String baseURL =
-      'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
+  static final String baseURL = 'https://api.qasaqees.tech';
 
   static Future<int> changePassword(
       final newPasswordController, final oldPasswordController) async {
@@ -157,10 +156,11 @@ class FlickrRequestsAndResponses {
 
   static Future<List<Photos>> GetExplore() async {
 //5349b4ddd2781d08c09890f4
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
 
-    var urll = '$tempBaseURL/photo/explore';
+    // var tempBaseURL =
+    //     'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
+
+    var urll = '$baseURL/photo/explore';
 
     var response = await http.get(
       Uri.parse(urll),
@@ -169,6 +169,7 @@ class FlickrRequestsAndResponses {
       print("resposed success explore");
 
       final photos = json.decode(response.body);
+      //print(photos['photos']['']);
 
       List<Photos> vo = [];
       for (var i in photos['photos']) {
@@ -185,17 +186,17 @@ class FlickrRequestsAndResponses {
     }
   }
 
-  static Future AddToFavorite(
-      /*String Authorization,*/ String photoIDFaved) async {
+  static Future AddToFavorite(String photoIDFaved) async {
 //5349b4ddd2781d08c09890f4
 
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
+    var url = '$baseURL/photo/addToFavorites';
 
-    var url = '$tempBaseURL/photo/addToFavorites';
-    var response = await http.post(Uri.parse(url),
-        body: {'photoId': '$photoIDFaved'},
-        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
+    final bodyy = {'photoId': '$photoIDFaved'};
+    var response =
+        await http.post(Uri.parse(url), body: jsonEncode(bodyy), headers: {
+      'Content-Type': 'application/json',
+      //'Authorization': 'Bearer ${CommonVars}'
+    });
 
     print(response.statusCode);
     if (response.statusCode == 200) {

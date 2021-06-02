@@ -1,12 +1,14 @@
 class Photos {
+  final String id;
   final String url;
   final String title;
   final String firstName;
   final String lastName;
-  final String favoriteCount;
-  final String commentsNum;
+  final int favoriteCount;
+  final int commentsNum;
 
   Photos({
+    this.id,
     this.url,
     this.firstName,
     this.title,
@@ -16,7 +18,9 @@ class Photos {
   });
 
   factory Photos.fromJson(Map<String, dynamic> json) {
+    print(json['favouriteCount']);
     return Photos(
+      id: json['_id'],
       url: json['url'],
       firstName: json['creator']['firstName'],
       title: json['title'],

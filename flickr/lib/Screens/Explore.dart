@@ -25,6 +25,7 @@ class _ImageListState extends State<ImageList> {
   List<String> commentNum = [];
   List<String> userSecondName = [];
   List<String> userName = [];
+  List<String> picId = [];
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _ImageListState extends State<ImageList> {
     userName.clear();
     imageList.clear();
     profileImage.clear();
+    picId.clear();
     return SafeArea(
       child: Container(
         child: FutureBuilder<List<Photos>>(
@@ -51,12 +53,13 @@ class _ImageListState extends State<ImageList> {
               List<Photos> data = snapshot.data;
               for (var i in data) {
                 userName.add(i.firstName);
+                picId.add(i.id);
                 imageList.add(i.url);
                 profileImage.add(i.url);
                 userSecondName.add(i.lastName);
                 title.add(i.title);
-                favCount.add(i.favoriteCount);
-                commentNum.add(i.commentsNum);
+                favCount.add(i.favoriteCount.toString());
+                commentNum.add(i.commentsNum.toString());
               }
               return ListView.builder(
                 itemCount: imageList.length,
@@ -101,12 +104,13 @@ class _ImageListState extends State<ImageList> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ExploreDetails(
+                      picId: picId[index],
                       photoFile: imageList[index],
                       profilePic: profileImage[index],
                       userName: '${userName[index]} ${userSecondName[index]}',
                       title: title[index],
-                      commentNum: commentNum[index],
-                      favCount: favCount[index],
+                      commentNum: commentNum[index].toString(),
+                      favCount: favCount[index].toString(),
                     ),
                   ),
                 ),
