@@ -4,8 +4,10 @@ class AboutPhotoModel {
   final bool isPublic;
   final String lastName;
   final String firstName;
+  final String albumPic;
 
   AboutPhotoModel({
+    this.albumPic,
     this.tags,
     this.title,
     this.lastName,
@@ -26,6 +28,7 @@ class AboutPhotoModel {
       isPublic: json['isPublic'],
       firstName: json['creator']['firstName'],
       lastName: json['creator']['lastName'],
+      albumPic: json['url'],
     );
   }
 }

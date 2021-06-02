@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,11 +8,12 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flutter/rendering.dart';
 
 class AboutPhoto extends StatefulWidget {
-  //final picId;
-  // AboutPhoto(
-  //       {Key key,
-  //       this.picId})
-  //       : super(key: key);
+  final picId, userId;
+  AboutPhoto({
+    Key key,
+    this.picId,
+    this.userId,
+  }) : super(key: key);
 
   @override
   _AboutPhotoState createState() => _AboutPhotoState();
@@ -21,15 +23,15 @@ class _AboutPhotoState extends State<AboutPhoto> {
   final titleController = TextEditingController();
   final tagsController = TextEditingController();
 
-  String title;
-  String takenBy = "fatoo7";
-  String tags = "beststuff";
+  String title = 'title';
+  String takenBy = "name";
+  String tags = "tag";
   String privacy = "Private";
   String image =
       'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg';
 
   List<String> privacyList = ["Public", "Private"];
-  List<String> tagList = ['Saye3tag', 'raheeb'];
+  List<String> tagList = ['tags'];
 
   bool tiitleBool = false;
   bool albumBool = false;
@@ -40,8 +42,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
 
   void prepareAbout() async {
     // Navigator.pushNamed(context, 'LoadingScreen');
-    aboutPic = await FlickrRequestsAndResponses.GetaboutPhoto(
-        '5349b4ddd2781d08c09890f4');
+    aboutPic = await FlickrRequestsAndResponses.GetaboutPhoto(widget.picId);
 
     //  Navigator.pop(context);
     setState(() {
@@ -49,20 +50,24 @@ class _AboutPhotoState extends State<AboutPhoto> {
       aboutPic.isPublic ? privacy = 'Public' : privacy = 'Private';
       tagList = aboutPic.tags;
       takenBy = '${aboutPic.firstName} ${aboutPic.lastName}';
+      image = '${aboutPic.albumPic}';
     });
   }
+
+  bool isUser = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    widget.userId == CommonVars.userId ? isUser = true : isUser = false;
     prepareAbout();
   }
 
   @override
   Widget build(BuildContext context) {
     var devSize = MediaQuery.of(context).size;
-    bool isUser = false;
+
     return MaterialApp(
         home: SafeArea(
       child: Scaffold(

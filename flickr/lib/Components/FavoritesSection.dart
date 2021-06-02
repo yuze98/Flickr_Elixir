@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 
 class FavoritesSection extends StatefulWidget {
+  final picId;
+  FavoritesSection({Key key, this.picId}) : super(key: key);
+
   @override
   _FavoritesSectionState createState() => _FavoritesSectionState();
 }
@@ -17,8 +20,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    favPics =
-        FlickrRequestsAndResponses.GetFavoiteUsers('60953562224d432a505e8d07');
+    favPics = FlickrRequestsAndResponses.GetFavoiteUsers(widget.picId);
   }
 
   @override

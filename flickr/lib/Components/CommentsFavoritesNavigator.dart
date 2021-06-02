@@ -5,9 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CommentsFavoritesNavigator extends StatefulWidget {
-  final String commentsNumber, favoriteNumber, userName;
+  final String commentsNumber, favoriteNumber, userName, picId;
   CommentsFavoritesNavigator(
-      {Key key, this.commentsNumber, this.favoriteNumber, this.userName})
+      {Key key,
+      this.commentsNumber,
+      this.favoriteNumber,
+      this.userName,
+      this.picId})
       : super(key: key);
   @override
   _CommentsFavoritesNavigatorState createState() =>
@@ -17,8 +21,6 @@ class CommentsFavoritesNavigator extends StatefulWidget {
 class _CommentsFavoritesNavigatorState
     extends State<CommentsFavoritesNavigator> {
   String photoName = "The dude's";
-
-  String picId = '60953562224d432a505e8d07';
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +86,11 @@ class _CommentsFavoritesNavigatorState
             body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                FavoritesSection(),
+                FavoritesSection(
+                  picId: widget.picId,
+                ),
                 CommentsSection(
-                  photoId: picId,
+                  photoId: widget.picId,
                 ),
               ],
             ),

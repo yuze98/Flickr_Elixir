@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,23 +7,33 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
-  final String photoFile, profilePic, userName, title, commentNum, favCount;
+  final String photoFile,
+      profilePic,
+      userName,
+      title,
+      commentNum,
+      favCount,
+      picId,
+      userId;
+  bool hasPressed;
 
   ExploreDetails(
       {Key key,
+      this.picId,
       this.photoFile,
       this.profilePic,
       this.userName,
       this.title,
       this.favCount,
-      this.commentNum})
+      this.commentNum,
+      this.hasPressed,
+      this.userId})
       : super(key: key);
 
   @override
   _ExploreDetailsState createState() => _ExploreDetailsState();
 }
 
-bool hasPressed = false;
 bool tapped = true;
 
 class _ExploreDetailsState extends State<ExploreDetails> {
@@ -123,15 +134,15 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                     child: IconButton(
                       icon: Icon(
                         Icons.favorite,
-                        color: hasPressed ? Colors.red : Colors.grey,
+                        color: widget.hasPressed ? Colors.red : Colors.grey,
                       ),
                       tooltip: 'Press Favorite',
                       onPressed: () {
                         setState(
                           () {
-                            hasPressed = !hasPressed;
+                            widget.hasPressed = !widget.hasPressed;
                             FlickrRequestsAndResponses.AddToFavorite(
-                                "60953562224d432a505e8d07");
+                                widget.picId);
                           },
                         );
                       },
@@ -142,7 +153,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         context,
                         widget.commentNum,
                         widget.favCount,
-                        '${widget.userName}'),
+                        '${widget.userName}',
+                        widget.picId),
                   ),
                   Expanded(
                     child: IconButton(
@@ -168,7 +180,9 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AboutPhoto()));
+                                builder: (context) => AboutPhoto(
+                                    picId: widget.picId,
+                                    userId: widget.userId)));
                       },
                     ),
                   ),
