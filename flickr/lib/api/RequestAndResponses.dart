@@ -573,4 +573,30 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to add tag');
     }
   }
+
+  static Future CreateAlbum(String albumTitle, String albumDescription) async {
+    var url = '$baseURL/album/createAlbum';
+
+    final bodyy = {"title": albumTitle, "description": albumDescription};
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("resposed success Album created");
+    } else {
+      print("responsed failure Album creation");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to create album');
+    }
+  }
 }
