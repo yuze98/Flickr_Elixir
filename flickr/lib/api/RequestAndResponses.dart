@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/FavoritesSection.dart';
+import 'package:flickr/Screens/ForgetPass.dart';
 import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
@@ -381,7 +382,7 @@ class FlickrRequestsAndResponses {
       print("our link is ${CommonVars.profilePhotoLink}");
 
       print("Email is");
-      print(about);
+      // print(about);
       print(CommonVars.email);
       // print(CommonVars.numberOfPhotos);
     } else {
@@ -469,11 +470,11 @@ class FlickrRequestsAndResponses {
     request.headers['Authorization'] =
         "Bearer ${CommonVars.loginRes["accessToken"]}";
     request.fields['isPublic'] = "true";
-    request.fields['title'] = "Cairo Tower";
+    request.fields['title'] = CommonVars.title;
     request.fields['allowCommenting'] = "true";
-    request.fields['tags'] = "kolya";
-    request.fields['safetyOption'] = "";
-    request.fields['description'] = "A photo of Cairo tower at the sunset";
+    request.fields['tags'] = CommonVars.tags;
+    request.fields['safetyOption'] = ""; //null
+    request.fields['description'] = CommonVars.description;
     request.files.add(
         await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
     var res = await request.send();
@@ -494,7 +495,7 @@ class FlickrRequestsAndResponses {
     const String baseURL = 'https://api.qasaqees.tech';
     var urll = 'https://api.qasaqees.tech/user/editCoverPhoto';
 
-    var body = {"photoId": "60b7b5f81a80520012f3de2b"};
+    var body = {"photoId": id};
     var response = await http.patch(Uri.parse(urll),
         headers: {
           "Content-Type": "application/json",

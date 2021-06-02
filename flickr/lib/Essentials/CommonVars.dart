@@ -23,6 +23,8 @@ class CommonVars {
   static String coverPhotoLink = "";
   static String email = '';
   static String occupation = '';
+  static bool loggedIn = false;
+  static String tags = "";
   static String city = '';
   static String hometown = '';
   static String created = '';

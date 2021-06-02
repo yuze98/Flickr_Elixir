@@ -85,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print(passLogin);
       if (passLogin == true) {
         setState(() {
+          CommonVars.loggedIn = true;
           CommonVars.userName = CommonVars.loginRes["user"]["firstName"] +
               " " +
               CommonVars.loginRes["user"]["lastName"];

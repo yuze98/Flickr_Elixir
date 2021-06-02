@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +27,9 @@ class _Tags extends State<Tags> {
           backgroundColor: Colors.black,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: Text(
             'Image Details ',
@@ -63,6 +66,7 @@ class _Tags extends State<Tags> {
                                 return;
                               }
                             }
+                            CommonVars.tags += tagController.text + ",";
                             tags.insert(0, tagController.text);
                           },
                         );

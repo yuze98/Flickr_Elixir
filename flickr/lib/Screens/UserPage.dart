@@ -172,6 +172,8 @@ class _UserPage extends State<UserPage> {
     setState(() {
       CommonVars.photoFile = token;
     });
-    FlickrRequestsAndResponses.uploadImage();
+
+    Navigator.pushNamed(context, 'UploadDetails');
+    // FlickrRequestsAndResponses.uploadImage();
   }
 } //assef gedan

@@ -268,6 +268,7 @@ class _SubProfile extends State<SubProfile> {
       FlickrRequestsAndResponses.changeCoverPhoto(id);
     else if (file == "profile")
       FlickrRequestsAndResponses.profileCoverPhoto(id);
+    FlickrRequestsAndResponses.GetAbout();
     Navigator.pop(context);
     Navigator.pushNamed(context, "UserPage");
     // ConvertingPhoto();
@@ -276,6 +277,7 @@ class _SubProfile extends State<SubProfile> {
   void movingTo(String destination) {
     setState(() {
       if (destination == CommonVars.signOut) {
+        CommonVars.loggedIn = false;
         FlickrRequestsAndResponses.signOutRequest();
         Navigator.pushNamedAndRemoveUntil(context, "GetStarted", (r) => false);
       }
