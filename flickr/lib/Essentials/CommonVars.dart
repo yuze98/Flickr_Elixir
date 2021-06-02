@@ -15,7 +15,6 @@ class CommonVars {
   static String userName = "";
   static String userId = "";
   static bool hideAppBar = false;
-  static String userId = '';
   static int followings = -1;
   static int followers = -1;
   static String description = '';
@@ -29,7 +28,6 @@ class CommonVars {
   static String created = '';
   static int numberOfPhotos;
   static Map<String, dynamic> loginRes;
-  static final title = '';
   static PickedFile photoFile;
   static const List<String> menu = <String>[
     notifications,

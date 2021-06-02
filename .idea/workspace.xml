@@ -22,10 +22,6 @@
     <list default="true" id="ae839a1b-693f-419e-bfb3-7e66ad4b846c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
