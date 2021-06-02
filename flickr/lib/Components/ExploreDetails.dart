@@ -6,10 +6,17 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
 class ExploreDetails extends StatefulWidget {
-  final String photoFile, profilePic, userName, title, commentNum, favCount;
+  final String photoFile,
+      profilePic,
+      userName,
+      title,
+      commentNum,
+      favCount,
+      picId;
 
   ExploreDetails(
       {Key key,
+      this.picId,
       this.photoFile,
       this.profilePic,
       this.userName,
@@ -142,7 +149,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         context,
                         widget.commentNum,
                         widget.favCount,
-                        '${widget.userName}'),
+                        '${widget.userName}',
+                        widget.picId),
                   ),
                   Expanded(
                     child: IconButton(
@@ -168,7 +176,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AboutPhoto()));
+                                builder: (context) =>
+                                    AboutPhoto(picId: widget.picId)));
                       },
                     ),
                   ),

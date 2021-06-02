@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flickr/Essentials/LoadingScreen.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:flickr/Screens/UploadDetails.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycl
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: 'UserPage',
+      initialRoute: 'GetStarted',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         'GetStarted': (context) => GetStarted(),
@@ -32,6 +33,7 @@ void main() {
         'about': (context) => AboutState(),
         'forgetPass': (context) => forgetPass(),
         'ChangePassword': (context) => ChangePassword(),
+        'LoadingScreen': (context) => LoadingScreen(),
       },
     ),
   );

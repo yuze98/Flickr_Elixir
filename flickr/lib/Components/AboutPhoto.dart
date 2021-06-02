@@ -1,10 +1,15 @@
+import 'package:flickr/Models/AboutPhotoModel.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flickr/Essentials/LoadingScreen.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flutter/rendering.dart';
 
 class AboutPhoto extends StatefulWidget {
+  final picId;
+  AboutPhoto({Key key, this.picId}) : super(key: key);
+
   @override
   _AboutPhotoState createState() => _AboutPhotoState();
 }
@@ -13,32 +18,48 @@ class _AboutPhotoState extends State<AboutPhoto> {
   final titleController = TextEditingController();
   final tagsController = TextEditingController();
 
-  String title;
-  String takenBy = "fatoo7";
-  String tags = "beststuff";
+  String title = 'title';
+  String takenBy = "name";
+  String tags = "tag";
   String privacy = "Private";
   String image =
       'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg';
 
   List<String> privacyList = ["Public", "Private"];
-  List<String> tagList = ['Saye3tag', 'raheeb'];
+  List<String> tagList = ['tags'];
 
   bool tiitleBool = false;
   bool albumBool = false;
   bool tagsBool = false;
   bool moreBool = false;
 
+  AboutPhotoModel aboutPic;
+
+  void prepareAbout() async {
+    // Navigator.pushNamed(context, 'LoadingScreen');
+    aboutPic = await FlickrRequestsAndResponses.GetaboutPhoto(widget.picId);
+
+    //  Navigator.pop(context);
+    setState(() {
+      title = aboutPic.title;
+      aboutPic.isPublic ? privacy = 'Public' : privacy = 'Private';
+      tagList = aboutPic.tags;
+      takenBy = '${aboutPic.firstName} ${aboutPic.lastName}';
+      image = '${aboutPic.albumPic}';
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    title = "title";
+    prepareAbout();
   }
 
   @override
   Widget build(BuildContext context) {
     var devSize = MediaQuery.of(context).size;
-    bool isUser = true;
+    bool isUser = false;
     return MaterialApp(
         home: SafeArea(
       child: Scaffold(
@@ -193,7 +214,6 @@ class _AboutPhotoState extends State<AboutPhoto> {
                               );
                             }),
                       ),
-
                       isUser
                           ? TextFormField(
                               enabled: tagsBool,
@@ -233,12 +253,6 @@ class _AboutPhotoState extends State<AboutPhoto> {
                               ),
                             )
                           : SizedBox(),
-                      // Text(
-                      //   '$tags',
-                      //   style: TextStyle(
-                      //       fontSize: devSize.height * 0.025,
-                      //       color: Colors.white),
-                      // ),
                     ],
                   ),
                 ),
