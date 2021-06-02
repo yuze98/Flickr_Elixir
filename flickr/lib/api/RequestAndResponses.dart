@@ -360,7 +360,6 @@ class FlickrRequestsAndResponses {
     }
   }
 
-
   static Future<String> GetAbout() async {
     var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
 
@@ -385,7 +384,9 @@ class FlickrRequestsAndResponses {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+    }
+    throw Exception('Failed to load album');
+  }
 
   //comment photo id 5349b4ddd2781d08c09890f4
   static Future<List<PictureComments>> GetComments(String picId) async {
