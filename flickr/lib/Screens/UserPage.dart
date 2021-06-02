@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'dart:ui';
 import 'dart:convert';
 import 'package:async/async.dart';
+import 'SearchScreen.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -98,7 +99,7 @@ class _UserPage extends State<UserPage> {
               // These are the contents of the tab views, below the tabs.
               children: [
                 ImageList(),
-                Icon(Icons.public),
+                SearchScreen(),
                 SubProfile(photoFile: photoFile),
                 Icon(Icons.album_sharp),
                 Icon(Icons.group),
