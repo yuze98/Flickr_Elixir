@@ -361,7 +361,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<String> GetAbout() async {
-    var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
+    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
 
     var response = await http.get(
       Uri.parse(url),
@@ -391,8 +391,8 @@ class FlickrRequestsAndResponses {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
       // then throw an exception.
+      throw Exception('Failed to load album');
     }
-    throw Exception('Failed to load album');
   }
 
   //comment photo id 5349b4ddd2781d08c09890f4
@@ -468,27 +468,33 @@ class FlickrRequestsAndResponses {
 
     var response = await http.get(
       Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      //  body: jsonEncode(body)
     );
-    if (response.statusCode == 200) {
-      print("resposed success explore");
 
-      final photoinfo = json.decode(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final cameralist = json.decode(response.body);
       //print(photos['photos']['']);
 
       List<CameraRollModel> vo = [];
-      for (var i in photoinfo['photos']) {
+      for (var i in cameralist['cameraRoll']) {
+        print(i);
         vo.add(CameraRollModel.fromJson(i));
       }
+      print("responsed camera success cameraaa rooll");
 
       //   print('3ada');
       return vo;
     } else {
-      print("responsed failure explore");
+      print("responsed camera failure cameraaa rooll");
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      }
-      throw Exception('Failed to load album');
-      }
+    }
+    throw Exception('Failed to load camera roll');
+  }
 
   /*******************************************************************************/
 

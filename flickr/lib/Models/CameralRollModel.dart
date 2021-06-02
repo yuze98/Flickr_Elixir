@@ -1,5 +1,6 @@
 class CameraRollModel {
-  final String id;
+  final String userID;
+  final String pictureID;
   final String url;
   final String title;
   final String firstName;
@@ -9,7 +10,8 @@ class CameraRollModel {
   final String profilePhotoUrl;
 
   CameraRollModel({
-    this.id,
+    this.userID,
+    this.pictureID,
     this.url,
     this.firstName,
     this.title,
@@ -22,7 +24,8 @@ class CameraRollModel {
   factory CameraRollModel.fromJson(Map<String, dynamic> json) {
     print(json['favouriteCount']);
     return CameraRollModel(
-      id: json['_id'],
+      userID: json['_id'],
+      pictureID: json['creator']['_id'],
       url: json['url'],
       profilePhotoUrl: json['creator']['profilePhotoUrl'],
       firstName: json['creator']['firstName'],
