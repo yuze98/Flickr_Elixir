@@ -15,7 +15,14 @@ class CommonVars {
   static bool hideAppBar = false;
   static int followings = -1;
   static int followers = -1;
-  static final description = '';
+  static String description = '';
+  static String email = '';
+  static String occupation = '';
+  static String city = '';
+  static String hometown = '';
+  static String created = '';
+  static int numberOfPhotos;
+
   static final title = '';
   static PickedFile photoFile;
   static const List<String> menu = <String>[

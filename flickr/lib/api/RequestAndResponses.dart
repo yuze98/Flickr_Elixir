@@ -170,7 +170,7 @@ class FlickrRequestsAndResponses {
         vo.add(Photos.fromJson(i));
       }
 
-      print('3ada');
+      //   print('3ada');
       return vo;
     } else {
       print("responsed failure explore");
@@ -217,7 +217,7 @@ class FlickrRequestsAndResponses {
         headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
 
     if (response.statusCode == 200) {
-      print("resposed success favorite dudes");
+      //   print("resposed success favorite dudes");
 
       final favorites = json.decode(response.body);
 
@@ -226,7 +226,7 @@ class FlickrRequestsAndResponses {
         vo.add(PictureFavorites.fromJson(i));
       }
 
-      print('3ada');
+      //print('3ada');
       return vo;
     } else {
       print("resposed failure favorite dudes");
@@ -253,6 +253,34 @@ class FlickrRequestsAndResponses {
     } else {
       print("resposed failure favorite dudes");
 
+      throw Exception('Failed to load album');
+    }
+  }
+
+  static Future<String> GetAbout() async {
+    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+    if (response.statusCode == 200) {
+      print("resposed success explore");
+
+      final about = json.decode(response.body);
+
+      CommonVars.email = about['user']['email'];
+      CommonVars.occupation = about['user']['occupation'];
+      CommonVars.city = about['user']['currentCity'];
+      CommonVars.hometown = about['user']['homeTown'];
+      CommonVars.created = about['user']['createdAt'];
+      CommonVars.numberOfPhotos = about['user']['numberOfPhotos'];
+      print("Email is");
+      print(CommonVars.email);
+      print(CommonVars.numberOfPhotos);
+    } else {
+      print("responsed failure explore");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
