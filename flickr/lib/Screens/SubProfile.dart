@@ -12,7 +12,9 @@ import 'about.dart';
 
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
-  SubProfile({Key key, @required this.photoFile}) : super(key: key);
+  String userId;
+  SubProfile({Key key, @required this.photoFile, this.userId})
+      : super(key: key);
   @override
   _SubProfile createState() => _SubProfile();
 }
@@ -262,7 +264,7 @@ class _SubProfile extends State<SubProfile> {
     Navigator.pop(context);
     Navigator.pushNamed(context, "LoadingScreen");
     String id = await FlickrRequestsAndResponses.uploadImage();
-    print(id);
+    // print(id);
 
     if (file == "cover")
       FlickrRequestsAndResponses.changeCoverPhoto(id);
@@ -293,7 +295,7 @@ class _SubProfile extends State<SubProfile> {
       if (destination == CommonVars.help) {
         launch('https://www.flickr.com/help/terms');
       }
-      print(destination);
+      // print(destination);
     });
   }
 }

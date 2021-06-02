@@ -57,8 +57,8 @@ class _AboutPhotoState extends State<AboutPhoto> {
       } else {
         isUser = false;
       }
-      print("widget user ${widget.userId}");
-      print("commonvars user${CommonVars.userId}");
+      // print("widget user ${widget.userId}");
+      // print("commonvars user${CommonVars.userId}");
     });
   }
 
@@ -237,6 +237,8 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                   onPressed: () {
                                     setState(
                                       () {
+                                        FlickrRequestsAndResponses.AddTags(
+                                            widget.picId, tagsController.text);
                                         for (var i = 0;
                                             i < tagList.length;
                                             i++) {

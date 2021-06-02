@@ -378,11 +378,11 @@ class FlickrRequestsAndResponses {
       CommonVars.profilePhotoLink = about['user']['profilePhotoUrl'];
       CommonVars.followings = about['user']['numberOfFollowings'];
       CommonVars.followers = about['user']['numberOfFollowers'];
-      print("our link is ${CommonVars.profilePhotoLink}");
+      // print("our link is ${CommonVars.profilePhotoLink}");
 
-      print("Email is");
-      print(about);
-      print(CommonVars.email);
+      // print("Email is");
+      // print(about);
+      //print(CommonVars.email);
       // print(CommonVars.numberOfPhotos);
     } else {
       print("responsed failure explore");
@@ -501,7 +501,7 @@ class FlickrRequestsAndResponses {
           "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
         },
         body: jsonEncode(body));
-    print(response.body);
+    // print(response.body);
   }
 
   static profileCoverPhoto(String id) async {
@@ -517,7 +517,7 @@ class FlickrRequestsAndResponses {
         },
         body: jsonEncode(body));
     print(response.statusCode);
-    print(response.body);
+    // print(response.body);
   }
 
   static Future FollowUser(String userTobeFollowed) async {
@@ -543,6 +543,33 @@ class FlickrRequestsAndResponses {
 
       print(response.body);
       throw Exception('Failed to load follow');
+    }
+  }
+
+  static Future AddTags(String picId, String tag) async {
+//5349b4ddd2781d08c09890f4
+
+    print("the picid tag $picId");
+    var urll = '$baseURL/photo/addTags/$picId';
+
+    var bodyy = {'tag': '$tag'};
+
+    var response = await http.patch(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success added tag");
+    } else {
+      print("resposed failure add tag");
+
+      print(response.body);
+      throw Exception('Failed to add tag');
     }
   }
 }
