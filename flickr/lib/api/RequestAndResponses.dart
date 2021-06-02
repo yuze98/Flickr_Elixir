@@ -8,6 +8,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flickr/Models/Photos.dart';
 import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flickr/Models/PictureComments.dart';
+import 'package:flickr/Models/AboutPhotoModel.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL =
@@ -289,6 +290,36 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load Comments');
+    }
+  }
+
+  static Future<AboutPhotoModel> GetaboutPhoto(String picId) async {
+//5349b4ddd2781d08c09890f4
+    var tempBaseURL =
+        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
+
+    var urll = '$tempBaseURL/photo/getDetails/';
+    //picid 5349b4ddd2781d08c09890f4
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'},
+        body: {'photoId': '$picId'});
+
+    if (response.statusCode == 200) {
+      print("resposed success fetched info of the pic");
+
+      final aboutPic = json.decode(response.body);
+
+      AboutPhotoModel vo = AboutPhotoModel.fromJson(aboutPic);
+
+      print(vo.title);
+      print('3ada');
+      return vo;
+    } else {
+      print("resposed failure info of the pic");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load info of the pic');
     }
   }
 }

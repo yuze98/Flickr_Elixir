@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flickr/Essentials/LoadingScreen.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:flickr/Screens/UploadDetails.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ void main() {
         'about': (context) => AboutState(),
         'forgetPass': (context) => forgetPass(),
         'ChangePassword': (context) => ChangePassword(),
+        'LoadingScreen': (context) => LoadingScreen(),
       },
     ),
   );
