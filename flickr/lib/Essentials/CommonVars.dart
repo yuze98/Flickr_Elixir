@@ -12,12 +12,12 @@ class CommonVars {
   static const String family = 'Family';
   static const String frdfam = 'Friends & Family';
   static const String private = 'Private';
-
+  static String userName = "";
   static bool hideAppBar = false;
   static int followings = -1;
   static int followers = -1;
-  static final description = '';
-  static final title = '';
+  static String description = '';
+  static String title = '';
   static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
   static const List<String> menu = <String>[

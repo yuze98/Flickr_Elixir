@@ -34,14 +34,17 @@
       <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Flutter/Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,22 +127,22 @@
     </state>
     <state x="592" y="218" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1622204525192" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1619208845859" />
-    <state width="1491" height="165" key="GridCell.Tab.0.bottom" timestamp="1622638135907">
+    <state width="1491" height="165" key="GridCell.Tab.0.bottom" timestamp="1622640753530">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="165" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622638135907" />
-    <state width="1491" height="165" key="GridCell.Tab.0.center" timestamp="1622638135907">
+    <state width="1491" height="165" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622640753530" />
+    <state width="1491" height="165" key="GridCell.Tab.0.center" timestamp="1622640753530">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="165" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622638135907" />
-    <state width="1491" height="165" key="GridCell.Tab.0.left" timestamp="1622638135907">
+    <state width="1491" height="165" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622640753530" />
+    <state width="1491" height="165" key="GridCell.Tab.0.left" timestamp="1622640753530">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="165" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622638135907" />
-    <state width="1491" height="165" key="GridCell.Tab.0.right" timestamp="1622638135907">
+    <state width="1491" height="165" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622640753530" />
+    <state width="1491" height="165" key="GridCell.Tab.0.right" timestamp="1622640753530">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="165" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622638135907" />
+    <state width="1491" height="165" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622640753530" />
     <state x="369" y="0" key="SettingsEditor" timestamp="1622568404356">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -153,5 +156,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="578" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1622220545343" />
+    <state x="475" y="11" width="586" height="801" key="find.popup" timestamp="1622640603331">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="475" y="11" width="586" height="801" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1622640603331" />
   </component>
 </project>

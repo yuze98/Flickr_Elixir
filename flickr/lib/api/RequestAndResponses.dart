@@ -109,6 +109,23 @@ class FlickrRequestsAndResponses {
     return followers.length;
   }
 
+/****************************************************************************/
+  static Future<int> signOutRequest() async {
+    var urll = 'https://api.qasaqees.tech';
+    var url = '$urll/register/logOut';
+
+    var response = await http.post(Uri.parse(url), headers: {
+      "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+    });
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    return response.statusCode;
+  }
+
+/**************************************************************************/
+
   static Future<int> SignupRequests(
       final contextCon,
       final passwordController,

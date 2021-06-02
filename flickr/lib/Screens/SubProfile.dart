@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flickr/api/RequestAndResponses.dart';
+
 import 'CameraRoll.dart';
 import 'Public.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +42,15 @@ class _SubProfile extends State<SubProfile> {
                 sliver: SliverSafeArea(
                   top: false,
                   sliver: SliverAppBar(
+                    automaticallyImplyLeading: false,
                     expandedHeight: 250,
                     //  floating: true,
                     pinned: true,
                     backgroundColor: Colors.white,
                     actions: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(right: deviceSizewidth * .8),
+                        padding: EdgeInsets.only(
+                            top: 40, right: deviceSizewidth * .8),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -138,7 +142,7 @@ class _SubProfile extends State<SubProfile> {
                               ),
                             ),
                             Text(
-                              'User 0',
+                              CommonVars.userName,
                               style: TextStyle(
                                   fontSize: 20.0, color: Colors.white),
                             ),
@@ -275,6 +279,7 @@ class _SubProfile extends State<SubProfile> {
   void movingTo(String destination) {
     setState(() {
       if (destination == CommonVars.signOut) {
+        FlickrRequestsAndResponses.signOutRequest();
         Navigator.pushNamedAndRemoveUntil(context, "GetStarted", (r) => false);
       }
       if (destination == CommonVars.changePassword) {

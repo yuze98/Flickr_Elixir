@@ -40,6 +40,7 @@ class _UserPage extends State<UserPage> {
                 sliver: SliverSafeArea(
                   top: false,
                   sliver: SliverAppBar(
+                    automaticallyImplyLeading: false,
                     //  floating: true,
                     toolbarHeight: deviceSizeheight * .05,
 
