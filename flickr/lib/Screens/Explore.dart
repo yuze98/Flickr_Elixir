@@ -55,7 +55,7 @@ class _ImageListState extends State<ImageList> {
                 userName.add(i.firstName);
                 picId.add(i.id);
                 imageList.add(i.url);
-                profileImage.add(i.url);
+                profileImage.add(i.profilePhotoUrl);
                 userSecondName.add(i.lastName);
                 title.add(i.title);
                 favCount.add(i.favoriteCount.toString());
@@ -175,7 +175,7 @@ class _ImageListState extends State<ImageList> {
 
                         if (hasPressed)
                           FlickrRequestsAndResponses.AddToFavorite(
-                              "60953562224d432a505e8d07");
+                              picId[index]);
                       },
                     );
                   },
@@ -186,7 +186,8 @@ class _ImageListState extends State<ImageList> {
                     context,
                     commentNum[index],
                     favCount[index],
-                    '${userName[index]} ${userSecondName[index]}'),
+                    '${userName[index]} ${userSecondName[index]}',
+                    picId[index]),
               ),
               Expanded(
                 child: IconButton(

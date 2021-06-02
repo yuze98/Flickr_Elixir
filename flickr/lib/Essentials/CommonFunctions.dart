@@ -41,7 +41,7 @@ class CommonFunctions {
   }
 
   Widget CommentsFunction(BuildContext context, String commentsNum,
-      String favCount, String userName) {
+      String favCount, String userName, String picId) {
     // Create button
 
     return IconButton(
@@ -58,6 +58,7 @@ class CommonFunctions {
               commentsNumber: commentsNum,
               favoriteNumber: favCount,
               userName: userName,
+              picId: picId,
             ),
           ),
         );

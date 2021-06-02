@@ -149,7 +149,8 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         context,
                         widget.commentNum,
                         widget.favCount,
-                        '${widget.userName}'),
+                        '${widget.userName}',
+                        widget.picId),
                   ),
                   Expanded(
                     child: IconButton(

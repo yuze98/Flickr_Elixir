@@ -44,7 +44,7 @@ class _SignupState extends State<Signup> {
   Future<Null> SingUpFB() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
-    int response = await FlickrRequestsAndResponses.Login(facebookSignIn);
+    int response = await FlickrRequestsAndResponses.SignUpFB(facebookSignIn);
 
     //checks if the user is already sign up
     if (response == 200) {

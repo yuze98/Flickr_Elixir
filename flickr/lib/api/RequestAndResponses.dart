@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/FavoritesSection.dart';
+import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
@@ -11,7 +12,7 @@ import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 
 class FlickrRequestsAndResponses {
-  static final String baseURL = 'https://api.qasaqees.tech/';
+  static final String baseURL = 'https://api.qasaqees.tech';
   static Future<http.Response> logIn(final email, final password) async {
     const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
@@ -152,7 +153,7 @@ class FlickrRequestsAndResponses {
     return response.statusCode;
   }
 
-  static Future<int> Login(final FacebookLogin facebookSignIn) async {
+  static Future<int> SignUpFB(final FacebookLogin facebookSignIn) async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
     int statusCode = 0;
 
@@ -197,6 +198,54 @@ class FlickrRequestsAndResponses {
     return statusCode;
   }
 
+  static Future<http.Response> LogInFB(
+      final FacebookLogin facebookSignIn) async {
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    int statusCode = 0;
+    var response;
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        print('''
+         Logged in!
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+        //sending access token to our server
+        var urll = 'https://api.qasaqees.tech';
+        var url = '$urll/register/loginWithFacebook';
+
+        final bodyy = {
+          "loginType": "Facebook",
+          "accessToken": "${accessToken.token}",
+        };
+
+        response = await http.post(
+          Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(bodyy),
+        );
+
+        print('FB Response status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        statusCode = response.statusCode;
+
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        print('Login cancelled by the user.');
+        await facebookSignIn.logOut();
+        break;
+      case FacebookLoginStatus.error:
+        print('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+    return response;
+  }
+
   static Future<List<Photos>> GetExplore() async {
 //5349b4ddd2781d08c09890f4
 
@@ -219,7 +268,6 @@ class FlickrRequestsAndResponses {
         vo.add(Photos.fromJson(i));
       }
 
-      print('3ada');
       return vo;
     } else {
       print("responsed failure explore");
@@ -235,11 +283,14 @@ class FlickrRequestsAndResponses {
     var url = '$baseURL/photo/addToFavorites';
 
     final bodyy = {'photoId': '$photoIDFaved'};
-    var response =
-        await http.post(Uri.parse(url), body: jsonEncode(bodyy), headers: {
-      'Content-Type': 'application/json',
-      //'Authorization': 'Bearer ${CommonVars}'
-    });
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -256,14 +307,13 @@ class FlickrRequestsAndResponses {
 
   static Future<List<PictureFavorites>> GetFavoiteUsers(String picId) async {
 //5349b4ddd2781d08c09890f4
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
 
-    var urll = '$tempBaseURL/photo/whoFavortied/:$picId';
+    var urll = '$baseURL/photo/whoFavortied/:$picId';
     //picid 60953562224d432a505e8d07
 
-    var response = await http.get(Uri.parse(urll),
-        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'});
+    var response = await http.get(Uri.parse(urll), headers: {
+      'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+    });
 
     if (response.statusCode == 200) {
       print("resposed success favorite dudes");
@@ -288,20 +338,23 @@ class FlickrRequestsAndResponses {
   static Future AddComment(String picId, String userComment) async {
 //5349b4ddd2781d08c09890f4
 
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
-
-    var urll = '$tempBaseURL/photo/:$picId/comment';
+    var urll = '$baseURL/photo/$picId/comment';
     //picid 60953562224d432a505e8d07
 
-    var response =
-        await http.post(Uri.parse(urll), body: {'comment': '$userComment'});
+    var bodyy = {'comment': '$userComment'};
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
 
     if (response.statusCode == 200) {
       print("resposed success Commented Awesome");
     } else {
-      print("resposed failure favorite dudes");
+      print("resposed failure comment dudes");
 
+      print(response.body);
       throw Exception('Failed to load album');
     }
   }
@@ -309,13 +362,16 @@ class FlickrRequestsAndResponses {
   //comment photo id 5349b4ddd2781d08c09890f4
   static Future<List<PictureComments>> GetComments(String picId) async {
 //5349b4ddd2781d08c09890f4
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
 
-    var urll = '$tempBaseURL/photo/getComments';
+    var urll = '$baseURL/photo/getComments';
 
-    var response =
-        await http.post(Uri.parse(urll), body: {"photoId": '$picId'});
+    final bodyy = {"photoId": '$picId'};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(bodyy));
 
     if (response.statusCode == 200) {
       print("resposed success Comments");
@@ -339,15 +395,19 @@ class FlickrRequestsAndResponses {
 
   static Future<AboutPhotoModel> GetaboutPhoto(String picId) async {
 //5349b4ddd2781d08c09890f4
-    var tempBaseURL =
-        'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
+//     var tempBaseURL =
+//         'https://9d3dd47b-be87-4e56-a7c3-be413e406700.mock.pstmn.io';
 
-    var urll = '$tempBaseURL/photo/getDetails/';
+    var urll = '$baseURL/photo/getDetails/';
     //picid 5349b4ddd2781d08c09890f4
 
+    final bodyy = {'photoId': '$picId'};
     var response = await http.post(Uri.parse(urll),
-        headers: {'Authorization': 'Bearer asdasdkasdliuaslidas'},
-        body: {'photoId': '$picId'});
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
 
     if (response.statusCode == 200) {
       print("resposed success fetched info of the pic");
