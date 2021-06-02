@@ -1,9 +1,11 @@
 import 'package:flickr/Screens/Public.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Components/ExploreDetails.dart';
+import '../Essentials/CommonVars.dart';
 
 class CameraRoll extends StatefulWidget {
   CameraRoll({Key key, this.title}) : super(key: key);
@@ -18,6 +20,16 @@ class _CameraRollState extends State<CameraRoll> {
   List<int> _selectedIndexList = List();
   bool _selectionMode = false;
   bool tapped = false;
+
+  void RollState() async {
+    await FlickrRequestsAndResponses.GetCameraRoll();
+  }
+
+  @override
+  void initState() {
+    RollState();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +62,6 @@ class _CameraRollState extends State<CameraRoll> {
         ],
       )),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   void _changeSelection({bool enable, int index}) {

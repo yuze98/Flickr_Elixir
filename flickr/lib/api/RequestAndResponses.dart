@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/FavoritesSection.dart';
+import 'package:flickr/Models/CameralRollModel.dart';
 import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
@@ -13,6 +14,7 @@ import 'package:flickr/Models/AboutPhotoModel.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL = 'https://api.qasaqees.tech';
+
   static Future<http.Response> logIn(final email, final password) async {
     const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
@@ -360,7 +362,6 @@ class FlickrRequestsAndResponses {
     }
   }
 
-
   static Future<String> GetAbout() async {
     var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
 
@@ -385,7 +386,9 @@ class FlickrRequestsAndResponses {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+    }
+    throw Exception('Failed to load album');
+  }
 
   //comment photo id 5349b4ddd2781d08c09890f4
   static Future<List<PictureComments>> GetComments(String picId) async {
@@ -452,6 +455,33 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load info of the pic');
+    }
+  }
+
+  static Future<List<CameraRollModel>> GetCameraRoll() async {
+    var url = '$baseURL/user/cameraRoll';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+    if (response.statusCode == 200) {
+      print("resposed success explore");
+
+      final photoinfo = json.decode(response.body);
+      //print(photos['photos']['']);
+
+      List<CameraRollModel> vo = [];
+      for (var i in photoinfo['photos']) {
+        vo.add(CameraRollModel.fromJson(i));
+      }
+
+      //   print('3ada');
+      return vo;
+    } else {
+      print("responsed failure explore");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
     }
   }
 }
