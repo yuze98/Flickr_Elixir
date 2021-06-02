@@ -27,6 +27,7 @@ class _ImageListState extends State<ImageList> {
   List<String> userSecondName = [];
   List<String> userName = [];
   List<String> picId = [];
+  List<String> userId = [];
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _ImageListState extends State<ImageList> {
     userName.clear();
     imageList.clear();
     profileImage.clear();
+    userId.clear();
     picId.clear();
     return SafeArea(
       child: Container(
@@ -63,6 +65,7 @@ class _ImageListState extends State<ImageList> {
                 title.add(i.title);
                 favCount.add(i.favoriteCount.toString());
                 commentNum.add(i.commentsNum.toString());
+                userId.add(i.userId);
                 CommonVars.hasPressed.add(false);
               }
               return ListView.builder(
@@ -116,6 +119,8 @@ class _ImageListState extends State<ImageList> {
                       commentNum: commentNum[index].toString(),
                       favCount: favCount[index].toString(),
                       hasPressed: CommonVars.hasPressed[index],
+                      userId: userId[index],
+                      //userId: ,
                     ),
                   ),
                 ),
