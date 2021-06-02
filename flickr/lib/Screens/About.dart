@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'dart:convert';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'RedirectAbPage.dart';
 import 'package:http/http.dart' as http;
+import '../Essentials/CommonVars.dart';
 
 class AboutState extends StatefulWidget {
   @override
@@ -28,12 +30,8 @@ class _AboutStateState extends State<AboutState> {
   }
 
   void emailaddress() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/user/about/5?userId=5349b4ddd2781d08c09890f4';
+    await FlickrRequestsAndResponses.GetAbout();
 
-    var response = await http.get(Uri.parse(url));
-    var decoded = jsonDecode(response.body)['email'];
-    email = decoded;
     //print('email is $email');
     // if (response.statusCode == 200) {
     //   Navigator.pop(context); // pop current page
@@ -57,18 +55,9 @@ class _AboutStateState extends State<AboutState> {
             MaterialPageRoute(builder: (context) => DescripData()),
           );
 
-          setState(() => descrip = result);
+          setState(() => CommonVars.description = result);
         }
         break;
-
-        // case 'address':
-        //   {
-        //     result = await Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => AddressData()),
-        //     );
-        //   }
-        // //  setState(() => address = result);
 
         break;
 
@@ -79,7 +68,7 @@ class _AboutStateState extends State<AboutState> {
             MaterialPageRoute(builder: (context) => Occupation()),
           );
         }
-        setState(() => occupation = result);
+        setState(() => CommonVars.occupation = result);
 
         break;
       case 'hometown':
@@ -89,7 +78,7 @@ class _AboutStateState extends State<AboutState> {
             MaterialPageRoute(builder: (context) => Hometown()),
           );
         }
-        setState(() => hometown = result);
+        setState(() => CommonVars.hometown = result);
 
         break;
 
@@ -100,7 +89,7 @@ class _AboutStateState extends State<AboutState> {
             MaterialPageRoute(builder: (context) => CurrentCity()),
           );
         }
-        setState(() => city = result);
+        setState(() => CommonVars.city = result);
 
         break;
 
@@ -120,8 +109,6 @@ class _AboutStateState extends State<AboutState> {
         }
         break;
     }
-
-    print('result is');
   }
 
   @override
@@ -156,7 +143,7 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: descrip,
+                            text: CommonVars.description,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -192,7 +179,7 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: email,
+                            text: CommonVars.email,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -228,7 +215,7 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: occupation,
+                            text: CommonVars.occupation,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -264,7 +251,7 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: city,
+                            text: CommonVars.city,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -300,7 +287,7 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: hometown,
+                            text: CommonVars.hometown,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -401,7 +388,7 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Date joined: \n\n" 'April 2021',
+                            text: "Date joined: \n\n" '${CommonVars.created}',
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -428,7 +415,8 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Number of Photos Uploaded: \n\n " "42",
+                            text: "Number of Photos Uploaded: \n\n "
+                                "${CommonVars.numberOfPhotos}",
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,
