@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +30,7 @@ class _ChangePassword extends State<ChangePassword> {
     return MaterialApp(
       title: 'Flickr',
       home: Scaffold(
-        resizeToAvoidBottomInset: false, //new line
+        //resizeToAvoidBottomInset: false, //new line
 
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -42,158 +44,160 @@ class _ChangePassword extends State<ChangePassword> {
           ),
           toolbarHeight: deviceSizeheight * .1,
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Enter old Password",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.blue),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: deviceSizewidth * .9,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: TextFormField(
+                    validator: validateOldPassword,
+                    controller: oldPasswordController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: EdgeInsets.all(25),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                      ),
+                      hintText: 'Old Password',
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Enter New Password",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.blue),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: deviceSizewidth * .9,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: TextFormField(
+                    validator: validateNewPassword,
+                    controller: newPasswordController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: EdgeInsets.all(25),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                      ),
+                      hintText: 'New Password',
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Confirm Password",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.blue),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: deviceSizewidth * .9,
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: TextFormField(
+                    validator: validateConfirmPassword,
+                    controller: confirmPasswordController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      contentPadding: EdgeInsets.all(25),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                      ),
+                      hintText: 'Confirm Password',
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: deviceSizeheight * .15),
                 child: Container(
-                  child: Text(
-                    "Enter old Password",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.blue),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: deviceSizewidth * .9,
-              child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: TextFormField(
-                  validator: validateOldPassword,
-                  controller: oldPasswordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    contentPadding: EdgeInsets.all(25),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(10.0),
+                  width: deviceSizewidth * .8,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(deviceSizewidth * .5),
+                          side: BorderSide(color: Colors.white),
+                        ),
                       ),
                     ),
-                    hintText: 'Old Password',
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  child: Text(
-                    "Enter New Password",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.blue),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: deviceSizewidth * .9,
-              child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: TextFormField(
-                  validator: validateNewPassword,
-                  controller: newPasswordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    contentPadding: EdgeInsets.all(25),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(10.0),
-                      ),
-                    ),
-                    hintText: 'New Password',
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  child: Text(
-                    "Confirm Password",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.blue),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: deviceSizewidth * .9,
-              child: Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: TextFormField(
-                  validator: validateConfirmPassword,
-                  controller: confirmPasswordController,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    contentPadding: EdgeInsets.all(25),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(10.0),
-                      ),
-                    ),
-                    hintText: 'Confirm Password',
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: deviceSizeheight * .15),
-              child: Container(
-                width: deviceSizewidth * .8,
-                child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(deviceSizewidth * .5),
-                        side: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
+                    onPressed: () {
 //                      primary:
-                    changePassword();
-                    //                    Colors.deepOrange;
-                    print('Pressed');
-                  },
-                  child: Text(
-                    'Confirm',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      color: Colors.white,
+                      changePassword();
+                      //                    Colors.deepOrange;
+                      print('Pressed');
+                    },
+                    child: Text(
+                      'Confirm',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         backgroundColor: Colors.white,
       ),
@@ -255,12 +259,13 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   void changePassword() async {
-    int statusCode = await FlickrRequestsAndResponses.changePassword(
+    var response = await FlickrRequestsAndResponses.changePassword(
         newPasswordController, oldPasswordController);
-    if (statusCode == 200) {
+    var body = jsonDecode(response.body)["message"];
+    if (response.statusCode == 200) {
       showAlertDialog(context, validateConfirm());
     } else {
-      showAlertDialog(context, 'Enter valid parameters');
+      showAlertDialog(context, body);
     }
   }
 

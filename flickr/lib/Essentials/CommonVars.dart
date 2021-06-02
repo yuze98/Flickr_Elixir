@@ -1,4 +1,5 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class CommonVars {
   static const String notifications = 'Notifications';
@@ -11,6 +12,7 @@ class CommonVars {
   static int followers = -1;
   static final description = '';
   static final title = '';
+  static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
   static const List<String> menu = <String>[
     notifications,

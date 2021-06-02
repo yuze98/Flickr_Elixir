@@ -88,23 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void sending() async {
-    const String baseURL =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
-
-    var url =
-        '$baseURL/register/logIn?email=${emailController.text}&password=${passwordController.text}';
-    var response = await http.post(
-      Uri.parse(url),
-      body: {
-        "email": "${emailController.text}",
-        "password": "${passwordController.text}",
-      },
-    );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
     var passLogin;
 
+    var response = await FlickrRequestsAndResponses.logIn(
+        emailController, passwordController);
+    setState(() {
+      CommonVars.loginRes = jsonDecode(response.body);
+    });
     if (response.statusCode == 200) {
       passLogin = true;
       // showAlertDialog(context, validateubmit());
@@ -116,10 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (passwordCheck && emailCheck) {
       print(passLogin);
       if (passLogin == true) {
-        CommonVars.followers = await FlickrRequestsAndResponses.getFollowings(
-            '5349b4ddd2781d08c09890f4');
-        CommonVars.followings = await FlickrRequestsAndResponses.getFollowers(
-            '5349b4ddd2781d08c09890f4');
+        CommonVars.followers = CommonVars.loginRes["user"]["numberOfFollowers"];
+        CommonVars.followings =
+            CommonVars.loginRes["user"]["numberOfFollowings"];
 
         Navigator.pop(context);
         Navigator.pushNamed(context, "UserPage");
@@ -401,7 +390,7 @@ String validateEmail(String value) {
 }
 
 String validatePassword(String value) {
-  Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+  Pattern pattern = r"^(?=.*[A-Za-z]*)(?=.*\d)[A-Za-z\d]{8,}$";
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
     passwordCheck = false;
