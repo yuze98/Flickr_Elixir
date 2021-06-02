@@ -24,6 +24,7 @@ class _UserPage extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
+    FlickrRequestsAndResponses.GetAbout();
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;

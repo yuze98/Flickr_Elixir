@@ -19,8 +19,8 @@ class CommonVars {
   static int followers = -1;
   static String description = '';
   static String title = '';
-  static String profilePhotoLink = '';
-  static String coverPhotoLink = '';
+  static String profilePhotoLink = "";
+  static String coverPhotoLink = "";
   static String email = '';
   static String occupation = '';
   static String city = '';

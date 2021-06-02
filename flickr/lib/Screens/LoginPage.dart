@@ -84,17 +84,21 @@ class _LoginScreenState extends State<LoginScreen> {
     if (passwordCheck && emailCheck) {
       print(passLogin);
       if (passLogin == true) {
-        CommonVars.userName = CommonVars.loginRes["user"]["firstName"] +
-            " " +
-            CommonVars.loginRes["user"]["lastName"];
-        CommonVars.profilePhotoLink =
-            CommonVars.loginRes["user"]["profilePhotoUrl"];
-        CommonVars.coverPhotoLink =
-            CommonVars.loginRes["user"]["coverPhotoUrl"];
-        CommonVars.followers = CommonVars.loginRes["user"]["numberOfFollowers"];
-        CommonVars.followings =
-            CommonVars.loginRes["user"]["numberOfFollowings"];
-        CommonVars.userId = CommonVars.loginRes["user"]["_id"];
+        setState(() {
+          CommonVars.userName = CommonVars.loginRes["user"]["firstName"] +
+              " " +
+              CommonVars.loginRes["user"]["lastName"];
+          CommonVars.profilePhotoLink =
+              CommonVars.loginRes["user"]["profilePhotoUrl"];
+          CommonVars.coverPhotoLink =
+              CommonVars.loginRes["user"]["coverPhotoUrl"];
+          CommonVars.followers =
+              CommonVars.loginRes["user"]["numberOfFollowers"];
+          CommonVars.followings =
+              CommonVars.loginRes["user"]["numberOfFollowings"];
+          CommonVars.userId = CommonVars.loginRes["user"]["_id"];
+        });
+
         Navigator.pop(context);
         Navigator.pushNamed(context, "UserPage");
       } else {

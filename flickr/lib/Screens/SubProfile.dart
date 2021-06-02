@@ -122,7 +122,7 @@ class _SubProfile extends State<SubProfile> {
                                         CommonVars.profilePhotoLink == null
                                             ? AssetImage('images/photo1.jpg')
                                             : NetworkImage(
-                                                CommonVars.coverPhotoLink),
+                                                CommonVars.profilePhotoLink),
                                     radius: 35.0,
                                   ),
                                   Positioned(

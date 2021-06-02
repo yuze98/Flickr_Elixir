@@ -361,7 +361,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<String> GetAbout() async {
-    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
+    var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
 
     var response = await http.get(
       Uri.parse(url),
@@ -377,7 +377,14 @@ class FlickrRequestsAndResponses {
       CommonVars.hometown = about['user']['homeTown'];
       CommonVars.created = about['user']['createdAt'];
       CommonVars.numberOfPhotos = about['user']['numberOfPhotos'];
+      CommonVars.coverPhotoLink = about['user']['coverPhotoUrl'];
+      CommonVars.profilePhotoLink = about['user']['profilePhotoUrl'];
+      CommonVars.followings = about['user']['numberOfFollowings'];
+      CommonVars.followers = about['user']['numberOfFollowers'];
+      print("our link is ${CommonVars.profilePhotoLink}");
+
       print("Email is");
+      print(about);
       print(CommonVars.email);
       print(CommonVars.numberOfPhotos);
     } else {
