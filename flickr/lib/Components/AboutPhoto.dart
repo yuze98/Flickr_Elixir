@@ -54,7 +54,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
     });
   }
 
-  bool isUser = false;
+  bool isUser;
 
   @override
   void initState() {

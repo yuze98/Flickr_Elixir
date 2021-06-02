@@ -32,11 +32,13 @@ class _ImageListState extends State<ImageList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    posts = FlickrRequestsAndResponses.GetExplore();
+    // posts = FlickrRequestsAndResponses.GetExplore();
   }
 
   @override
   Widget build(BuildContext context) {
+    posts = FlickrRequestsAndResponses.GetExplore();
+
     title.clear();
     favCount.clear();
     commentNum.clear();

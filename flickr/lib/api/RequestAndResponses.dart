@@ -307,15 +307,12 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<List<PictureFavorites>> GetFavoiteUsers(String picId) async {
-//5349b4ddd2781d08c09890f4
-
-    var urll = '$baseURL/photo/whoFavortied/:$picId';
+    var urll = '$baseURL/photo/whoFavorited/$picId';
 
     var response = await http.get(Uri.parse(urll), headers: {
       'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
     });
 
-    print(response.body);
     if (response.statusCode == 200) {
       //   print("resposed success favorite dudes");
 
@@ -379,7 +376,7 @@ class FlickrRequestsAndResponses {
       CommonVars.numberOfPhotos = about['user']['numberOfPhotos'];
       print("Email is");
       print(CommonVars.email);
-      print(CommonVars.numberOfPhotos);
+      // print(CommonVars.numberOfPhotos);
     } else {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,

@@ -38,8 +38,8 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                   followersCard.add(FollowerInfo(
                       i.profilePhoto,
                       '${i.firstName} ${i.lastName}',
-                      i.followersNum,
-                      i.photosCount,
+                      i.followersNum.toString(),
+                      i.photosCount.toString(),
                       i.isFollowing));
                 }
                 return ListView.builder(
