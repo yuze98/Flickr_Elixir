@@ -31,12 +31,6 @@ class _AboutStateState extends State<AboutState> {
 
   void emailaddress() async {
     await FlickrRequestsAndResponses.GetAbout();
-
-    //print('email is $email');
-    // if (response.statusCode == 200) {
-    //   Navigator.pop(context); // pop current page
-    //   Navigator.pushNamed(context, "UserPage");
-    // }
   }
 
   @override
