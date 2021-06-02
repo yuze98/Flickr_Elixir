@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,9 @@ class ExploreDetails extends StatefulWidget {
       title,
       commentNum,
       favCount,
-      picId;
+      picId,
+      userId;
+  bool hasPressed;
 
   ExploreDetails(
       {Key key,
@@ -22,14 +25,15 @@ class ExploreDetails extends StatefulWidget {
       this.userName,
       this.title,
       this.favCount,
-      this.commentNum})
+      this.commentNum,
+      this.hasPressed,
+      this.userId})
       : super(key: key);
 
   @override
   _ExploreDetailsState createState() => _ExploreDetailsState();
 }
 
-bool hasPressed = false;
 bool tapped = true;
 
 class _ExploreDetailsState extends State<ExploreDetails> {
@@ -122,7 +126,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
             ),
             Container(
               color: Color.fromRGBO(20, 2, 1, 0.1),
-              height: 0.1 * devSize.height,
+              height: 0.08 * devSize.height,
               width: double.infinity,
               child: Row(
                 children: <Widget>[
@@ -130,15 +134,15 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                     child: IconButton(
                       icon: Icon(
                         Icons.favorite,
-                        color: hasPressed ? Colors.red : Colors.grey,
+                        color: widget.hasPressed ? Colors.red : Colors.grey,
                       ),
                       tooltip: 'Press Favorite',
                       onPressed: () {
                         setState(
                           () {
-                            hasPressed = !hasPressed;
+                            widget.hasPressed = !widget.hasPressed;
                             FlickrRequestsAndResponses.AddToFavorite(
-                                "60953562224d432a505e8d07");
+                                widget.picId);
                           },
                         );
                       },
@@ -176,8 +180,9 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    AboutPhoto(picId: widget.picId)));
+                                builder: (context) => AboutPhoto(
+                                    picId: widget.picId,
+                                    userId: widget.userId)));
                       },
                     ),
                   ),

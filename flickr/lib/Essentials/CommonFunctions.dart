@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/ExploreDetails.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Components/CommentsFavoritesNavigator.dart';

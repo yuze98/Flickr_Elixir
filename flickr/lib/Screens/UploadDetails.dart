@@ -1,3 +1,5 @@
+import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -11,12 +13,13 @@ class _ImageDetails extends State<ImageDetails> {
   // This widget is the root of your application.
   bool descriptionBool = false;
   bool titleBool = false;
+  final descriptionController = TextEditingController();
+  final titleController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
-    final descriptionController = TextEditingController();
-    final titleController = TextEditingController();
 
     return MaterialApp(
       title: 'Flickr',
@@ -30,6 +33,14 @@ class _ImageDetails extends State<ImageDetails> {
             IconButton(
               icon: Icon(Icons.navigate_next, color: Colors.white),
               onPressed: () {
+                setState(() {
+                  CommonVars.title = titleController.text;
+                  CommonVars.description = descriptionController.text;
+                  Navigator.pushNamed(context, 'LoadingScreen');
+                  FlickrRequestsAndResponses.uploadImage();
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, 'UserPage');
+                });
                 uploadPhoto();
               },
             ),

@@ -13,18 +13,23 @@ class CommonVars {
   static const String frdfam = 'Friends & Family';
   static const String private = 'Private';
   static String userName = "";
+  static String userId = "";
   static bool hideAppBar = false;
   static int followings = -1;
   static int followers = -1;
   static String description = '';
+  static String title = '';
+  static String profilePhotoLink = "";
+  static String coverPhotoLink = "";
   static String email = '';
   static String occupation = '';
+  static bool loggedIn = false;
+  static String tags = "";
   static String city = '';
   static String hometown = '';
   static String created = '';
   static int numberOfPhotos;
   static Map<String, dynamic> loginRes;
-  static final title = '';
   static PickedFile photoFile;
   static const List<String> menu = <String>[
     notifications,
@@ -33,6 +38,10 @@ class CommonVars {
     changePassword,
     signOut
   ];
+
+  static List<bool> hasPressed = [];
+
+  static List<bool> favoriteUsersFollow = [];
 
   static const String album = 'Add to Album';
 

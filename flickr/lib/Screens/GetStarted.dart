@@ -146,7 +146,10 @@ class _GetstartedState extends State<GetStarted> {
                       onPressed: () {
                         print(context);
                         // menu.yes = false;
-                        Navigator.pushNamed(context, "LoginScreen");
+                        if (CommonVars.loggedIn)
+                          Navigator.pushNamed(context, "UserPage");
+                        else
+                          Navigator.pushNamed(context, "LoginScreen");
                       },
                     ),
                   ),

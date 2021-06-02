@@ -7,6 +7,7 @@ class Photos {
   final int favoriteCount;
   final int commentsNum;
   final String profilePhotoUrl;
+  final String userId;
 
   Photos({
     this.id,
@@ -17,6 +18,7 @@ class Photos {
     this.favoriteCount,
     this.commentsNum,
     this.profilePhotoUrl,
+    this.userId,
   });
 
   factory Photos.fromJson(Map<String, dynamic> json) {
@@ -30,6 +32,7 @@ class Photos {
       lastName: json['creator']['lastName'],
       favoriteCount: json['favouriteCount'],
       commentsNum: json['commentsNum'],
+      userId: json['creator']['_id'],
     );
   }
 }

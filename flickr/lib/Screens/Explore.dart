@@ -1,4 +1,5 @@
 import 'package:flickr/Components/ExploreDetails.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'CommentsFavoritesNavigator.dart';
@@ -26,16 +27,19 @@ class _ImageListState extends State<ImageList> {
   List<String> userSecondName = [];
   List<String> userName = [];
   List<String> picId = [];
+  List<String> userId = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    posts = FlickrRequestsAndResponses.GetExplore();
+    // posts = FlickrRequestsAndResponses.GetExplore();
   }
 
   @override
   Widget build(BuildContext context) {
+    posts = FlickrRequestsAndResponses.GetExplore();
+
     title.clear();
     favCount.clear();
     commentNum.clear();
@@ -43,6 +47,7 @@ class _ImageListState extends State<ImageList> {
     userName.clear();
     imageList.clear();
     profileImage.clear();
+    userId.clear();
     picId.clear();
     return SafeArea(
       child: Container(
@@ -60,6 +65,8 @@ class _ImageListState extends State<ImageList> {
                 title.add(i.title);
                 favCount.add(i.favoriteCount.toString());
                 commentNum.add(i.commentsNum.toString());
+                userId.add(i.userId);
+                CommonVars.hasPressed.add(false);
               }
               return ListView.builder(
                 itemCount: imageList.length,
@@ -111,6 +118,9 @@ class _ImageListState extends State<ImageList> {
                       title: title[index],
                       commentNum: commentNum[index].toString(),
                       favCount: favCount[index].toString(),
+                      hasPressed: CommonVars.hasPressed[index],
+                      userId: userId[index],
+                      //userId: ,
                     ),
                   ),
                 ),
@@ -165,15 +175,17 @@ class _ImageListState extends State<ImageList> {
                 child: IconButton(
                   icon: Icon(
                     Icons.favorite,
-                    color: hasPressed ? Colors.red : Colors.grey,
+                    color:
+                        CommonVars.hasPressed[index] ? Colors.red : Colors.grey,
                   ),
                   tooltip: 'Press Favorite',
                   onPressed: () {
                     setState(
                       () {
-                        hasPressed = !hasPressed;
+                        CommonVars.hasPressed[index] =
+                            !CommonVars.hasPressed[index];
 
-                        if (hasPressed)
+                        if (CommonVars.hasPressed[index])
                           FlickrRequestsAndResponses.AddToFavorite(
                               picId[index]);
                       },

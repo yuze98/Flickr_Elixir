@@ -3,10 +3,10 @@ class PictureFavorites {
   final bool isFollowing;
   final String firstName;
   final String lastName;
-  final String favoriteCount;
-  final String photosCount;
+  final int favoriteCount;
+  final int photosCount;
   final String profilePhoto;
-  final String followersNum;
+  final int followersNum;
 
   PictureFavorites(
       {this.isFollowing,

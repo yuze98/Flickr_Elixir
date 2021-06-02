@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/FavoritesSection.dart';
 import 'package:flickr/Models/CameralRollModel.dart';
+import 'package:flickr/Screens/ForgetPass.dart';
 import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
@@ -309,10 +310,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<List<PictureFavorites>> GetFavoiteUsers(String picId) async {
-//5349b4ddd2781d08c09890f4
-
-    var urll = '$baseURL/photo/whoFavortied/:$picId';
-    //picid 60953562224d432a505e8d07
+    var urll = '$baseURL/photo/whoFavorited/$picId';
 
     var response = await http.get(Uri.parse(urll), headers: {
       'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
@@ -334,7 +332,7 @@ class FlickrRequestsAndResponses {
       print("resposed failure favorite dudes");
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load get favorite');
     }
   }
 
@@ -363,7 +361,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<String> GetAbout() async {
-    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
+    var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
 
     var response = await http.get(
       Uri.parse(url),
@@ -379,9 +377,16 @@ class FlickrRequestsAndResponses {
       CommonVars.hometown = about['user']['homeTown'];
       CommonVars.created = about['user']['createdAt'];
       CommonVars.numberOfPhotos = about['user']['numberOfPhotos'];
-      print("Email is");
-      print(CommonVars.email);
-      print(CommonVars.numberOfPhotos);
+      CommonVars.coverPhotoLink = about['user']['coverPhotoUrl'];
+      CommonVars.profilePhotoLink = about['user']['profilePhotoUrl'];
+      CommonVars.followings = about['user']['numberOfFollowings'];
+      CommonVars.followers = about['user']['numberOfFollowers'];
+      // print("our link is ${CommonVars.profilePhotoLink}");
+
+      // print("Email is");
+      // print(about);
+      //print(CommonVars.email);
+      // print(CommonVars.numberOfPhotos);
     } else {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
@@ -481,7 +486,120 @@ class FlickrRequestsAndResponses {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
       // then throw an exception.
+      }
       throw Exception('Failed to load album');
+      }
+
+  /*******************************************************************************/
+
+  static Future<String> uploadImage() async {
+    const String baseURL = 'https://api.qasaqees.tech/photo/upload';
+
+    var request = http.MultipartRequest('POST', Uri.parse(baseURL));
+    request.headers['Authorization'] =
+        "Bearer ${CommonVars.loginRes["accessToken"]}";
+    request.fields['isPublic'] = "true";
+    request.fields['title'] = CommonVars.title;
+    request.fields['allowCommenting'] = "true";
+    request.fields['tags'] = CommonVars.tags;
+    request.fields['safetyOption'] = ""; //null
+    request.fields['description'] = CommonVars.description;
+    request.files.add(
+        await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
+    var res = await request.send();
+    //ٍ  return res.reasonPhrase;
+
+    print('Response22 status: ${res.statusCode}');
+    var response = await http.Response.fromStream(res);
+
+    print('Response33 body: ${response.body}');
+    var body = jsonDecode(response.body);
+    return body["_id"];
+  }
+
+/*********************************************************************************/
+
+  static changeCoverPhoto(String id) async {
+    print("Coverrrrrrrrrrrrrrrrrrrrr");
+    const String baseURL = 'https://api.qasaqees.tech';
+    var urll = 'https://api.qasaqees.tech/user/editCoverPhoto';
+
+    var body = {"photoId": id};
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+        },
+        body: jsonEncode(body));
+    // print(response.body);
+  }
+
+  static profileCoverPhoto(String id) async {
+    print("profilleeeeeeeeeeeeeeeeeeee");
+    const String baseURL = 'https://api.qasaqees.tech';
+    var urll = 'https://api.qasaqees.tech/user/editProfilePhoto';
+
+    var body = {"photoId": id};
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+        },
+        body: jsonEncode(body));
+    print(response.statusCode);
+    // print(response.body);
+  }
+
+  static Future FollowUser(String userTobeFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeFollowed");
+
+    var urll = '$baseURL/user/followUser';
+
+    var bodyy = {'userId': userTobeFollowed};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success followed a user");
+    } else {
+      print("resposed failure cant Follow a user");
+
+      print(response.body);
+      throw Exception('Failed to load follow');
+    }
+  }
+
+  static Future AddTags(String picId, String tag) async {
+//5349b4ddd2781d08c09890f4
+
+    print("the picid tag $picId");
+    var urll = '$baseURL/photo/addTags/$picId';
+
+    var bodyy = {'tag': '$tag'};
+
+    var response = await http.patch(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success added tag");
+    } else {
+      print("resposed failure add tag");
+
+      print(response.body);
+      throw Exception('Failed to add tag');
     }
   }
 }

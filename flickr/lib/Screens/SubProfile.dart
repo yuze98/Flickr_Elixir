@@ -12,7 +12,9 @@ import 'about.dart';
 
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
-  SubProfile({Key key, @required this.photoFile}) : super(key: key);
+  String userId;
+  SubProfile({Key key, @required this.photoFile, this.userId})
+      : super(key: key);
   @override
   _SubProfile createState() => _SubProfile();
 }
@@ -50,13 +52,13 @@ class _SubProfile extends State<SubProfile> {
                     actions: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 40, right: deviceSizewidth * .8),
+                            bottom: 40, right: deviceSizewidth * .8),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: ((builder) => customisedBottomSheet(
-                                    context, coverPhotoFile)));
+                                builder: ((builder) =>
+                                    customisedBottomSheet(context, "cover")));
                           },
                           child: Icon(
                             Icons.photo_camera,
@@ -64,21 +66,25 @@ class _SubProfile extends State<SubProfile> {
                         ),
                       ),
 //                              actions: <Widget>[
-                      PopupMenuButton(
-                        onSelected: movingTo,
-                        color: Colors.white,
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Colors.black,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: 40, right: deviceSizewidth * .01),
+                        child: PopupMenuButton(
+                          onSelected: movingTo,
+                          color: Colors.white,
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: Colors.black,
+                          ),
+                          itemBuilder: (BuildContext context) {
+                            return CommonVars.menu.map((String s) {
+                              return PopupMenuItem<String>(
+                                value: s,
+                                child: Text(s),
+                              );
+                            }).toList();
+                          },
                         ),
-                        itemBuilder: (BuildContext context) {
-                          return CommonVars.menu.map((String s) {
-                            return PopupMenuItem<String>(
-                              value: s,
-                              child: Text(s),
-                            );
-                          }).toList();
-                        },
                       ),
 
                       //onPressed: () {
@@ -95,11 +101,11 @@ class _SubProfile extends State<SubProfile> {
                             fit: BoxFit.cover,
                             width: deviceSizewidth,
                             alignment: Alignment.center,
-                            image: coverPhotoFile == null
+                            image: CommonVars.coverPhotoLink == null
                                 ? AssetImage(
                                     'images/photo1.jpg',
                                   )
-                                : FileImage(File(coverPhotoFile.path)),
+                                : NetworkImage(CommonVars.coverPhotoLink),
                           ),
                         ),
                       ),
@@ -114,22 +120,23 @@ class _SubProfile extends State<SubProfile> {
                               child: Stack(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: profilePhotoFile == null
-                                        ? AssetImage('images/photo1.jpg')
-                                        : FileImage(
-                                            File(profilePhotoFile.path)),
+                                    backgroundImage:
+                                        CommonVars.profilePhotoLink == null
+                                            ? AssetImage('images/photo1.jpg')
+                                            : NetworkImage(
+                                                CommonVars.profilePhotoLink),
                                     radius: 35.0,
                                   ),
                                   Positioned(
                                     left: deviceSizewidth * .1,
-                                    top: deviceSizeheight * .07,
+                                    top: deviceSizeheight * .05,
                                     child: InkWell(
                                       onTap: () {
                                         showModalBottomSheet(
                                             context: context,
                                             builder: ((builder) =>
-                                                customisedBottomSheet(context,
-                                                    profilePhotoFile)));
+                                                customisedBottomSheet(
+                                                    context, "profile")));
                                       },
                                       child: Icon(
                                         Icons.photo_camera,
@@ -207,7 +214,7 @@ class _SubProfile extends State<SubProfile> {
     );
   }
 
-  Widget customisedBottomSheet(BuildContext context, PickedFile file) {
+  Widget customisedBottomSheet(BuildContext context, String file) {
     double deviceSizeHeight = MediaQuery.of(context).size.height;
     double deviceSizeWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -249,36 +256,30 @@ class _SubProfile extends State<SubProfile> {
     );
   }
 
-  void photoTaker(ImageSource source, PickedFile file) async {
+  void photoTaker(ImageSource source, String file) async {
     final token = await _picker.getImage(source: source);
     setState(() {
-      file = token;
+      CommonVars.photoFile = token;
     });
-    // ConvertingPhoto();
-  }
+    Navigator.pop(context);
+    Navigator.pushNamed(context, "LoadingScreen");
+    String id = await FlickrRequestsAndResponses.uploadImage();
+    // print(id);
 
-  Widget tempImage() {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image:
-              //borderRadius: BorderRadius.all(Radius.circular(.05)),//add border radius here
-              widget.photoFile == null
-                  ? AssetImage('images/photo1.jpg')
-                  : FileImage(
-                      File(widget.photoFile.path),
-                    ),
-          fit: BoxFit.fitHeight, //add image location here
-        ),
-      ),
-    );
+    if (file == "cover")
+      FlickrRequestsAndResponses.changeCoverPhoto(id);
+    else if (file == "profile")
+      FlickrRequestsAndResponses.profileCoverPhoto(id);
+    FlickrRequestsAndResponses.GetAbout();
+    Navigator.pop(context);
+    Navigator.pushNamed(context, "UserPage");
+    // ConvertingPhoto();
   }
 
   void movingTo(String destination) {
     setState(() {
       if (destination == CommonVars.signOut) {
+        CommonVars.loggedIn = false;
         FlickrRequestsAndResponses.signOutRequest();
         Navigator.pushNamedAndRemoveUntil(context, "GetStarted", (r) => false);
       }
@@ -296,7 +297,7 @@ class _SubProfile extends State<SubProfile> {
       if (destination == CommonVars.help) {
         launch('https://www.flickr.com/help/terms');
       }
-      print(destination);
+      // print(destination);
     });
   }
 }

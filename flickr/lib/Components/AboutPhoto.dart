@@ -1,3 +1,4 @@
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +8,12 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flutter/rendering.dart';
 
 class AboutPhoto extends StatefulWidget {
-  final picId;
-  AboutPhoto({Key key, this.picId}) : super(key: key);
+  final picId, userId;
+  AboutPhoto({
+    Key key,
+    this.picId,
+    this.userId,
+  }) : super(key: key);
 
   @override
   _AboutPhotoState createState() => _AboutPhotoState();
@@ -32,6 +37,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
   bool albumBool = false;
   bool tagsBool = false;
   bool moreBool = false;
+  bool isUser = false;
 
   AboutPhotoModel aboutPic;
 
@@ -46,6 +52,13 @@ class _AboutPhotoState extends State<AboutPhoto> {
       tagList = aboutPic.tags;
       takenBy = '${aboutPic.firstName} ${aboutPic.lastName}';
       image = '${aboutPic.albumPic}';
+      if (widget.userId == CommonVars.userId) {
+        isUser = true;
+      } else {
+        isUser = false;
+      }
+      // print("widget user ${widget.userId}");
+      // print("commonvars user${CommonVars.userId}");
     });
   }
 
@@ -53,13 +66,13 @@ class _AboutPhotoState extends State<AboutPhoto> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     prepareAbout();
   }
 
   @override
   Widget build(BuildContext context) {
     var devSize = MediaQuery.of(context).size;
-    bool isUser = false;
     return MaterialApp(
         home: SafeArea(
       child: Scaffold(
@@ -224,6 +237,8 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                   onPressed: () {
                                     setState(
                                       () {
+                                        FlickrRequestsAndResponses.AddTags(
+                                            widget.picId, tagsController.text);
                                         for (var i = 0;
                                             i < tagList.length;
                                             i++) {
