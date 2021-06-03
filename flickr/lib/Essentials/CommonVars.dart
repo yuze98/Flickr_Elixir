@@ -29,6 +29,10 @@ class CommonVars {
   static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
   static bool sameUser = false;
+
+  static bool camerarollbool = false;
+
+
   /*********************************************************/
   static String otherUserId = "";
   static String othersEmail = "";

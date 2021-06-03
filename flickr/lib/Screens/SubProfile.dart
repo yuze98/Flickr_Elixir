@@ -38,7 +38,7 @@ class _SubProfile extends State<SubProfile> {
 
     return Scaffold(
       body: DefaultTabController(
-        length: 5,
+        length: 4,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool Scroll) {
             return <Widget>[
@@ -205,9 +205,6 @@ class _SubProfile extends State<SubProfile> {
                       // These are the widgets to put in each tab in the tab bar.
                       tabs: [
                         Text(
-                          'About',
-                        ),
-                        Text(
                           'Camera Roll',
                         ),
                         Text(
@@ -217,7 +214,7 @@ class _SubProfile extends State<SubProfile> {
                           'Albums',
                         ),
                         Text(
-                          'Groups',
+                          'About',
                         ),
                       ],
                       isScrollable: true,
@@ -230,11 +227,10 @@ class _SubProfile extends State<SubProfile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                AboutState(),
                 CameraRoll(),
                 Public(),
                 AlbumScreen(),
-                Icon(Icons.group),
+                AboutState(),
               ]),
         ),
       ),

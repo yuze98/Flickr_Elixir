@@ -29,6 +29,7 @@ class _CameraRollState extends State<CameraRoll> {
 
   @override
   void initState() {
+    CommonVars.camerarollbool = true;
     super.initState();
   }
 
