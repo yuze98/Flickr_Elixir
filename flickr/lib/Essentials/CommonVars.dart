@@ -28,6 +28,7 @@ class CommonVars {
   static int numberOfPhotos;
   static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
+  static bool camerarollbool = false;
   static const List<String> menu = <String>[
     notifications,
     about,

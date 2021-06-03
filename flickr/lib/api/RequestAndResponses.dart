@@ -608,4 +608,57 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to add tag');
     }
   }
+
+  static Future EditAboutInfo(
+      String occupation, String hometown, String city) async {
+//5349b4ddd2781d08c09890f4
+
+    var urll = '$baseURL/user/editInfo';
+
+    var bodyy = {
+      'occupation': occupation,
+      'homeTown': hometown,
+      'currentCity': city
+    };
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success edit about info");
+    } else {
+      print("resposed failure edit about info");
+
+      print(response.body);
+      throw Exception('Failed to load edit about info');
+    }
+  }
+
+  static Future forgetPass(String email) async {
+    var url = '$baseURL/register/forgetPassword';
+    var jso = {'email': email};
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //  headers: {"Content-Type": "application/json"},
+      body: jsonEncode(jso),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success forgetpass");
+    } else {
+      print("resposed failure forgetpass");
+
+      print(response.body);
+      throw Exception('Failed to forgetpass');
+    }
+
+    return response;
+  }
 }
