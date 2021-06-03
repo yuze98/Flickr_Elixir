@@ -354,6 +354,20 @@ class _AboutPhotoState extends State<AboutPhoto> {
                             color: Colors.white),
                       ),
                     ),
+                    SizedBox(
+                      width: devSize.width * 0.5,
+                    ),
+                    isUser
+                        ? IconButton(
+                            color: Colors.red,
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              //delete function request
+                              FlickrRequestsAndResponses.DeletePicture(
+                                  widget.picId);
+                            },
+                          )
+                        : Text(''),
                   ],
                 ),
               ],

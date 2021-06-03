@@ -28,6 +28,26 @@ class CommonVars {
   static int numberOfPhotos;
   static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
+  static bool sameUser = false;
+
+  static bool camerarollbool = false;
+
+
+  /*********************************************************/
+  static String otherUserId = "";
+  static String othersEmail = "";
+  static String othersAccupation = "";
+  static String othersCity = "";
+  static String othersHometown = "";
+  static String othersCreated = "";
+  static int othersNumberOfPhotos = -1;
+  static String otherUserName = "";
+  static int othersFollowers = -1;
+  static int othersFollowings = -1;
+  static String othersCoverPhotoUrl = "";
+  static String othersProfilePhotoUrl = "";
+
+  /**********************************************************/
   static const List<String> menu = <String>[
     notifications,
     about,

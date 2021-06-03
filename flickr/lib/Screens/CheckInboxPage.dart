@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'LoginPage.dart';
 
 class checkInbox extends StatelessWidget {
   final String email;
@@ -95,8 +96,9 @@ class checkInbox extends StatelessWidget {
                               onPressed: () {
                                 // setState(() {
                                 print(email);
+
                                 // sendMail(emailController.text);
-                                // Navigator.pop(context);
+                                Navigator.pop(context, LoginScreen());
                                 // };
                                 //The user picked true.
                               },

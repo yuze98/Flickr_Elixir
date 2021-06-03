@@ -12,6 +12,8 @@ import 'package:flickr/Models/Photos.dart';
 import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
+import 'package:flickr/Models/UserFollowings.dart';
+import 'package:flickr/Models/UserFollowers.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL = 'https://api.qasaqees.tech';
@@ -390,6 +392,7 @@ class FlickrRequestsAndResponses {
     } else {
       print("responsed failure explore");
       // If the server did not return a 200 OK response,
+      throw Exception('Failed to load album');
       // then throw an exception.
       throw Exception('Failed to load album');
     }
@@ -609,12 +612,183 @@ class FlickrRequestsAndResponses {
     }
   }
 
-  static Future CreateAlbum(String albumTitle, String albumDescription) async {
-    var url = '$baseURL/album/createAlbum';
+  static Future EditAboutInfo(
+      String occupation, String hometown, String city) async {
+//5349b4ddd2781d08c09890f4
 
-    final bodyy = {"title": albumTitle, "description": albumDescription};
+    var urll = '$baseURL/user/editInfo';
+
+    var bodyy = {
+      'occupation': occupation,
+      'homeTown': hometown,
+      'currentCity': city
+    };
+    var response = await http.patch(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success edit about info");
+    } else {
+      print("resposed failure edit about info");
+
+      print(response.body);
+      throw Exception('Failed to load edit about info');
+    }
+  }
+
+  static Future forgetPass(String email) async {
+    var url = '$baseURL/register/forgetPassword';
+    var jso = {'email': email};
+
     var response = await http.post(
       Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //  headers: {"Content-Type": "application/json"},
+      body: jsonEncode(jso),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success forgetpass");
+    } else {
+      print("resposed failure forgetpass");
+
+      print(response.body);
+      throw Exception('Failed to forgetpass');
+    }
+
+    return response;
+}
+  static Future<String> showOtherUserProfile(String id) async {
+    var url = 'https://api.qasaqees.tech/user/about/$id';
+
+    var response = await http.get(
+      Uri.parse(url),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success explore");
+
+      final about = json.decode(response.body);
+      CommonVars.otherUserId = id;
+      CommonVars.othersEmail = about['user']['email'];
+      CommonVars.othersAccupation = about['user']['occupation'];
+      CommonVars.othersCity = about['user']['currentCity'];
+      CommonVars.othersHometown = about['user']['homeTown'];
+      CommonVars.othersCreated = about['user']['createdAt'];
+      CommonVars.othersNumberOfPhotos = about['user']['numberOfPhotos'];
+      CommonVars.othersCoverPhotoUrl = about['user']['coverPhotoUrl'];
+      CommonVars.othersProfilePhotoUrl = about['user']['profilePhotoUrl'];
+      CommonVars.othersFollowings = about['user']['numberOfFollowings'];
+      CommonVars.othersFollowers = about['user']['numberOfFollowers'];
+    } else {
+      print("responsed failure explore");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+    return response.body;
+  }
+  /*HTTP/1.1 200 OK
+{
+  "user": {
+    "showCase": {
+        "title": "Showcase",
+        "photos": []
+    },
+    "description": "",
+    "occupation": "",
+    "homeTown": "",
+    "currentCity": "",
+    "coverPhotoUrl": "http://localhost:3000/public/images/default/8.jpeg",
+    "profilePhotoUrl": "http://localhost:3000/public/images/default/8.jpeg",
+    "_id": "60b5f47c2b026f150822c5fd",
+    "email": "test@test.com",
+    "firstName": "Abdelrahman",
+    "lastName": "Shahda",
+    "userName": "test",
+    "age": 22,
+    "createdAt": "2021-06-01T08:49:00.059Z",
+    "updatedAt": "2021-06-01T11:33:15.837Z",
+    "__v": 1,
+    "numberOfFollowers": 0,
+    "numberOfPhotos": 132,
+    "id": "60b5f47c2b026f150822c5fd",
+    "numberOfFollowings": 1,
+    "isFollowing": false
+}
+}*/
+
+  static Future<List<UserFollowings>> getUserFollowings(String userid) async {
+    var urll = '$baseURL/user/followings/$userid';
+
+    var response = await http.get(Uri.parse(urll), headers: {
+      'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+    });
+
+    if (response.statusCode == 200) {
+      //   print("resposed success favorite dudes");
+
+      final favorites = json.decode(response.body);
+
+      List<UserFollowings> vo = [];
+      for (var i in favorites['following']) {
+        vo.add(UserFollowings.fromJson(i));
+      }
+
+      //print('3ada');
+      return vo;
+    } else {
+      print("resposed failure favorite dudes");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load get favorite');
+    }
+  }
+
+  static Future<List<UserFollowers>> getUserFollowers(String userid) async {
+    var urll = '$baseURL/user/followers/$userid';
+
+    var response = await http.get(Uri.parse(urll), headers: {
+      'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+    });
+
+    if (response.statusCode == 200) {
+      //   print("resposed success favorite dudes");
+
+      final favorites = json.decode(response.body);
+
+      List<UserFollowers> vo = [];
+      for (var i in favorites['followers']) {
+        vo.add(UserFollowers.fromJson(i));
+      }
+
+      //print('3ada');
+      return vo;
+    } else {
+      print("resposed failure favorite dudes");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load get favorite');
+    }
+  }
+
+  static Future UnFollowUser(String userTobeUnFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeUnFollowed");
+
+    var urll = '$baseURL/user/unfollowUser';
+
+    var bodyy = {'userId': userTobeUnFollowed};
+
+    var response = await http.post(
+      Uri.parse(urll),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
@@ -622,16 +796,37 @@ class FlickrRequestsAndResponses {
       body: jsonEncode(bodyy),
     );
 
-    print(response.statusCode);
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print("resposed success Album created");
+      print("resposed success unfollowed a user");
     } else {
-      print("responsed failure Album creation");
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to create album');
+      print("resposed failure cant unFollow a user");
+
+      print(response.body);
+      throw Exception('Failed to load unfollow');
+    }
+  }
+
+  static Future DeletePicture(String picId) async {
+    var urll = '$baseURL/photo/delete/$picId';
+
+    var bodyy = {"photoId": picId};
+
+    var response = await http.delete(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success Deleted photo");
+    } else {
+      print("resposed failure can't Delete photo");
+
+      print(response.body);
+      throw Exception('Failed to load Delete');
     }
   }
 }
