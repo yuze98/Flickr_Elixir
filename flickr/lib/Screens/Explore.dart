@@ -134,6 +134,17 @@ class _ImageListState extends State<ImageList> {
               child: Row(
                 children: [
                   CircleAvatar(
+                    child: GestureDetector(
+                      onTap: () async {
+                        if (userId[index] != CommonVars.userId) {
+                          String body = await FlickrRequestsAndResponses
+                              .showOtherUserProfile(userId[index]);
+                          Navigator.pushNamed(context, 'OtherSubProfile');
+                        } else
+                          //String body = await FlickrRequestsAndResponses.Get(userId[index]);
+                          Navigator.pushNamed(context, 'subProfile');
+                      },
+                    ),
                     backgroundImage: NetworkImage(profileImage[index]),
                     radius: 25.0,
                   ),

@@ -3,6 +3,8 @@ import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
+import 'package:flickr/Screens/SubProfile.dart';
+import 'package:flickr/Screens/OthersSubProfile.dart';
 
 class FavoritesSection extends StatefulWidget {
   final picId;
@@ -77,6 +79,23 @@ class _FavoritesSectionState extends State<FavoritesSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               CircleAvatar(
+                child: GestureDetector(
+                  onTap: () async {
+                    if (id != CommonVars.userId) {
+                      String body =
+                          await FlickrRequestsAndResponses.showOtherUserProfile(
+                              id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OtherProfile()));
+                    } else
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SubProfile()));
+                  },
+                ),
                 backgroundImage: NetworkImage(profilePic),
                 radius: devSize.height * 0.04,
               ),
@@ -93,31 +112,40 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                   Text('$picNum photos - $followersNum followers')
                 ],
               ),
-              OutlinedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(devSize.height * 0.05),
-                ))),
-                onPressed: () {
-                  //func follow
-                  FlickrRequestsAndResponses.FollowUser(id);
-                  setState(() {
-                    CommonVars.favoriteUsersFollow[index] =
-                        !CommonVars.favoriteUsersFollow[index];
-                    print(CommonVars.favoriteUsersFollow[index]);
-                  });
-                },
-                child: Row(
-                  children: <Widget>[
-                    Icon(CommonVars.favoriteUsersFollow[index]
-                        ? Icons.remove
-                        : Icons.add),
-                    CommonVars.favoriteUsersFollow[index]
-                        ? Text('Follwing')
-                        : Text('Follow'),
-                  ],
-                ),
-              )
+              id != CommonVars.userId
+                  ? OutlinedButton(
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(devSize.height * 0.05),
+                      ))),
+                      onPressed: () {
+                        //func follow
+
+                        setState(() {
+                          CommonVars.favoriteUsersFollow[index] =
+                              !CommonVars.favoriteUsersFollow[index];
+                          print(CommonVars.favoriteUsersFollow[index]);
+                          if (CommonVars.favoriteUsersFollow[index]) {
+                            FlickrRequestsAndResponses.FollowUser(id);
+                          } else {
+                            FlickrRequestsAndResponses.UnFollowUser(id);
+                          }
+                        });
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Icon(CommonVars.favoriteUsersFollow[index]
+                              ? Icons.remove
+                              : Icons.add),
+                          CommonVars.favoriteUsersFollow[index]
+                              ? Text('Follwing')
+                              : Text('Follow'),
+                        ],
+                      ),
+                    )
+                  : Text(''),
             ],
           ),
         ),
