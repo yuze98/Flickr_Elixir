@@ -612,7 +612,6 @@ class FlickrRequestsAndResponses {
     }
   }
 
-
   static Future<String> showOtherUserProfile(String id) async {
     var url = 'https://api.qasaqees.tech/user/about/$id';
 
@@ -724,6 +723,8 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load get favorite');
+    }
+  }
 
   static Future UnFollowUser(String userTobeUnFollowed) async {
 //5349b4ddd2781d08c09890f4
@@ -748,7 +749,6 @@ class FlickrRequestsAndResponses {
 
       print(response.body);
       throw Exception('Failed to load unfollow');
-
     }
   }
 }
