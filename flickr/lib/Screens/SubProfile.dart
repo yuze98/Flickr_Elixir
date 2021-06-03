@@ -55,7 +55,7 @@ class _SubProfile extends State<SubProfile> {
                     actions: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: 40, right: deviceSizewidth * .8),
+                            bottom: 40, right: deviceSizewidth * .7),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(

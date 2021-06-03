@@ -1,9 +1,12 @@
+import 'package:flickr/Models/CameralRollModel.dart';
 import 'package:flickr/Screens/Public.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Components/ExploreDetails.dart';
+import '../Essentials/CommonVars.dart';
 
 class CameraRoll extends StatefulWidget {
   CameraRoll({Key key, this.title}) : super(key: key);
@@ -19,8 +22,27 @@ class _CameraRollState extends State<CameraRoll> {
   bool _selectionMode = false;
   bool tapped = false;
 
+  Future<List<CameraRollModel>> cameraRoll;
+  void RollState() {
+    cameraRoll = FlickrRequestsAndResponses.GetCameraRoll();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    CommonVars.imageList.clear();
+    CommonVars.username.clear();
+    CommonVars.titleCamera.clear();
+    CommonVars.favCount.clear();
+    CommonVars.commentNum.clear();
+    CommonVars.hasPressedCamera.clear();
+    CommonVars.userID.clear();
+    CommonVars.picID.clear();
+    RollState();
     List<Widget> _buttons = List();
     if (_selectionMode) {
       _buttons.add(IconButton(
@@ -36,7 +58,30 @@ class _CameraRollState extends State<CameraRoll> {
       body: Container(
           child: Stack(
         children: <Widget>[
-          _createBody(),
+          FutureBuilder<List<CameraRollModel>>(
+            future: cameraRoll,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<CameraRollModel> data = snapshot.data;
+                for (var i in data) {
+                  CommonVars.imageList.add(i.url);
+                  CommonVars.hasPressedCamera.add(false);
+                  CommonVars.username.add("${i.firstName} ${i.lastName}");
+                  CommonVars.titleCamera.add(i.title);
+                  CommonVars.favCount.add(i.favoriteCount.toString());
+                  CommonVars.commentNum.add(i.commentsNum.toString());
+                  CommonVars.userID.add(i.userID);
+                  CommonVars.picID.add(i.pictureID);
+                }
+                return _createBody();
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+          // _createBody(),
           AnimatedOpacity(
             opacity: tapped ? 1.0 : 0.0,
             duration: Duration(
@@ -50,11 +95,6 @@ class _CameraRollState extends State<CameraRoll> {
         ],
       )),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   void _changeSelection({bool enable, int index}) {
@@ -140,10 +180,13 @@ class _CameraRollState extends State<CameraRoll> {
                     builder: (context) => ExploreDetails(
                           photoFile: CommonVars.imageList[index],
                           profilePic: CommonVars.imageList[index],
-                          userName: "The Amazing 7elwa",
-                          title: 'riddler',
-                          favCount: '1M',
-                          commentNum: '5K',
+                          userName: CommonVars.username[index],
+                          title: CommonVars.titleCamera[index],
+                          favCount: CommonVars.favCount[index],
+                          commentNum: CommonVars.commentNum[index],
+                          hasPressed: CommonVars.hasPressedCamera[index],
+                          userId: CommonVars.userID[index],
+                          picId: CommonVars.picID[index],
                         )));
           },
         ),
@@ -266,26 +309,14 @@ class _CameraRollState extends State<CameraRoll> {
         }
         print(CommonVars.publicList);
       }
-      if (destination == CommonVars.friends) {
-        // CommonVars.friendsList.clear();
-        print("Selected index of friends is $_selectedIndexList");
+      if (destination == CommonVars.private) {
         for (int i = 0; i < _selectedIndexList.length; i++) {
-          if (!CommonVars.friendsList
+          if (!CommonVars.private
               .contains(CommonVars.imageList[_selectedIndexList[i]]))
-            CommonVars.friendsList
+            CommonVars.privateList
                 .add(CommonVars.imageList[_selectedIndexList[i]]);
         }
-        print(CommonVars.friendsList);
-      }
-      if (destination == CommonVars.family) {
-        //   CommonVars.familyList.clear();
-        for (int i = 0; i < _selectedIndexList.length; i++) {
-          if (!CommonVars.familyList
-              .contains(CommonVars.imageList[_selectedIndexList[i]]))
-            CommonVars.familyList
-                .add(CommonVars.imageList[_selectedIndexList[i]]);
-        }
-        print(CommonVars.familyList);
+        print(CommonVars.private);
       }
 
       print(destination);

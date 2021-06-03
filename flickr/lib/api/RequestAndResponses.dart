@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Components/FavoritesSection.dart';
+import 'package:flickr/Models/CameralRollModel.dart';
 import 'package:flickr/Screens/ForgetPass.dart';
 import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +17,7 @@ import 'package:flickr/Models/UserFollowers.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL = 'https://api.qasaqees.tech';
+
   static Future<http.Response> logIn(final email, final password) async {
     const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
@@ -361,7 +363,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<String> GetAbout() async {
-    var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
+    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
 
     var response = await http.get(
       Uri.parse(url),
@@ -392,6 +394,7 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       throw Exception('Failed to load album');
       // then throw an exception.
+      throw Exception('Failed to load album');
     }
   }
 
@@ -461,6 +464,39 @@ class FlickrRequestsAndResponses {
       // then throw an exception.
       throw Exception('Failed to load info of the pic');
     }
+  }
+
+  static Future<List<CameraRollModel>> GetCameraRoll() async {
+    var url = '$baseURL/user/cameraRoll';
+
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      //  body: jsonEncode(body)
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final cameralist = json.decode(response.body);
+      //print(photos['photos']['']);
+
+      List<CameraRollModel> vo = [];
+      for (var i in cameralist['cameraRoll']) {
+        print(i);
+        vo.add(CameraRollModel.fromJson(i));
+      }
+      print("responsed camera success cameraaa rooll");
+
+      //   print('3ada');
+      return vo;
+    } else {
+      print("responsed camera failure cameraaa rooll");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+    }
+    throw Exception('Failed to load camera roll');
   }
 
   /*******************************************************************************/
@@ -576,6 +612,7 @@ class FlickrRequestsAndResponses {
     }
   }
 
+
   static Future<String> showOtherUserProfile(String id) async {
     var url = 'https://api.qasaqees.tech/user/about/$id';
 
@@ -687,6 +724,31 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load get favorite');
+
+  static Future UnFollowUser(String userTobeUnFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeUnFollowed");
+
+    var urll = '$baseURL/user/unfollowUser';
+
+    var bodyy = {'userId': userTobeUnFollowed};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success unfollowed a user");
+    } else {
+      print("resposed failure cant unFollow a user");
+
+      print(response.body);
+      throw Exception('Failed to load unfollow');
+
     }
   }
 }

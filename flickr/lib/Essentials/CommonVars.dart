@@ -8,9 +8,6 @@ class CommonVars {
   static const String signOut = 'Sign Out';
   static const String changePassword = 'Change Password';
   static const String public = 'Public';
-  static const String friends = 'Friends';
-  static const String family = 'Family';
-  static const String frdfam = 'Friends & Family';
   static const String private = 'Private';
   static String userName = "";
   static String userId = "";
@@ -61,23 +58,17 @@ class CommonVars {
 
   static const String album = 'Add to Album';
 
-  static List<String> imageList = <String>[
-    'https://picsum.photos/800/600/?image=280',
-    'https://picsum.photos/800/600/?image=281',
-    'https://picsum.photos/800/600/?image=282',
-    'https://picsum.photos/800/600/?image=283',
-    'https://picsum.photos/800/600/?image=284'
-  ];
+  static List<String> imageList = <String>[];
+  static List<String> username = [];
+  static List<String> titleCamera = [];
+  static List<String> favCount = [];
+  static List<String> commentNum = [];
+  static List<bool> hasPressedCamera = [];
+  static List<String> userID = [];
+  static List<String> picID = [];
   static List<String> publicList = List();
-  static List<String> friendsList = List();
-  static List<String> familyList = List();
+  static List<String> privateList = List();
 
-  static const List<String> privacy = <String>[
-    public,
-    friends,
-    family,
-    frdfam,
-    private
-  ];
+  static const List<String> privacy = <String>[public, private];
   static const List<String> albums = <String>[album];
 }

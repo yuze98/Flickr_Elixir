@@ -47,7 +47,7 @@ class _SignupState extends State<Signup> {
     int response = await FlickrRequestsAndResponses.SignUpFB(facebookSignIn);
 
     //checks if the user is already sign up
-    if (response == 200) {
+    if (response == 201) {
       showAlertDialog(context, 'Signed up successfully');
     } else {
       showAlertDialog(context, 'User Exists');
@@ -367,7 +367,7 @@ class _SignupState extends State<Signup> {
         secondNameController,
         ageController);
 
-    if (response == 200) {
+    if (response == 201) {
       showAlertDialog(context, validateSubmit());
     } else {
       showAlertDialog(context, 'Enter valid parameters');
@@ -444,7 +444,6 @@ showAlertDialog(BuildContext context, String str) {
       if (str == 'Everything is ready') {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
-        Navigator.pushNamed(context, "UserPage");
       } else
         Navigator.of(context).pop();
     },

@@ -93,31 +93,40 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                   Text('$picNum photos - $followersNum followers')
                 ],
               ),
-              OutlinedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(devSize.height * 0.05),
-                ))),
-                onPressed: () {
-                  //func follow
-                  FlickrRequestsAndResponses.FollowUser(id);
-                  setState(() {
-                    CommonVars.favoriteUsersFollow[index] =
-                        !CommonVars.favoriteUsersFollow[index];
-                    print(CommonVars.favoriteUsersFollow[index]);
-                  });
-                },
-                child: Row(
-                  children: <Widget>[
-                    Icon(CommonVars.favoriteUsersFollow[index]
-                        ? Icons.remove
-                        : Icons.add),
-                    CommonVars.favoriteUsersFollow[index]
-                        ? Text('Follwing')
-                        : Text('Follow'),
-                  ],
-                ),
-              )
+              id != CommonVars.userId
+                  ? OutlinedButton(
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(devSize.height * 0.05),
+                      ))),
+                      onPressed: () {
+                        //func follow
+
+                        setState(() {
+                          CommonVars.favoriteUsersFollow[index] =
+                              !CommonVars.favoriteUsersFollow[index];
+                          print(CommonVars.favoriteUsersFollow[index]);
+                          if (CommonVars.favoriteUsersFollow[index]) {
+                            FlickrRequestsAndResponses.FollowUser(id);
+                          } else {
+                            FlickrRequestsAndResponses.UnFollowUser(id);
+                          }
+                        });
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Icon(CommonVars.favoriteUsersFollow[index]
+                              ? Icons.remove
+                              : Icons.add),
+                          CommonVars.favoriteUsersFollow[index]
+                              ? Text('Follwing')
+                              : Text('Follow'),
+                        ],
+                      ),
+                    )
+                  : Text(''),
             ],
           ),
         ),
