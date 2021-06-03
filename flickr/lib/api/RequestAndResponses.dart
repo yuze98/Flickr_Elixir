@@ -618,12 +618,14 @@ class FlickrRequestsAndResponses {
 
     var bodyy = {'userId': userTobeUnFollowed};
 
-    var response = await http.post(Uri.parse(urll),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
-        },
-        body: jsonEncode(bodyy));
+    var response = await http.post(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
 
     if (response.statusCode == 200) {
       print("resposed success unfollowed a user");
@@ -632,6 +634,31 @@ class FlickrRequestsAndResponses {
 
       print(response.body);
       throw Exception('Failed to load unfollow');
+    }
+  }
+
+  static Future DeletePicture(String picId) async {
+    var urll = '$baseURL/photo';
+
+    var bodyy = {'photoId': picId};
+
+    var response = await http.delete(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      print("resposed success Deleted photo");
+    } else {
+      print("resposed failure can't Delete photo");
+
+      print(response.body);
+      throw Exception('Failed to load Delete');
     }
   }
 }
