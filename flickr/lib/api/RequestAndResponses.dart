@@ -755,9 +755,9 @@ class FlickrRequestsAndResponses {
   }
 
   static Future DeletePicture(String picId) async {
-    var urll = '$baseURL/photo';
+    var urll = '$baseURL/photo/delete/$picId';
 
-    var bodyy = {'photoId': picId};
+    var bodyy = {"photoId": picId};
 
     var response = await http.delete(
       Uri.parse(urll),
@@ -768,7 +768,6 @@ class FlickrRequestsAndResponses {
       body: jsonEncode(bodyy),
     );
 
-    print(response.body);
     if (response.statusCode == 200) {
       print("resposed success Deleted photo");
     } else {

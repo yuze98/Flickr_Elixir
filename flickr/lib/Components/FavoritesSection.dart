@@ -3,6 +3,8 @@ import 'package:flickr/Models/PictureFavorites.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
+import 'package:flickr/Screens/SubProfile.dart';
+import 'package:flickr/Screens/OthersSubProfile.dart';
 
 class FavoritesSection extends StatefulWidget {
   final picId;
@@ -77,6 +79,23 @@ class _FavoritesSectionState extends State<FavoritesSection> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               CircleAvatar(
+                child: GestureDetector(
+                  onTap: () async {
+                    if (id != CommonVars.userId) {
+                      String body =
+                          await FlickrRequestsAndResponses.showOtherUserProfile(
+                              id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OtherProfile()));
+                    } else
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SubProfile()));
+                  },
+                ),
                 backgroundImage: NetworkImage(profilePic),
                 radius: devSize.height * 0.04,
               ),
