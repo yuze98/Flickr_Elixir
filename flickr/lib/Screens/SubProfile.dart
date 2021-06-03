@@ -34,6 +34,7 @@ class _SubProfile extends State<SubProfile> {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;
+    CommonVars.sameUser = true;
 
     return Scaffold(
       body: DefaultTabController(
@@ -70,8 +71,7 @@ class _SubProfile extends State<SubProfile> {
                       ),
 //                              actions: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 40, right: deviceSizewidth * .01),
+                        padding: EdgeInsets.only(bottom: 40),
                         child: PopupMenuButton(
                           onSelected: movingTo,
                           color: Colors.white,
@@ -285,6 +285,8 @@ class _SubProfile extends State<SubProfile> {
 
   void photoTaker(ImageSource source, String file) async {
     final token = await _picker.getImage(source: source);
+    if (token == null) return;
+
     setState(() {
       CommonVars.photoFile = token;
     });

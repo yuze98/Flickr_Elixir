@@ -119,7 +119,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'descrip');
+                  if (CommonVars.sameUser) getVal(context, 'descrip');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -173,7 +173,9 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: CommonVars.email,
+                            text: CommonVars.sameUser
+                                ? CommonVars.email
+                                : CommonVars.othersEmail,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -191,7 +193,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'occupation');
+                  if (CommonVars.sameUser) getVal(context, 'occupation');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -227,7 +229,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'city');
+                  if (CommonVars.sameUser) getVal(context, 'city');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -263,7 +265,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'hometown');
+                  if (CommonVars.sameUser) getVal(context, 'hometown');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -382,7 +384,10 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Date joined: \n\n" '${CommonVars.created}',
+                            text: CommonVars.sameUser
+                                ? "Date joined: \n\n" '${CommonVars.created}'
+                                : "Date joined: \n\n"
+                                    '${CommonVars.othersCreated}',
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -409,8 +414,11 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Number of Photos Uploaded: \n\n "
-                                "${CommonVars.numberOfPhotos}",
+                            text: CommonVars.sameUser
+                                ? "Number of Photos Uploaded: \n\n "
+                                    "${CommonVars.numberOfPhotos}"
+                                : "Number of Photos Uploaded: \n\n "
+                                    "${CommonVars.othersNumberOfPhotos}",
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,

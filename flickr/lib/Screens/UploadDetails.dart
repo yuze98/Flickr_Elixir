@@ -15,7 +15,7 @@ class _ImageDetails extends State<ImageDetails> {
   bool titleBool = false;
   final descriptionController = TextEditingController();
   final titleController = TextEditingController();
-
+  Future<String> check;
   @override
   Widget build(BuildContext context) {
     double deviceSizeheight = MediaQuery.of(context).size.height;
@@ -33,11 +33,11 @@ class _ImageDetails extends State<ImageDetails> {
             IconButton(
               icon: Icon(Icons.navigate_next, color: Colors.white),
               onPressed: () {
-                setState(() {
+                setState(() async {
                   CommonVars.title = titleController.text;
                   CommonVars.description = descriptionController.text;
                   Navigator.pushNamed(context, 'LoadingScreen');
-                  FlickrRequestsAndResponses.uploadImage();
+                  check = FlickrRequestsAndResponses.uploadImage();
                   Navigator.pop(context);
                   Navigator.pushNamed(context, 'UserPage');
                 });
@@ -122,7 +122,7 @@ class _ImageDetails extends State<ImageDetails> {
     } else {
       descriptionBool = true;
       titleBool = true;
-      return 'A valid Title';
+      return null;
     }
   }
 
@@ -137,10 +137,9 @@ class _ImageDetails extends State<ImageDetails> {
   }
 
   void uploadPhoto() async {
-    int statusCode = 200;
     /*await FlickrRequestsAndResponses.changePassword(
         newPasswordController, oldPasswordController);*/
-    if (statusCode == 200) {
+    if (check != null) {
       showAlertDialog(context, validateConfirm());
     } else {
       showAlertDialog(context, 'Enter valid parameters');

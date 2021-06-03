@@ -168,7 +168,9 @@ class _UserPage extends State<UserPage> {
   }
 
   void photoTaker(ImageSource source) async {
-    final token = await _picker.getImage(source: source);
+    var token = await _picker.getImage(source: source);
+    if (token == null) return;
+
     setState(() {
       CommonVars.photoFile = token;
     });
