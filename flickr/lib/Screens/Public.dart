@@ -90,16 +90,10 @@ class _PublicState extends State<Public> {
               switch (buttonText) {
                 case "Public view":
                   return getGridTile(CommonVars.publicList, index);
-                case "Friends view":
-                  //print("Plssssssssssssssssssssssss");
-                  // print(CommonVars.friendsList);
-                  return getGridTile(CommonVars.friendsList, index);
-                case "Family view":
-                  return getGridTile(CommonVars.familyList, index);
+                case "Private view":
+                  return getGridTile(CommonVars.privateList, index);
 
                 default:
-                  //print("Item count imGE VVIEW is ");
-                  // print(returnItemCount());
                   return getGridTile(CommonVars.imageList, index);
               }
             },
@@ -178,10 +172,13 @@ class _PublicState extends State<Public> {
                     builder: (context) => ExploreDetails(
                           photoFile: imageType[index],
                           profilePic: imageType[index],
-                          userName: "The Amazing 7elwa",
-                          title: 'riddler',
-                          favCount: '1M',
-                          commentNum: '5K',
+                          userName: CommonVars.username[index],
+                          title: CommonVars.titleCamera[index],
+                          favCount: CommonVars.favCount[index],
+                          commentNum: CommonVars.commentNum[index],
+                          hasPressed: CommonVars.hasPressedCamera[index],
+                          userId: CommonVars.userID[index],
+                          picId: CommonVars.picID[index],
                         )));
           },
         ),
@@ -193,10 +190,8 @@ class _PublicState extends State<Public> {
     // print("****************$buttonText");
     if (buttonText == "Public view")
       return CommonVars.publicList.length;
-    else if (buttonText == "Family view")
-      return CommonVars.familyList.length;
-    else if (buttonText == "Friends view")
-      return CommonVars.friendsList.length;
+    else if (buttonText == "Private view")
+      return CommonVars.privateList.length;
     else
       return CommonVars.imageList.length;
   }
@@ -235,22 +230,9 @@ class _PublicState extends State<Public> {
                         // print(_selectedIndexList);
 
                         for (int i = 0; i < _selectedIndexList.length; i++) {
-                          // print("Selected Image:$_selectedIndexList");
-                          //  print("Image Image:$CommonVars.imageList");
-
                           CommonVars.imageList.removeAt(_selectedIndexList[i]);
                         }
                         _selectedIndexList.clear();
-
-                        //   _selectedIndexList.removeAt(_selectedIndexList[i]);
-                        // for (var elem in _selectedIndexList) {
-                        //   print(elem);
-                        //   CommonVars.imageList.remove(elem);
-                        // }
-
-                        //  }
-
-                        //  tapped = !tapped;
                       }
                     });
                   },
@@ -429,7 +411,7 @@ class _PublicState extends State<Public> {
     double deviceSizeHeight = MediaQuery.of(context).size.height;
     double deviceSizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: deviceSizeWidth * .6,
+      height: deviceSizeWidth * .4,
       width: deviceSizeWidth,
 //margin: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 40),
       child: Column(
@@ -454,22 +436,11 @@ class _PublicState extends State<Public> {
               // ),
               RawMaterialButton(
                 //    constraints: BoxConstraints.tight(Size(80, 80)),
-                child: Text("Friends view", style: TextStyle(fontSize: 20)),
+                child: Text("Private view", style: TextStyle(fontSize: 20)),
 
                 onPressed: () {
                   setState(() {
-                    buttonText = "Friends view";
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RawMaterialButton(
-                //    constraints: BoxConstraints.tight(Size(80, 80)),
-                child: Text("Family view", style: TextStyle(fontSize: 20)),
-
-                onPressed: () {
-                  setState(() {
-                    buttonText = "Family view";
+                    buttonText = "Private view";
                   });
                   Navigator.pop(context);
                 },

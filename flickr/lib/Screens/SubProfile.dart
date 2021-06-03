@@ -9,6 +9,7 @@ import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'about.dart';
+import 'AlbumScreen.dart';
 
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
@@ -52,7 +53,7 @@ class _SubProfile extends State<SubProfile> {
                     actions: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: 40, right: deviceSizewidth * .8),
+                            bottom: 40, right: deviceSizewidth * .7),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -206,7 +207,7 @@ class _SubProfile extends State<SubProfile> {
                 AboutState(),
                 CameraRoll(),
                 Public(),
-                Icon(Icons.album_sharp),
+                AlbumScreen(),
                 Icon(Icons.group),
               ]),
         ),

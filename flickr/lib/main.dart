@@ -15,6 +15,7 @@ import 'package:flickr/Screens/Tags.dart';
 import 'package:flickr/Screens/CameraRoll.dart';
 
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
+import 'Screens/SearchScreen.dart';
 
 void main() {
   runApp(
@@ -34,6 +35,7 @@ void main() {
         'forgetPass': (context) => forgetPass(),
         'ChangePassword': (context) => ChangePassword(),
         'LoadingScreen': (context) => LoadingScreen(),
+        'SearchPage': (context) => SearchScreen(),
       },
     ),
   );
