@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flickr/Models/GetAlbumMedia.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class AlbumSubScreen extends StatefulWidget {
   AlbumSubScreen(
@@ -23,10 +21,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   String albumID;
   String albumName;
   int numberOfPhotos;
-  Future<List<GetAlbumMediaModel>> listOfAlbumMedia;
 
   List<String> listOfImages = [];
-
   List<int> _selectedIndexList = [];
   bool _selectionMode = false;
 
@@ -36,8 +32,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
     albumID = widget.receivedAlbumID;
     albumName = widget.receivedAlbumName;
     numberOfPhotos = widget.receivedNumberOfPhotos;
-
-    listOfAlbumMedia = FlickrRequestsAndResponses.GetAlbumMedia(albumID);
     // Get list of images
   }
 
@@ -47,6 +41,13 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
 
   @override
   Widget build(BuildContext context) {
+    listOfImages.add(
+        'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg');
+    listOfImages.add(
+        'https://pyxis.nymag.com/v1/imgs/7ca/881/7f727ef8d29529b66c4b8866ce9fe3a605-01-thor-ragnarok.rsquare.w700.jpg');
+    listOfImages.add(
+        'https://i.guim.co.uk/img/media/e5da92e4397a66d9771ca1ef4d0d8eb0847eda85/0_16_1920_1152/master/1920.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=1d61ca60204a01b684eb2ec8213986e5');
+
     String numberOfPhotosString = numberOfPhotos > 1
         ? numberOfPhotos.toString() + ' photos'
         : numberOfPhotos.toString() + ' photo';
@@ -133,25 +134,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
               ),
             ];
           },
-          body: FutureBuilder<List<GetAlbumMediaModel>>(
-            future: listOfAlbumMedia,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<GetAlbumMediaModel> data = snapshot.data;
-
-                for (var i in data) {
-                  listOfImages.add(
-                    i.url,
-                  );
-                }
-                return _createBody();
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              // By default show a loading spinner.
-              return CircularProgressIndicator();
-            },
-          ),
+          body: _createBody(),
         ),
       ),
     );

@@ -1,9 +1,6 @@
 import 'dart:ui';
 import 'dart:convert';
-import 'package:flickr/Components/FavoritesSection.dart';
 import 'package:flickr/Models/CameralRollModel.dart';
-import 'package:flickr/Screens/ForgetPass.dart';
-import 'package:flickr/Screens/SignUp.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
@@ -14,6 +11,7 @@ import 'package:flickr/Models/PictureComments.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
 import 'package:flickr/Models/UserFollowings.dart';
 import 'package:flickr/Models/UserFollowers.dart';
+import 'package:flickr/Models/GetAlbumMedia.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL = 'https://api.qasaqees.tech';
@@ -206,6 +204,7 @@ class FlickrRequestsAndResponses {
   static Future<http.Response> LogInFB(
       final FacebookLogin facebookSignIn) async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+
     int statusCode = 0;
     var response;
     switch (result.status) {
@@ -233,7 +232,7 @@ class FlickrRequestsAndResponses {
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(bodyy),
         );
-
+        CommonVars.loginRes = json.decode(response.body);
         print('FB Response status: ${response.statusCode}');
         print('Response body: ${response.body}');
         statusCode = response.statusCode;
@@ -505,14 +504,18 @@ class FlickrRequestsAndResponses {
     const String baseURL = 'https://api.qasaqees.tech/photo/upload';
 
     var request = http.MultipartRequest('POST', Uri.parse(baseURL));
+    print(
+        "our tokeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeen ${CommonVars.loginRes["accessToken"]}");
     request.headers['Authorization'] =
         "Bearer ${CommonVars.loginRes["accessToken"]}";
     request.fields['isPublic'] = "true";
-    request.fields['title'] = CommonVars.title;
+    request.fields['title'] =
+        CommonVars.title == "" ? "profile" : CommonVars.title;
     request.fields['allowCommenting'] = "true";
-    request.fields['tags'] = CommonVars.tags;
+    request.fields['tags'] = CommonVars.tags == "" ? "pro" : CommonVars.tags;
     request.fields['safetyOption'] = ""; //null
-    request.fields['description'] = CommonVars.description;
+    request.fields['description'] =
+        CommonVars.description == "" ? "pro" : CommonVars.description;
     request.files.add(
         await http.MultipartFile.fromPath('file', CommonVars.photoFile.path));
     var res = await request.send();
@@ -663,7 +666,8 @@ class FlickrRequestsAndResponses {
     }
 
     return response;
-}
+  }
+
   static Future<String> showOtherUserProfile(String id) async {
     var url = 'https://api.qasaqees.tech/user/about/$id';
 
@@ -827,6 +831,112 @@ class FlickrRequestsAndResponses {
 
       print(response.body);
       throw Exception('Failed to load Delete');
+    }
+  }
+
+  static Future CreateAlbum(String albumTitle, String albumDescription) async {
+    var url = '$baseURL/album/createAlbum';
+
+    final bodyy = {"title": albumTitle, "description": albumDescription};
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("resposed success Album created");
+    } else {
+      print("responsed failure Album creation");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to create album');
+    }
+  }
+
+  static Future<List<SingleAlbumModel>> GetAlbum() async {
+    var url = '$baseURL/user/albums/${CommonVars.userId}';
+
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+    );
+
+    final albumList = json.decode(response.body);
+    List<SingleAlbumModel> albumModelList = [];
+
+    if (response.statusCode == 200) {
+      print("resposed success Album created");
+      for (var i in albumList['albums']) {
+        albumModelList.add(SingleAlbumModel.fromJson(i));
+      }
+      return albumModelList;
+    } else {
+      print("responsed failure Album creation");
+
+      throw Exception('Failed to create album');
+    }
+  }
+
+  static Future AddPhotoToAlbum(String photoId, String albumId) async {
+    var url = '$baseURL/album/addPhoto';
+
+    final bodyy = {"photoId": photoId, "albumId": albumId};
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("resposed success adding photo");
+    } else {
+      print("responsed failure adding photo");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to add photo');
+    }
+  }
+
+  static Future<List<GetAlbumMediaModel>> GetAlbumMedia(String albumId) async {
+    var urll = '$baseURL/album/$albumId';
+
+    var response = await http.get(
+      Uri.parse(urll),
+      headers: {
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+    );
+    if (response.statusCode == 200) {
+      print("resposed success got album media");
+
+      final photos = json.decode(response.body);
+
+      List<GetAlbumMediaModel> listOfMedia = [];
+      for (var i in photos['media']) {
+        listOfMedia.add(GetAlbumMediaModel.fromJson(i));
+      }
+
+      return listOfMedia;
+    } else {
+      print("responsed failure to get to album media");
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to get album media');
     }
   }
 }

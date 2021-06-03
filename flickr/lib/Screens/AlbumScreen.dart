@@ -1,8 +1,5 @@
-import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'AlbumSubScreen.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
-import 'package:flickr/Models/GetAlbumMedia.dart';
 
 const String TEMPCOVERPHOTO =
     'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg';
@@ -13,17 +10,54 @@ class AlbumScreen extends StatefulWidget {
 }
 
 class _AlbumScreenState extends State<AlbumScreen> {
-  List<Widget> listOfAlbumCards = [];
-  Future<List<SingleAlbumModel>> albums;
-  Future<List<GetAlbumMediaModel>> listOfAlbumMedia;
-  // List<Future<List<GetAlbumMediaModel>>> listOfListOfAlbumMedia;
-  // String coverPhoto = '';
+  List<AlbumCard> listOfAlbums = [];
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    List<dynamic> albums = [
+      {
+        "_id": "5349b4ddd2781d08c09890f4",
+        "title": "First album",
+        // "description": "Paris pics 2019",
+        "creator": "2149b4ddd2781d08c09890a1",
+        "numberOfPhotos": 1,
+      },
+      {
+        "_id": "5349b4ddd2782d08c09890f4",
+        "title": "Second album",
+        // "description": "Paris pics 2019",
+        "creator": "2149b4ddd2781d08c09890a2",
+        "numberOfPhotos": 4,
+      },
+      {
+        "_id": "5349b4ddd2783d08c09890f4",
+        "title": "Third album",
+        // "description": "Paris pics 2019",
+        "creator": "2149b4ddd2781d08c09890a3",
+        "numberOfPhotos": 4,
+      }
+    ];
 
-    albums = FlickrRequestsAndResponses.GetAlbum();
+    loadAlbumCard(albums);
+  }
+
+  void loadAlbumCard(List<dynamic> albums) {
+    albums.forEach((element) {
+      print(element["_id"]);
+      print(element["title"]);
+      print(element["numberOfPhotos"].toString());
+      print(element["creator"]);
+      print('Finito prints');
+      listOfAlbums.add(AlbumCard(
+        albumID: element["_id"],
+        coverPhotoUrl: TEMPCOVERPHOTO,
+        albumName: element["title"],
+        numberOfPhotos: element["numberOfPhotos"],
+      ));
+    });
+    print(listOfAlbums.length);
   }
 
   @override
@@ -31,63 +65,35 @@ class _AlbumScreenState extends State<AlbumScreen> {
     return Column(
       children: [
         Expanded(
-          flex: 1,
-          child: RawMaterialButton(
-            onPressed: () {
-              // TODO e3mel popup yekteb el name w desc
-              FlickrRequestsAndResponses.CreateAlbum(
-                  'First created', 'Mabrook');
-            },
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            elevation: 0,
-            constraints: BoxConstraints.tightFor(
-              width: 20.0,
-              height: 20.0,
-            ),
-            shape: CircleBorder(),
-            fillColor: Color(0xFF0A4FA4),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: FutureBuilder<List<SingleAlbumModel>>(
-            future: albums,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<SingleAlbumModel> data = snapshot.data;
-
-                for (var i in data) {
-                  // TODO Store data feen
-                  // listOfListOfAlbumMedia[i] =
-                  // FlickrRequestsAndResponses.GetAlbumMedia(i.albumId);
-                  listOfAlbumCards.add(
-                    AlbumCard(
-                      i.albumId,
-                      i.albumTitle,
-                      i.numberOfPhotos,
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: listOfAlbumCards.length,
-                  itemBuilder: (context, index) => listOfAlbumCards[index],
-                );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              // By default show a loading spinner.
-              return CircularProgressIndicator();
+          child: new ListView.builder(
+            itemCount: listOfAlbums.length,
+            itemBuilder: (BuildContext context, int index) {
+              return listOfAlbums[index];
             },
           ),
         ),
       ],
     );
   }
+}
 
-  Widget AlbumCard(String albumID, String albumName, int numberOfPhotos) {
+class AlbumCard extends StatelessWidget {
+  AlbumCard(
+      {this.albumID,
+      this.coverPhotoUrl,
+      @required this.albumName,
+      this.numberOfPhotos,
+      this.dateOfAlbumCreation,
+      this.imagesUrl});
+  final String albumID;
+  final String coverPhotoUrl;
+  final String albumName;
+  final int numberOfPhotos;
+  final String dateOfAlbumCreation;
+  final List<String> imagesUrl;
+
+  @override
+  Widget build(BuildContext context) {
     String numberOfPhotosString = numberOfPhotos > 1
         ? numberOfPhotos.toString() + ' photos'
         : numberOfPhotos.toString() + ' photo';
@@ -110,8 +116,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           children: <Widget>[
             ListTile(
               leading: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(TEMPCOVERPHOTO), //TODO get first photo
+                backgroundImage: NetworkImage(coverPhotoUrl),
               ),
               title: Text(albumName),
               isThreeLine: false, // TODO convert it to true if you need date

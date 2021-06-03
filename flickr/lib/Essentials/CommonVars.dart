@@ -75,8 +75,4 @@ class CommonVars {
 
   static const List<String> privacy = <String>[public, private];
   static const List<String> albums = <String>[album];
-  // Albums
-  static List<String> albumIdList = [];
-  static List<String> albumTitleList = [];
-  static List<String> albumNumberOfPhotosList = [];
 }

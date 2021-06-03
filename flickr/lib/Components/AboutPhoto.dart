@@ -173,7 +173,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
                       onTap: () {
                         //Go to Album page
                         albumBool
-                            ? print("go to album") // TODO add to album
+                            ? print("go to album")
                             : print("not editable");
                       },
                     ),
