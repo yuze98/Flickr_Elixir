@@ -196,9 +196,10 @@ class _ImageListState extends State<ImageList> {
                         CommonVars.hasPressed[index] =
                             !CommonVars.hasPressed[index];
 
-                        if (CommonVars.hasPressed[index])
+                        if (CommonVars.hasPressed[index]) {
                           FlickrRequestsAndResponses.AddToFavorite(
                               picId[index]);
+                        }
                       },
                     );
                   },
