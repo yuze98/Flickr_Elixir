@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flickr/Components/FollowingsList.dart';
+import 'package:flickr/Components/FollowersList.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 
 import 'CameraRoll.dart';
@@ -156,15 +158,39 @@ class _SubProfile extends State<SubProfile> {
                             ),
                             Row(
                               children: [
-                                Text(
-                                  '${CommonVars.followers} followers - ',
-                                  style: TextStyle(
-                                      fontSize: 10.0, color: Colors.white),
+                                GestureDetector(
+                                  child: Text(
+                                    '${CommonVars.followers} followers - ',
+                                    style: TextStyle(
+                                        fontSize: 10.0, color: Colors.white),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FollowersList(
+                                          userId: CommonVars.userId,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                                Text(
-                                  '${CommonVars.followings} following',
-                                  style: TextStyle(
-                                      fontSize: 10.0, color: Colors.white),
+                                GestureDetector(
+                                  child: Text(
+                                    '${CommonVars.followings} following - ',
+                                    style: TextStyle(
+                                        fontSize: 10.0, color: Colors.white),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FollowingsList(
+                                          userId: CommonVars.userId,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             )
