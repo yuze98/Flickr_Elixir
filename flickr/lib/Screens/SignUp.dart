@@ -379,7 +379,7 @@ String validateEmail(String value) {
   Pattern pattern =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   RegExp regex = new RegExp(pattern);
-  if (!regex.hasMatch(value) || value == null) {
+  if (!regex.hasMatch(value.toLowerCase()) || value == null) {
     emailBool = false;
     return 'Enter a valid email address';
   } else {

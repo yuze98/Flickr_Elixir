@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flickr/Components/ExploreDetails.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'About.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -53,7 +54,8 @@ class _DescripDataState extends State<DescripData> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
-                      sending();
+                      Navigator.pop(context, dataController.text);
+                      print(dataController.text);
                     },
                   ),
                 ),
@@ -409,7 +411,7 @@ class _FeatPhotsState extends State<FeatPhots> {
                   height: devicesize.height * 0.5,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/Wanda.jpg'),
+                      image: NetworkImage(CommonVars.imageList[0]),
                       //width: 20.0,
                       //  height: devicesize.height * 0.5,
                       fit: BoxFit.cover,
@@ -417,29 +419,93 @@ class _FeatPhotsState extends State<FeatPhots> {
                   ),
                 ),
                 onTap: () {
-                  setState(() {
-                    Navigator.push(
+                  setState(
+                    () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ExploreDetails(
-                                profilePic:
-                                    'https://www.denofgeek.com/wp-content/uploads/2021/02/wandavision-episode-7-elizabeth-olsen-disney-marvel.jpg?resize=768%2C432',
-                                photoFile:
-                                    'https://www.denofgeek.com/wp-content/uploads/2021/02/wandavision-episode-7-elizabeth-olsen-disney-marvel.jpg?resize=768%2C432')));
-                  });
+                          builder: (context) => ExploreDetails(
+                              profilePic: CommonVars.imageList[0],
+                              photoFile: CommonVars.imageList[0],
+                              userName: CommonVars.username[0],
+                              title: CommonVars.titleCamera[0],
+                              favCount: CommonVars.favCount[0],
+                              commentNum: CommonVars.commentNum[0],
+                              hasPressed: false,
+                              userId: CommonVars.userID[0],
+                              picId: CommonVars.picID[0]),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
-              Image.asset(
-                'images/AppIcon.jpg',
-                // width: 600.0,
-                // height: devicesize.height * 0.5,
-                fit: BoxFit.cover,
+              GestureDetector(
+                child: Container(
+                  height: devicesize.height * 0.5,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(CommonVars.imageList[1]),
+                      //width: 20.0,
+                      //  height: devicesize.height * 0.5,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  setState(
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExploreDetails(
+                              profilePic: CommonVars.imageList[1],
+                              photoFile: CommonVars.imageList[1],
+                              userName: CommonVars.username[1],
+                              title: CommonVars.titleCamera[1],
+                              favCount: CommonVars.favCount[1],
+                              commentNum: CommonVars.commentNum[1],
+                              hasPressed: false,
+                              userId: CommonVars.userID[1],
+                              picId: CommonVars.picID[1]),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-              Image.asset(
-                'images/me.jpg',
-                // width: 600.0,
-                // height: devicesize.height * 0.5,
-                fit: BoxFit.cover,
+              GestureDetector(
+                child: Container(
+                    height: devicesize.height * 0.5,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(CommonVars.imageList[2]),
+                        //width: 20.0,
+                        //  height: devicesize.height * 0.5,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
+                onTap: () {
+                  setState(
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExploreDetails(
+                              profilePic: CommonVars.imageList[2],
+                              photoFile: CommonVars.imageList[2],
+                              userName: CommonVars.username[2],
+                              title: CommonVars.titleCamera[2],
+                              favCount: CommonVars.favCount[2],
+                              commentNum: CommonVars.commentNum[2],
+                              hasPressed: false,
+                              userId: CommonVars.userID[2],
+                              picId: CommonVars.picID[2]),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

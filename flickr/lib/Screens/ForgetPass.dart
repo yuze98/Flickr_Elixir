@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'CheckInboxPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:flickr/api/RequestAndResponses.dart';
 
 class forgetPass extends StatefulWidget {
   forgetPass({this.receivedEmailController});
@@ -121,7 +122,7 @@ class _forgetPassState extends State<forgetPass> {
                               //
                               print(EmailController.text);
                               // sendMail(emailController.text);
-                              sending();
+                              sending(EmailController.text);
 
                               // };
                               //The user picked true.
@@ -152,15 +153,16 @@ class _forgetPassState extends State<forgetPass> {
     return str;
   }
 
-  void sending() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
-
-    var response =
-        await http.post(Uri.parse(url), body: {"email": "test@test.com"});
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+  void sending(String email) async {
+    // var url =
+    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
+    //
+    // var response =
+    //     await http.post(Uri.parse(url), body: {"email": "test@test.com"});
+    //
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
+    var response = await FlickrRequestsAndResponses.forgetPass(email);
 
     if (response.statusCode == 200) {
       showAlertDialog(context, validateubmit(200));
@@ -181,7 +183,6 @@ class _forgetPassState extends State<forgetPass> {
             MaterialPageRoute(
               builder: (context) => checkInbox(email: EmailController.text),
             ),
-            // print("Immm innnnnnnnnnnnnnnnnnnnnnnn");
           );
         } else
           Navigator.of(context).pop();

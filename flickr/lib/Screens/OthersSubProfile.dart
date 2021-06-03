@@ -29,7 +29,7 @@ class _OtherProfile extends State<OtherProfile> {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;
-
+    CommonVars.sameUser = false;
     return Scaffold(
       body: DefaultTabController(
         length: 5,

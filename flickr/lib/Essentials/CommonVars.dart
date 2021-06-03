@@ -28,6 +28,10 @@ class CommonVars {
   static int numberOfPhotos;
   static Map<String, dynamic> loginRes;
   static PickedFile photoFile;
+  static bool sameUser = false;
+
+  static bool camerarollbool = false;
+
 
   /*********************************************************/
   static String otherUserId = "";

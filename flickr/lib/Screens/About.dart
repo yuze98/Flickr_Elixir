@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
+import 'CameraRoll.dart';
 import 'RedirectAbPage.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
@@ -12,31 +13,16 @@ class AboutState extends StatefulWidget {
 }
 
 class _AboutStateState extends State<AboutState> {
-  String descrip = "Add Description...";
-  String email = "Add Email Address ...";
-  String occupation = "Add Occupation...";
-  String hometown = "Add Hometown...";
-  String city = "Add Current City...";
   var result = 'Heyoo';
 
-  void description() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/user/about/5?userId=5349b4ddd2781d08c09890f4';
-
-    var response = await http.get(Uri.parse(url));
-    var decoded = jsonDecode(response.body)['description'];
-    descrip = decoded;
-    print('description is $descrip');
-  }
-
-  void emailaddress() async {
+  void AboutAPI() async {
     await FlickrRequestsAndResponses.GetAbout();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    emailaddress();
+    AboutAPI();
     super.initState();
   }
 
@@ -87,13 +73,13 @@ class _AboutStateState extends State<AboutState> {
 
         break;
 
-      case 'featured':
-        {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FeatPhots()),
-          );
-        }
+        // case 'featured':
+        //   {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => FeatPhots()),
+        //     );
+        //   }
         //setState(() => city = result);
         break;
 
@@ -103,6 +89,8 @@ class _AboutStateState extends State<AboutState> {
         }
         break;
     }
+    await FlickrRequestsAndResponses.EditAboutInfo(
+        CommonVars.occupation, CommonVars.hometown, CommonVars.city);
   }
 
   @override
@@ -119,7 +107,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'descrip');
+                  if (CommonVars.sameUser) getVal(context, 'descrip');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -173,7 +161,9 @@ class _AboutStateState extends State<AboutState> {
                                 color: Colors.grey[600]),
                           ),
                           TextSpan(
-                            text: CommonVars.email,
+                            text: CommonVars.sameUser
+                                ? CommonVars.email
+                                : CommonVars.othersEmail,
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.04,
                                 color: Colors.black),
@@ -191,7 +181,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'occupation');
+                  if (CommonVars.sameUser) getVal(context, 'occupation');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -227,7 +217,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'city');
+                  if (CommonVars.sameUser) getVal(context, 'city');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -263,7 +253,7 @@ class _AboutStateState extends State<AboutState> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  getVal(context, 'hometown');
+                  if (CommonVars.sameUser) getVal(context, 'hometown');
                 },
                 child: SizedBox(
                   height: devicesize.height * 0.15,
@@ -319,13 +309,6 @@ class _AboutStateState extends State<AboutState> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey[600]),
                                   ),
-                                  WidgetSpan(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 230),
-                                      child: Icon(Icons.arrow_forward_ios,
-                                          size: 14),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -333,37 +316,46 @@ class _AboutStateState extends State<AboutState> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'images/Wanda.jpg',
-                            width: devicesize.width * 0.28,
-                            height: devicesize.height * 0.16,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'images/AppIcon.jpg',
-                            width: devicesize.width * 0.28,
-                            height: devicesize.height * 0.16,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'images/me.jpg',
-                            width: devicesize.width * 0.28,
-                            height: devicesize.height * 0.16,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
+                    CommonVars.camerarollbool
+                        ? Row(
+                            children: [
+                              CommonVars.imageList.length >= 1
+                                  ? imageFeat(context, 0)
+                                  : Text(""),
+                              CommonVars.imageList.length >= 2
+                                  ? imageFeat(context, 1)
+                                  : Text(""),
+                              CommonVars.imageList.length >= 3
+                                  ? imageFeat(context, 2)
+                                  : Text("")
+                              //   child: Image.network(
+                              //     CommonVars.imageList[0],
+                              //     width: devicesize.width * 0.28,
+                              //     height: devicesize.height * 0.16,
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Image.network(
+                              //     CommonVars.imageList[1],
+                              //     width: devicesize.width * 0.28,
+                              //     height: devicesize.height * 0.16,
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Image.network(
+                              //     CommonVars.imageList[2],
+                              //     width: devicesize.width * 0.28,
+                              //     height: devicesize.height * 0.16,
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                            ],
+                          )
+                        : Text(""),
                   ],
                 ),
               ),
@@ -382,7 +374,10 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Date joined: \n\n" '${CommonVars.created}',
+                            text: CommonVars.sameUser
+                                ? "Date joined: \n\n" '${CommonVars.created}'
+                                : "Date joined: \n\n"
+                                    '${CommonVars.othersCreated}',
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -409,8 +404,11 @@ class _AboutStateState extends State<AboutState> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Number of Photos Uploaded: \n\n "
-                                "${CommonVars.numberOfPhotos}",
+                            text: CommonVars.sameUser
+                                ? "Number of Photos Uploaded: \n\n "
+                                    "${CommonVars.numberOfPhotos}"
+                                : "Number of Photos Uploaded: \n\n "
+                                    "${CommonVars.othersNumberOfPhotos}",
                             style: TextStyle(
                                 fontSize: devicesize.width * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -425,6 +423,18 @@ class _AboutStateState extends State<AboutState> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget imageFeat(BuildContext context, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Image.network(
+        CommonVars.imageList[index],
+        //fit: BoxFit.cover,
+        width: 100,
+        height: 100,
       ),
     );
   }

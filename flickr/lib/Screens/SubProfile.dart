@@ -34,10 +34,11 @@ class _SubProfile extends State<SubProfile> {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;
+    CommonVars.sameUser = true;
 
     return Scaffold(
       body: DefaultTabController(
-        length: 5,
+        length: 4,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool Scroll) {
             return <Widget>[
@@ -70,8 +71,7 @@ class _SubProfile extends State<SubProfile> {
                       ),
 //                              actions: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 40, right: deviceSizewidth * .01),
+                        padding: EdgeInsets.only(bottom: 40),
                         child: PopupMenuButton(
                           onSelected: movingTo,
                           color: Colors.white,
@@ -205,9 +205,6 @@ class _SubProfile extends State<SubProfile> {
                       // These are the widgets to put in each tab in the tab bar.
                       tabs: [
                         Text(
-                          'About',
-                        ),
-                        Text(
                           'Camera Roll',
                         ),
                         Text(
@@ -217,7 +214,7 @@ class _SubProfile extends State<SubProfile> {
                           'Albums',
                         ),
                         Text(
-                          'Groups',
+                          'About',
                         ),
                       ],
                       isScrollable: true,
@@ -230,11 +227,10 @@ class _SubProfile extends State<SubProfile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                AboutState(),
                 CameraRoll(),
                 Public(),
                 AlbumScreen(),
-                Icon(Icons.group),
+                AboutState(),
               ]),
         ),
       ),
@@ -285,6 +281,8 @@ class _SubProfile extends State<SubProfile> {
 
   void photoTaker(ImageSource source, String file) async {
     final token = await _picker.getImage(source: source);
+    if (token == null) return;
+
     setState(() {
       CommonVars.photoFile = token;
     });
