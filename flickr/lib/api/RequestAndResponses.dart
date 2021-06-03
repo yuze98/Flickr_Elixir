@@ -573,4 +573,30 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to add tag');
     }
   }
+
+  static Future UnFollowUser(String userTobeUnFollowed) async {
+//5349b4ddd2781d08c09890f4
+
+    print("user id is$userTobeUnFollowed");
+
+    var urll = '$baseURL/user/unfollowUser';
+
+    var bodyy = {'userId': userTobeUnFollowed};
+
+    var response = await http.post(Uri.parse(urll),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+        },
+        body: jsonEncode(bodyy));
+
+    if (response.statusCode == 200) {
+      print("resposed success unfollowed a user");
+    } else {
+      print("resposed failure cant unFollow a user");
+
+      print(response.body);
+      throw Exception('Failed to load unfollow');
+    }
+  }
 }

@@ -100,11 +100,16 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                 ))),
                 onPressed: () {
                   //func follow
-                  FlickrRequestsAndResponses.FollowUser(id);
+
                   setState(() {
                     CommonVars.favoriteUsersFollow[index] =
                         !CommonVars.favoriteUsersFollow[index];
                     print(CommonVars.favoriteUsersFollow[index]);
+                    if (CommonVars.favoriteUsersFollow[index]) {
+                      FlickrRequestsAndResponses.FollowUser(id);
+                    } else {
+                      FlickrRequestsAndResponses.UnFollowUser(id);
+                    }
                   });
                 },
                 child: Row(
