@@ -98,6 +98,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           MaterialPageRoute(
             // builder: (context) => MyHomePage(),
             builder: (context) => AlbumSubScreen(
+              receivedAlbumID: albumID,
               receivedAlbumName: albumName,
               receivedNumberOfPhotos: numberOfPhotos,
             ),

@@ -914,6 +914,7 @@ class FlickrRequestsAndResponses {
 
   static Future<List<GetAlbumMediaModel>> GetAlbumMedia(String albumId) async {
     var urll = '$baseURL/album/$albumId';
+    print(albumId);
 
     var response = await http.get(
       Uri.parse(urll),
@@ -921,6 +922,10 @@ class FlickrRequestsAndResponses {
         'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
       },
     );
+
+    print(response.statusCode);
+    print(response.body);
+
     if (response.statusCode == 200) {
       print("resposed success got album media");
 
