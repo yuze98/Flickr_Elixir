@@ -1,3 +1,5 @@
+import 'package:flickr/Components/FollowingsList.dart';
+
 import 'CameraRoll.dart';
 import 'Public.dart';
 import 'package:flutter/material.dart';
@@ -113,11 +115,22 @@ class _OtherProfile extends State<OtherProfile> {
                                     );
                                   },
                                 ),
-                                Text(
-                                  '${CommonVars.othersFollowings} following',
-                                  style: TextStyle(
-                                      fontSize: 10.0, color: Colors.white),
-                                ),
+                                GestureDetector(
+                                    child: Text(
+                                      '${CommonVars.othersFollowings} following',
+                                      style: TextStyle(
+                                          fontSize: 10.0, color: Colors.white),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FollowingsList(
+                                            userId: CommonVars.otherUserId,
+                                          ),
+                                        ),
+                                      );
+                                    })
                               ],
                             )
                           ]),
