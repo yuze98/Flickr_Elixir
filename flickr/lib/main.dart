@@ -18,7 +18,6 @@ import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycl
 import 'Screens/SearchScreen.dart';
 import 'Screens/OthersSubProfile.dart';
 import 'Screens/ResetPassword.dart';
-import 'package:dartdoc/dartdoc.dart';
 
 void main() {
   runApp(

@@ -101,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
           CommonVars.followings =
               CommonVars.loginRes["user"]["numberOfFollowings"];
           CommonVars.userId = CommonVars.loginRes["user"]["_id"];
+          print(CommonVars.coverPhotoLink);
         });
 
         Navigator.pop(context);

@@ -30,6 +30,10 @@ class FlickrRequestsAndResponses {
       body: jsonEncode(jso),
     );
 
+    CommonVars.loginRes = json.decode(response.body);
+
+    // CommonVars.loginRes=json
+
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
@@ -330,6 +334,7 @@ class FlickrRequestsAndResponses {
       return vo;
     } else {
       print("resposed failure favorite dudes");
+      print(response.body);
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load get favorite');
@@ -361,7 +366,7 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<String> GetAbout() async {
-    var url = 'https://api.qasaqees.tech/user/about/60b788d18d3e8100126ed17e';
+    var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
 
     var response = await http.get(
       Uri.parse(url),
@@ -401,7 +406,7 @@ class FlickrRequestsAndResponses {
 //5349b4ddd2781d08c09890f4
 
     var urll = '$baseURL/photo/getComments';
-
+    print("our id issssssssssssssssssssssssssssssssssssssssssss $picId");
     final bodyy = {"photoId": '$picId'};
 
     var response = await http.post(Uri.parse(urll),
@@ -424,6 +429,7 @@ class FlickrRequestsAndResponses {
       return vo;
     } else {
       print("resposed failure Comments");
+      print(response.body);
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load Comments');
