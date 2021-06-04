@@ -284,7 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => forgetPass(
+                                builder: (context) => ForgetPass(
                                   receivedEmailController: emailController,
                                 ),
                               ),
@@ -383,7 +383,9 @@ String validateEmail(String value) {
 }
 
 String validatePassword(String value) {
-  Pattern pattern = r"^(?=.*[A-Za-z]*)(?=.*\d)[A-Za-z\d]{8,}$";
+  Pattern pattern =
+      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
     passwordCheck = false;

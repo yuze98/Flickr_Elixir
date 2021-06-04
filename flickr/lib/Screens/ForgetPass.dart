@@ -1,18 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'CheckInboxPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flickr/api/RequestAndResponses.dart';
 
-class forgetPass extends StatefulWidget {
-  forgetPass({this.receivedEmailController});
+class ForgetPass extends StatefulWidget {
+  ForgetPass({this.receivedEmailController});
 
   final receivedEmailController;
 
   @override
-  _forgetPassState createState() => _forgetPassState();
+  _ForgetPassState createState() => _ForgetPassState();
 }
 
-class _forgetPassState extends State<forgetPass> {
+class _ForgetPassState extends State<ForgetPass> {
   TextEditingController emailController = TextEditingController();
 
   @override
@@ -122,8 +124,7 @@ class _forgetPassState extends State<forgetPass> {
                               //
                               print(EmailController.text);
                               // sendMail(emailController.text);
-                              sending(EmailController.text);
-
+                              forgetPass(EmailController.text);
                               // };
                               //The user picked true.
                             },
@@ -153,7 +154,7 @@ class _forgetPassState extends State<forgetPass> {
     return str;
   }
 
-  void sending(String email) async {
+  void forgetPass(String email) async {
     // var url =
     //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
     //
@@ -166,8 +167,9 @@ class _forgetPassState extends State<forgetPass> {
 
     if (response.statusCode == 200) {
       showAlertDialog(context, validateubmit(200));
+      Navigator.pushNamed(context, 'ResetPassword');
     } else {
-      showAlertDialog(context, 'Enter valid parameters');
+      showAlertDialog(context, jsonDecode(response.body)["message"]);
     }
   }
 

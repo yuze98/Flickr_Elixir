@@ -37,26 +37,25 @@ class FlickrRequestsAndResponses {
   }
 
   static Future<http.Response> changePassword(
-      final newPasswordController, final oldPasswordController) async {
+      String newPasswordController, String oldPasswordController) async {
     var url = "https://api.qasaqees.tech/register/changePassword";
 
     var jso = {
-      'newPass': '${newPasswordController.text}',
-      'oldPass': '${oldPasswordController.text}'
+      'newPass': '$newPasswordController',
+      'oldPass': '$oldPasswordController'
     };
     print("heeeh");
     var response = await http.post(
       Uri.parse(url),
       headers: {
         "Content-Type": "application/json",
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjYxMzIxYWZjNDFjMDAxMjJlZGI5NSIsImlhdCI6MTYyMjU4MjIwNywiZXhwIjoxNjIyNjY4NjA3fQ.nCb-Mk9kuyN4cvBsnFUewBhVLAV7TTZtfrVHBSm4_Oc'
+        "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
       },
       body: jsonEncode(jso),
     );
 
     print('Response1 status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    print('Response22 body: ${response.body}');
 
     return response;
   }
@@ -662,7 +661,7 @@ class FlickrRequestsAndResponses {
       print("resposed failure forgetpass");
 
       print(response.body);
-      throw Exception('Failed to forgetpass');
+      //throw Exception('Failed to forgetpass');
     }
 
     return response;
@@ -943,5 +942,30 @@ class FlickrRequestsAndResponses {
       // then throw an exception.
       throw Exception('Failed to get album media');
     }
+  }
+
+  static Future<http.Response> resetPassword(String emailController,
+      String newPasswordController, String codeController) async {
+    var url = "https://api.qasaqees.tech/register/resetPassword";
+
+    var jso = {
+      "email": emailController,
+      "newPass": newPasswordController,
+      "code": codeController
+    };
+
+    print("heeeh");
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(jso),
+    );
+
+    print('Response9 status: ${response.statusCode}');
+    print('Response9 body: ${response.body}');
+
+    return response;
   }
 }

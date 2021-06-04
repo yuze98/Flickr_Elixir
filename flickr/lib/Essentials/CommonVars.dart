@@ -32,7 +32,6 @@ class CommonVars {
 
   static bool camerarollbool = false;
 
-
   /*********************************************************/
   static String otherUserId = "";
   static String othersEmail = "";

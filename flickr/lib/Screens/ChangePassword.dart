@@ -250,6 +250,9 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateConfirm() {
     String str;
+    print(
+        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
+
     if (!oldBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
     } else {
@@ -259,13 +262,20 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   void changePassword() async {
-    var response = await FlickrRequestsAndResponses.changePassword(
-        newPasswordController, oldPasswordController);
-    var body = jsonDecode(response.body)["message"];
-    if (response.statusCode == 200) {
-      showAlertDialog(context, validateConfirm());
+    if (validateConfirm() == 'Password is changed successfully') {
+      print("pressssssssssssssssssssssssssssssssssssssssssssssssssssssssed");
+      var response = await FlickrRequestsAndResponses.changePassword(
+          newPasswordController.text, oldPasswordController.text);
+
+      if (response.statusCode == 200) {
+        print("Password is changed successfully");
+        showAlertDialog(context, 'Password is changed successfully');
+      } else {
+        var body = json.decode(response.body);
+        showAlertDialog(context, body["message"]);
+      }
     } else {
-      showAlertDialog(context, body);
+      showAlertDialog(context, 'Enter Valid Parameters');
     }
   }
 
@@ -274,10 +284,15 @@ class _ChangePassword extends State<ChangePassword> {
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        if (str == 'Password is changed successfully')
-          Navigator.pushNamedAndRemoveUntil(context, "UserPage", (r) => false);
-        else
-          Navigator.of(context).pop();
+        if (str == 'Password is changed successfully') {
+          FlickrRequestsAndResponses.signOutRequest();
+          Navigator.pushNamedAndRemoveUntil(
+              context, "GetStarted", (r) => false);
+        } else {
+          print("hena");
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
       },
     );
 
