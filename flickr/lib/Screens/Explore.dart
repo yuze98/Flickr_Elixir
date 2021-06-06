@@ -52,7 +52,6 @@ class _ImageListState extends State<ImageList> {
   @override
   Widget build(BuildContext context) {
     posts = FlickrRequestsAndResponses.GetExplore();
-
     title.clear();
     favCount.clear();
     commentNum.clear();
@@ -62,6 +61,7 @@ class _ImageListState extends State<ImageList> {
     profileImage.clear();
     userId.clear();
     picId.clear();
+
     return RefreshIndicator(
       onRefresh: refreshScreen,
       child: SafeArea(

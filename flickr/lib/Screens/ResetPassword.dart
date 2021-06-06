@@ -69,7 +69,6 @@ class _ResetPassword extends State<ResetPassword> {
                     validator: validateEmail,
                     controller: emailController,
                     keyboardType: TextInputType.text,
-                    obscureText: true,
                     decoration: InputDecoration(
                       filled: true,
                       contentPadding: EdgeInsets.all(25),
@@ -146,7 +145,6 @@ class _ResetPassword extends State<ResetPassword> {
                   child: TextFormField(
                     controller: confirmCodeController,
                     keyboardType: TextInputType.text,
-                    obscureText: true,
                     decoration: InputDecoration(
                       filled: true,
                       contentPadding: EdgeInsets.all(25),

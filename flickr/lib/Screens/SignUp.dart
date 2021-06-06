@@ -196,6 +196,7 @@ class _SignupState extends State<Signup> {
                   child: TextFormField(
                     validator: validatePassword,
                     controller: passwordController,
+                    obscureText: true,
                     decoration: InputDecoration(
                       filled: true,
                       border: OutlineInputBorder(),

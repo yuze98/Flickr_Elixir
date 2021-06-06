@@ -1043,9 +1043,11 @@ class FlickrRequestsAndResponses {
 
     if (response.statusCode == 200) {
       print("response success found user");
+
       for (var i in usersList['users']) {
         searchUserModelList.add(SearchUser.fromJson(i));
       }
+
       return searchUserModelList;
     } else {
       print("response couldn't find user");
