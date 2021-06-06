@@ -60,12 +60,6 @@ class _PublicState extends State<Public> {
   @override
   void initState() {
     super.initState();
-    //
-    // CommonVars.imageList.add('https://picsum.photos/800/600/?image=280');
-    // CommonVars.imageList.add('https://picsum.photos/800/600/?image=281');
-    // CommonVars.imageList.add('https://picsum.photos/800/600/?image=282');
-    // CommonVars.imageList.add('https://picsum.photos/800/600/?image=283');
-    // CommonVars.imageList.add('https://picsum.photos/800/600/?image=284');
   }
 
   void _changeSelection({bool enable, int index}) {

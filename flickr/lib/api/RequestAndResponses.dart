@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flickr/Models/CameralRollModel.dart';
+import 'package:flickr/Screens/AlbumScreen.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
@@ -12,6 +13,7 @@ import 'package:flickr/Models/AboutPhotoModel.dart';
 import 'package:flickr/Models/UserFollowings.dart';
 import 'package:flickr/Models/UserFollowers.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
+import 'package:flickr/Models/SearchUser.dart';
 
 class FlickrRequestsAndResponses {
   static final String baseURL = 'https://api.qasaqees.tech';
@@ -20,7 +22,7 @@ class FlickrRequestsAndResponses {
     const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
     var jso = {
-      "email": "${email.text}",
+      "email": "${email.text.toString().trim()}",
       "password": "${password.text}",
     };
     var url = '$baseURL/register/logIn';
@@ -102,7 +104,7 @@ class FlickrRequestsAndResponses {
   static Future<int> getFollowers(String id) async {
     // const String baseURL =
     //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/';
-//5349b4ddd2781d08c09890f4
+    //5349b4ddd2781d08c09890f4
     var url = '$baseURL/user/followers/:$id';
     var response = await http.get(
       Uri.parse(url),
@@ -806,8 +808,6 @@ class FlickrRequestsAndResponses {
   }
 
   static Future UnFollowUser(String userTobeUnFollowed) async {
-//5349b4ddd2781d08c09890f4
-
     print("user id is$userTobeUnFollowed");
 
     var urll = '$baseURL/user/unfollowUser';
@@ -965,6 +965,117 @@ class FlickrRequestsAndResponses {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to get album media');
+    }
+  }
+
+  static Future DeleteAlbum(String albumId) async {
+    // var urll = '$baseURL/photo/delete/$picId';
+    var urll = '$baseURL/album/deleteAlbum/$albumId';
+    // var bodyy = {"photoId": picId};
+
+    var response = await http.delete(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      // body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("resposed success Deleted album");
+    } else {
+      print("resposed failure can't Delete album");
+
+      print(response.body);
+      throw Exception('Failed to load Delete Album');
+    }
+  }
+
+  static Future RenameAlbum(String albumId, String newAlbumTitle) async {
+    // TODO check if needed, String newAlbumDescription
+    var urll = '$baseURL/album/$albumId';
+
+    var bodyy = {
+      "title": newAlbumTitle,
+      "description": '',
+    };
+
+    var response = await http.patch(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("Album renamed");
+    } else if (response.statusCode == 404) {
+      print("Album not found");
+
+      print(response.body);
+      throw Exception('Album not found');
+    } else {
+      print('Invalid token');
+
+      throw Exception('Invalid token');
+    }
+  }
+
+  static Future<List<SearchUser>> SearchOnUser(String searchKeyword) async {
+    print('Search called');
+    var urll = '$baseURL/user/search/$searchKeyword';
+
+    var response = await http.get(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+    );
+    print(response.body);
+    final usersList = json.decode(response.body);
+    List<SearchUser> searchUserModelList = [];
+
+    if (response.statusCode == 200) {
+      print("response success found user");
+      for (var i in usersList['users']) {
+        searchUserModelList.add(SearchUser.fromJson(i));
+      }
+      return searchUserModelList;
+    } else {
+      print("response couldn't find user");
+
+      throw Exception('Failed to find user');
+    }
+  }
+
+  static Future RemovePicFromAlbum(String picId, String albumId) async {
+    var urll = '$baseURL/album/deletePhoto';
+
+    var bodyy = {
+      "photoId": picId,
+      "albumId": albumId,
+    };
+
+    var response = await http.delete(
+      Uri.parse(urll),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+      body: jsonEncode(bodyy),
+    );
+
+    if (response.statusCode == 200) {
+      print("Image removed from album");
+    } else {
+      print("Couldn't remove image from album");
+
+      print(response.body);
+      throw Exception('Failed to remove image from album');
     }
   }
 

@@ -80,4 +80,6 @@ class CommonVars {
 
   static const List<String> privacy = <String>[public, private];
   static const List<String> albums = <String>[album];
+
+  static List<String> searchHistory = [];
 }

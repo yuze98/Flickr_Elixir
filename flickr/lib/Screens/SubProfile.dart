@@ -56,7 +56,8 @@ class _SubProfile extends State<SubProfile> {
                     actions: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: 40, right: deviceSizewidth * .7),
+                            bottom: deviceSizeheight * 0.7,
+                            right: deviceSizewidth * .7),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -71,7 +72,8 @@ class _SubProfile extends State<SubProfile> {
                       ),
 //                              actions: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(bottom: 40),
+                        padding:
+                            EdgeInsets.only(bottom: deviceSizeheight * 0.5),
                         child: PopupMenuButton(
                           onSelected: movingTo,
                           color: Colors.white,
@@ -229,7 +231,9 @@ class _SubProfile extends State<SubProfile> {
               children: [
                 CameraRoll(),
                 Public(),
-                AlbumScreen(),
+                AlbumScreen(
+                  receivedPicId: '',
+                ),
                 AboutState(),
               ]),
         ),

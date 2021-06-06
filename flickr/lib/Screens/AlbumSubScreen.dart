@@ -1,9 +1,15 @@
+import 'package:flickr/Screens/SignUp.dart';
+
+import 'AlbumScreen.dart';
 import 'dart:io';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flickr/Components/ExploreDetails.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Essentials/CommonFunctions.dart';
 
 class AlbumSubScreen extends StatefulWidget {
   AlbumSubScreen(
@@ -25,10 +31,19 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   int numberOfPhotos;
   Future<List<GetAlbumMediaModel>> listOfAlbumMedia;
 
-  List<String> listOfImages = [];
+  List<String> picIdList = [];
+  List<String> userNameList = [];
+  List<String> imageUrlList = [];
+  List<String> imagesTitleList = [];
+  List<int> favCountList = [];
+  List<int> commetNumList = [];
+  List<String> albumPublicList = List();
+  List<String> albumPrivateList = List();
 
+  List<String> _selectedImagesId = [];
   List<int> _selectedIndexList = [];
   bool _selectionMode = false;
+  bool tapped = false;
 
   @override
   void initState() {
@@ -43,115 +58,270 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
 
   PickedFile coverPhotoFile;
 
-  static const List<String> menu = <String>['Rename', 'Edit', 'Delete'];
+  static const List<String> menu = <String>['Rename', 'Delete'];
+  static const List<String> deleteIconMenu = [
+    'Remove from album',
+    'Delete from Flickr'
+  ];
+
+  Future refreshScreen() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AlbumSubScreen(
+          receivedAlbumID: albumID,
+          receivedAlbumName: albumName,
+          receivedNumberOfPhotos: numberOfPhotos,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    picIdList.clear();
+    userNameList.clear();
+    imageUrlList.clear();
+    imagesTitleList.clear();
+    favCountList.clear();
+    commetNumList.clear();
+    albumPublicList.clear();
+    albumPrivateList.clear();
+
     String numberOfPhotosString = numberOfPhotos > 1
         ? numberOfPhotos.toString() + ' photos'
         : numberOfPhotos.toString() + ' photo';
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double deviceSizeheight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: DefaultTabController(
-        length: 5,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool scroll) {
-            return <Widget>[
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: SliverSafeArea(
-                  top: false,
-                  sliver: SliverAppBar(
-                    expandedHeight: 250,
-                    pinned: true,
-                    backgroundColor: Colors.white,
-                    actions: <Widget>[
-                      PopupMenuButton(
-                        onSelected: movingTo,
-                        color: Colors.white,
-                        icon: Icon(
-                          Icons.more_vert,
+    return RefreshIndicator(
+      onRefresh: refreshScreen,
+      child: Scaffold(
+        body: DefaultTabController(
+          length: 5,
+          child: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool scroll) {
+              return <Widget>[
+                SliverOverlapAbsorber(
+                  handle:
+                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                  sliver: SliverSafeArea(
+                    top: false,
+                    sliver: SliverAppBar(
+                      expandedHeight: 250,
+                      pinned: true,
+                      backgroundColor: Colors.white,
+                      actions: <Widget>[
+                        PopupMenuButton(
+                          onSelected: movingTo,
                           color: Colors.white,
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          ),
+                          itemBuilder: (BuildContext context) {
+                            return menu.map((String s) {
+                              return PopupMenuItem<String>(
+                                value: s,
+                                child: Text(s),
+                              );
+                            }).toList();
+                          },
                         ),
-                        itemBuilder: (BuildContext context) {
-                          return menu.map((String s) {
-                            return PopupMenuItem<String>(
-                              value: s,
-                              child: Text(s),
-                            );
-                          }).toList();
-                        },
-                      ),
-                    ],
-                    toolbarHeight: deviceSizeheight * .07,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: Container(
-                        width: deviceSizewidth,
-                        padding: EdgeInsets.only(bottom: 42.0),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Image(
-                            fit: BoxFit.cover,
-                            width: deviceSizewidth,
-                            alignment: Alignment.center,
-                            image: coverPhotoFile == null
-                                ? AssetImage(
-                                    'images/photo1.jpg',
-                                  )
-                                : FileImage(File(coverPhotoFile.path)),
+                      ],
+                      toolbarHeight: deviceSizeheight * .07,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Container(
+                          width: deviceSizewidth,
+                          padding: EdgeInsets.only(bottom: 42.0),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image(
+                              fit: BoxFit.cover,
+                              width: deviceSizewidth,
+                              alignment: Alignment.center,
+                              image: coverPhotoFile == null
+                                  ? AssetImage(
+                                      'images/photo1.jpg',
+                                    )
+                                  : FileImage(File(coverPhotoFile.path)),
+                            ),
                           ),
                         ),
-                      ),
-                      centerTitle: true,
-                      titlePadding: EdgeInsets.only(bottom: 42.0),
-                      title: Container(
-                        padding: EdgeInsets.only(bottom: 12.0),
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Column(children: <Widget>[
-                            Center(
-                              child: Stack(
-                                children: [
-                                  Text(albumName),
-                                ],
+                        centerTitle: true,
+                        titlePadding: EdgeInsets.only(bottom: 42.0),
+                        title: Container(
+                          padding: EdgeInsets.only(bottom: 12.0),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Column(children: <Widget>[
+                              Center(
+                                child: Stack(
+                                  children: [
+                                    Text(albumName),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              numberOfPhotosString,
-                              style: TextStyle(
-                                  fontSize: 10.0, color: Colors.white),
-                            ),
-                          ]),
+                              Text(
+                                numberOfPhotosString,
+                                style: TextStyle(
+                                    fontSize: 10.0, color: Colors.white),
+                              ),
+                            ]),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ];
-          },
-          body: FutureBuilder<List<GetAlbumMediaModel>>(
-            future: listOfAlbumMedia,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<GetAlbumMediaModel> data = snapshot.data;
-
-                for (var i in data) {
-                  listOfImages.add(
-                    i.url,
-                  );
-                }
-                return _createBody();
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              // By default show a loading spinner.
-              return CircularProgressIndicator();
+              ];
             },
+            body: Stack(
+              children: <Widget>[
+                FutureBuilder<List<GetAlbumMediaModel>>(
+                  future: listOfAlbumMedia,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<GetAlbumMediaModel> data = snapshot.data;
+                      for (var i in data) {
+                        picIdList.add(i.picId);
+                        userNameList.add(i.firstName + ' ' + i.lastName);
+                        imageUrlList.add(i.url);
+                        imagesTitleList.add(i.title);
+                        favCountList.add(i.favoriteCount);
+                        commetNumList.add(i.commentsNum);
+                      }
+                      return _createBody();
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    // By default show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
+                ),
+                AnimatedOpacity(
+                  opacity: tapped ? 1.0 : 0.0,
+                  duration: Duration(
+                    milliseconds: 250,
+                  ),
+                  child: Visibility(
+                    child: OverLay(context),
+                    visible: tapped,
+                  ),
+                ),
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget OverLay(BuildContext context) {
+    var devSize = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            ButtonBar(
+              buttonTextTheme: ButtonTextTheme.accent,
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.share_sharp),
+                  tooltip: 'Share',
+                  onPressed: () {
+                    // Not useful as it was canceled
+                    setState(() {
+                      if (_selectedIndexList.isNotEmpty)
+                        CommonFunctions().showAlertDialog(context,
+                            CommonVars.imageList[_selectedIndexList[0]]);
+                    });
+                  },
+                ),
+                PopupMenuButton(
+                  onSelected: deleteIconClicked,
+                  color: Colors.white,
+                  tooltip: 'Delete/Remove photo',
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.black,
+                  ),
+                  itemBuilder: (BuildContext context) {
+                    return deleteIconMenu.map(
+                      (String s) {
+                        return PopupMenuItem<String>(
+                          value: s,
+                          child: new Container(
+                            width: devSize.width,
+                            child: Text(s),
+                          ),
+                        );
+                      },
+                    ).toList();
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.photo_album,
+                    color: Colors.black,
+                  ),
+                  tooltip: 'Add Selected Items to Album',
+                  onPressed: () {
+                    if (_selectedImagesId.length == 1) {
+                      print('add image to album');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AlbumScreen(
+                            receivedPicId: _selectedImagesId[0],
+                          ),
+                        ),
+                      );
+                    } else {
+                      for (int i = 0; i < _selectedImagesId.length; i++) {
+                        for (int j = 0; j < picIdList.length; j++) {
+                          if (_selectedImagesId[i] == picIdList[j]) {
+                            print('add imagess to album');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AlbumScreen(
+                                  receivedPicId: _selectedImagesId[i],
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      }
+                    }
+                  },
+                ),
+                PopupMenuButton(
+                  onSelected: privacySettings,
+                  color: Colors.white,
+                  icon: Icon(
+                    Icons.privacy_tip,
+                    color: Colors.black,
+                  ),
+                  itemBuilder: (BuildContext context) {
+                    return CommonVars.privacy.map((String s) {
+                      return PopupMenuItem<String>(
+                        value: s,
+                        child: new Container(
+                          width: devSize.width,
+                          child: Text(s),
+                        ),
+                      );
+                    }).toList();
+                  },
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -163,6 +333,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
       showDialog(
         context: context,
         builder: (context) {
+          // Popup with a text field to enter name then save or cancel option
           return AlertDialog(
             title: Text('Rename album'),
             content: TextField(
@@ -183,7 +354,9 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   if (newAlbumName.isNotEmpty) {
                     Navigator.of(context).pop(newAlbumName);
                     print(newAlbumName);
-                    // TODO Request change album title
+                    // Request change album title
+                    FlickrRequestsAndResponses.RenameAlbum(
+                        albumID, newAlbumName);
                   }
                 },
                 child: Text(
@@ -207,12 +380,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           );
         },
       );
-      // TODO Popup with a text field to enter name then save or cancel option
-      // Change the name everywhere
-    } else if (destination == 'Edit') {
-      // TODO go to a new page like select
     } else if (destination == 'Delete') {
-      // TODO Popup with are you sure you to delete and cancel and delete button
+      // Popup with are you sure you to delete and cancel and delete button
       showDialog(
         context: context,
         builder: (context) {
@@ -226,6 +395,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                 textColor: Colors.black,
                 onPressed: () {
                   // Request Album delete
+                  FlickrRequestsAndResponses.DeleteAlbum(albumID);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Delete',
@@ -249,7 +420,63 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
         },
       );
     }
-    print(destination);
+  }
+
+  void deleteIconClicked(String destination) {
+    print(_selectedImagesId[0]);
+    if (_selectedIndexList.length == 1) {
+      if (destination == 'Delete from Flickr') {
+        print('delete image');
+        FlickrRequestsAndResponses.DeletePicture(_selectedImagesId[0]);
+      } else if (destination == 'Remove from album') {
+        print('remove from album');
+        FlickrRequestsAndResponses.RemovePicFromAlbum(
+            _selectedImagesId[0], albumID);
+      }
+    } else {
+      for (int i = 0; i < _selectedImagesId.length; i++) {
+        for (int j = 0; j < picIdList.length; j++) {
+          if (_selectedImagesId[i] == picIdList[j]) {
+            if (destination == 'Delete from Flickr') {
+              print('delete imagesss');
+              FlickrRequestsAndResponses.DeletePicture(
+                  _selectedImagesId[_selectedIndexList[i]]);
+            } else if (destination == 'Remove from album') {
+              print('remove imagess from album');
+              FlickrRequestsAndResponses.RemovePicFromAlbum(
+                  _selectedImagesId[_selectedIndexList[i]], albumID);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  void privacySettings(String destination) {
+    setState(
+      () {
+        if (destination == CommonVars.public) {
+          // CommonVars.publicList.clear();
+
+          for (int i = 0; i < _selectedIndexList.length; i++) {
+            if (!CommonVars.publicList
+                .contains(CommonVars.imageList[_selectedIndexList[i]]))
+              CommonVars.publicList
+                  .add(CommonVars.imageList[_selectedIndexList[i]]);
+          }
+          print(CommonVars.publicList);
+        }
+        if (destination == CommonVars.private) {
+          for (int i = 0; i < _selectedIndexList.length; i++) {
+            if (!CommonVars.private
+                .contains(CommonVars.imageList[_selectedIndexList[i]]))
+              CommonVars.privateList
+                  .add(CommonVars.imageList[_selectedIndexList[i]]);
+          }
+          print(CommonVars.private);
+        }
+      },
+    );
   }
 
   void _changeSelection({bool enable, int index}) {
@@ -266,7 +493,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
       primary: false,
-      itemCount: listOfImages.length,
+      itemCount: imageUrlList.length,
       itemBuilder: (BuildContext context, int index) {
         return getGridTile(index);
       },
@@ -293,21 +520,24 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.blue[50], width: 30.0)),
               child: Image.network(
-                listOfImages[index],
+                imageUrlList[index],
                 fit: BoxFit.cover,
               ),
             ),
             onLongPress: () {
               setState(() {
                 _changeSelection(enable: false, index: -1);
+                tapped = !tapped;
               });
             },
             onTap: () {
               setState(() {
                 if (_selectedIndexList.contains(index)) {
                   _selectedIndexList.remove(index);
+                  _selectedImagesId.remove(picIdList[index]);
                 } else {
                   _selectedIndexList.add(index);
+                  _selectedImagesId.add(picIdList[index]);
                 }
               });
             },
@@ -316,13 +546,34 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
       return GridTile(
         child: InkResponse(
           child: Image.network(
-            listOfImages[index],
+            imageUrlList[index],
             fit: BoxFit.cover,
           ),
           onLongPress: () {
             setState(() {
               _changeSelection(enable: true, index: index);
+              tapped = !tapped;
+              // TODO momken yeb2a el 7al hna
             });
+          },
+          onTap: () {
+            // push to Explore Details
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ExploreDetails(
+                  picId: picIdList[index],
+                  userName: userNameList[index],
+                  photoFile: imageUrlList[index],
+                  profilePic: CommonVars.profilePhotoLink,
+                  title: imagesTitleList[index],
+                  favCount: favCountList[index].toString(),
+                  commentNum: commetNumList[index].toString(),
+                  hasPressed: false,
+                  userId: CommonVars.userId,
+                ),
+              ),
+            );
           },
         ),
       );

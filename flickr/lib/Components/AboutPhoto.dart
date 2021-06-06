@@ -1,5 +1,6 @@
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/AboutPhotoModel.dart';
+import 'package:flickr/Screens/AlbumScreen.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -156,6 +157,11 @@ class _AboutPhotoState extends State<AboutPhoto> {
                             onPressed: () {
                               setState(() {
                                 albumBool = !albumBool;
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AlbumScreen(receivedPicId: '')));
                               });
                             },
                           )
