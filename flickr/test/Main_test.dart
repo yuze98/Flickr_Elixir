@@ -1,7 +1,5 @@
-import 'package:flickr/Screens/ChangePassword.dart';
-
-import 'Test_Files/ChangePassword.dart' as ChangePassword;
+import 'Test_Files/SignUpValidationsTest.dart' as SignUpValidation;
 
 void main() {
-  ChangePassword.main();
+  SignUpValidation.main();
 }
