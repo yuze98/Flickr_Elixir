@@ -15,6 +15,8 @@ class CommonVars {
   static int followings = -1;
   static int followers = -1;
   static String description = '';
+  static String othersDescription = '';
+
   static String title = '';
   static String profilePhotoLink = "";
   static String coverPhotoLink = "";
@@ -56,6 +58,10 @@ class CommonVars {
   ];
 
   static List<bool> hasPressed = [];
+
+  static List<String> featuredPhotos = [];
+
+  static List<String> otherFeaturedPhotos = [];
 
   static List<bool> favoriteUsersFollow = [];
 

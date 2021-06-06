@@ -376,6 +376,12 @@ class FlickrRequestsAndResponses {
 
       final about = json.decode(response.body);
 
+      for (int i in about['user']['showCase']['photos']) {
+        CommonVars.featuredPhotos
+            .add(about['user']['showCase']['photos'][i]['url']);
+      }
+
+      CommonVars.description = about['user']['description'];
       CommonVars.email = about['user']['email'];
       CommonVars.occupation = about['user']['occupation'];
       CommonVars.city = about['user']['currentCity'];
@@ -682,9 +688,21 @@ class FlickrRequestsAndResponses {
 
     if (response.statusCode == 200) {
       print("resposed success explore");
-
+      // "showCase": {
+      // "title": "Showcase",
+      // "photos": []
+      // },
       final about = json.decode(response.body);
+      CommonVars.othersDescription = about['user']['showCase']['photos'];
+
+      for (int i in about['user']['showCase']['photos']) {
+        CommonVars.otherFeaturedPhotos
+            .add(about['user']['showCase']['photos'][i]['url']);
+      }
       CommonVars.otherUserId = id;
+      CommonVars.othersDescription = about['user']['description'];
+      CommonVars.otherUserId =
+          about['user']['firstName'] + " " + about['user']['lastName'];
       CommonVars.othersEmail = about['user']['email'];
       CommonVars.othersAccupation = about['user']['occupation'];
       CommonVars.othersCity = about['user']['currentCity'];

@@ -34,7 +34,7 @@ class _OtherProfile extends State<OtherProfile> {
     CommonVars.sameUser = false;
     return Scaffold(
       body: DefaultTabController(
-        length: 5,
+        length: 4,
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool Scroll) {
             return <Widget>[
@@ -147,9 +147,6 @@ class _OtherProfile extends State<OtherProfile> {
                           'About',
                         ),
                         Text(
-                          'Camera Roll',
-                        ),
-                        Text(
                           'Public',
                         ),
                         Text(
@@ -170,7 +167,6 @@ class _OtherProfile extends State<OtherProfile> {
               // These are the contents of the tab views, below the tabs.
               children: [
                 AboutState(),
-                CameraRoll(),
                 Public(),
                 AlbumScreen(),
                 Icon(Icons.group),
