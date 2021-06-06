@@ -181,7 +181,6 @@ class _PublicState extends State<Public> {
   }
 
   int returnItemCount() {
-    // print("****************$buttonText");
     if (buttonText == "Public view")
       return CommonVars.publicList.length;
     else if (buttonText == "Private view")

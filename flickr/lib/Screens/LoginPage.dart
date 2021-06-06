@@ -385,12 +385,12 @@ String validateEmail(String value) {
 
 String validatePassword(String value) {
   Pattern pattern =
-      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
     passwordCheck = false;
-    return 'Enter a valid Password (8 or more characters)';
+    return 'Enter a valid Password (12 or more characters)';
   } else {
     passwordCheck = true;
     return null;
