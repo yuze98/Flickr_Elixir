@@ -20,26 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae839a1b-693f-419e-bfb3-7e66ad4b846c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/flickr/test/Main_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flickr/test/Test_Files/ChangePassword.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/Explore.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/Explore.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ResetPassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ResetPassword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SignUp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SignUp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/test/widget_test.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Nexus_6_API_30]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -60,7 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/flickr/test" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -68,7 +61,11 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fat7y\OneDrive\Documents\GitHub\Flickr_Elixir2\flickr\test\Test_Files" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Fat7y\OneDrive\Documents\GitHub\Flickr_Elixir2\flickr\test" />
       <recent name="C:\Users\Fat7y\OneDrive\Documents\GitHub\Flickr_Elixir\flickr\lib\Models" />
       <recent name="C:\Users\Fat7y\OneDrive\Documents\GitHub\Flickr_Elixir\flickr\lib\Components" />
       <recent name="C:\Users\Fat7y\OneDrive\Documents\GitHub\Flickr_Elixir\flickr\lib\Screens" />
