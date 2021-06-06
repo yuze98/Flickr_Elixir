@@ -30,6 +30,8 @@ class _ImageListState extends State<ImageList> {
   List<String> picId = [];
   List<String> userId = [];
 
+  var scrollController = ScrollController();
+
   Future refreshScreen() async {
     await Future.delayed(Duration(milliseconds: 500));
 
@@ -42,16 +44,27 @@ class _ImageListState extends State<ImageList> {
     );
   }
 
+  //int count;
+
   @override
   void initState() {
     // TODO: implement initState
+
+    CommonVars.count = 5;
+
     super.initState();
-    // posts = FlickrRequestsAndResponses.GetExplore();
+    posts = FlickrRequestsAndResponses.GetExplore();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent)
+        CommonVars.count = CommonVars.count + 5;
+      print("here");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    posts = FlickrRequestsAndResponses.GetExplore();
+    // posts = FlickrRequestsAndResponses.GetExplore();
     title.clear();
     favCount.clear();
     commentNum.clear();
@@ -84,7 +97,12 @@ class _ImageListState extends State<ImageList> {
                   CommonVars.hasPressed.add(false);
                 }
                 return ListView.builder(
-                  itemCount: imageList.length,
+                  //controller: scrollController,
+                  itemCount:
+                      //CommonVars.count < imageList.length
+                      //     ? CommonVars.count
+                      //     :
+                      imageList.length, //- count,
                   itemBuilder: (context, index) => OuterInfo(context, index),
                 );
               } else if (snapshot.hasError) {

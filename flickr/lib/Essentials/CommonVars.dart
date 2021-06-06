@@ -82,4 +82,6 @@ class CommonVars {
   static const List<String> albums = <String>[album];
 
   static List<String> searchHistory = [];
+  //for loading page
+  static int count = 5;
 }
