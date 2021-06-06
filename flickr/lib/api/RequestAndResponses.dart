@@ -687,23 +687,25 @@ class FlickrRequestsAndResponses {
     var response = await http.get(
       Uri.parse(url),
     );
+    print("id is $id");
+    print(response.statusCode);
+    print(response.body);
 
     if (response.statusCode == 200) {
-      print("resposed success explore");
-      // "showCase": {
-      // "title": "Showcase",
-      // "photos": []
-      // },
+      print("resposed success otherprofile");
+
       final about = json.decode(response.body);
-      CommonVars.othersDescription = about['user']['showCase']['photos'];
+      CommonVars.othersDescription = about['user']['description'];
 
       for (int i in about['user']['showCase']['photos']) {
         CommonVars.otherFeaturedPhotos
             .add(about['user']['showCase']['photos'][i]['url']);
       }
+      CommonVars.isFollowing = about['user']['isFollowing'];
+
       CommonVars.otherUserId = id;
       CommonVars.othersDescription = about['user']['description'];
-      CommonVars.otherUserId =
+      CommonVars.otherUserName =
           about['user']['firstName'] + " " + about['user']['lastName'];
       CommonVars.othersEmail = about['user']['email'];
       CommonVars.othersAccupation = about['user']['occupation'];

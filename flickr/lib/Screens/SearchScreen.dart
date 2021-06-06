@@ -201,7 +201,7 @@ class SearchResultsListView extends StatelessWidget {
     ) {
       return GestureDetector(
         onTap: () async {
-          // CommonVars.otherUserId = userId;
+          CommonVars.otherUserId = userId;
           String body =
               await FlickrRequestsAndResponses.showOtherUserProfile(userId);
           Navigator.push(

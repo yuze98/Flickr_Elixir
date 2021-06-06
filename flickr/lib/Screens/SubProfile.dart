@@ -56,8 +56,8 @@ class _SubProfile extends State<SubProfile> {
                     actions: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: deviceSizeheight * 0.7,
-                            right: deviceSizewidth * .7),
+                            top: deviceSizeheight * 0.01,
+                            right: deviceSizewidth * .8),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -72,14 +72,14 @@ class _SubProfile extends State<SubProfile> {
                       ),
 //                              actions: <Widget>[
                       Padding(
-                        padding:
-                            EdgeInsets.only(bottom: deviceSizeheight * 0.5),
+                        padding: EdgeInsets.only(top: deviceSizeheight * .01),
                         child: PopupMenuButton(
                           onSelected: movingTo,
                           color: Colors.white,
                           icon: Icon(
                             Icons.more_vert,
                             color: Colors.black,
+                            size: deviceSizeheight * .04,
                           ),
                           itemBuilder: (BuildContext context) {
                             return CommonVars.menu.map((String s) {

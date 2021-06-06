@@ -5,8 +5,9 @@ import 'Public.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:image_picker/image_picker.dart';
-import 'about.dart';
+import 'OtherUserAbout.dart';
 import 'AlbumScreen.dart';
+import 'package:flickr/api/RequestAndResponses.dart';
 
 import 'package:flickr/Components/FollowersList.dart';
 
@@ -72,52 +73,34 @@ class _OtherProfile extends State<OtherProfile> {
                       centerTitle: true,
                       titlePadding: EdgeInsets.only(bottom: 42.0),
                       title: Container(
-                        padding: EdgeInsets.only(bottom: 12.0),
+                        padding: EdgeInsets.only(top: deviceSizeheight * .12),
                         child: FittedBox(
                           fit: BoxFit.fill,
                           child: Column(children: <Widget>[
-                            Center(
-                              child: Stack(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: CommonVars
-                                                .othersProfilePhotoUrl ==
-                                            null
-                                        ? AssetImage('images/photo1.jpg')
-                                        : NetworkImage(
-                                            CommonVars.othersProfilePhotoUrl),
-                                    radius: 35.0,
-                                  ),
-                                ],
-                              ),
+                            Stack(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      CommonVars.othersProfilePhotoUrl == null
+                                          ? AssetImage('images/photo1.jpg')
+                                          : NetworkImage(
+                                              CommonVars.othersProfilePhotoUrl),
+                                  radius: 35.0,
+                                ),
+                              ],
                             ),
                             Text(
                               CommonVars.otherUserName,
                               style: TextStyle(
                                   fontSize: 20.0, color: Colors.white),
                             ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  child: Text(
-                                    '${CommonVars.othersFollowers} followers - ',
-                                    style: TextStyle(
-                                        fontSize: 10.0, color: Colors.white),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => FollowersList(
-                                          userId: CommonVars.otherUserId,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                GestureDetector(
+                            Padding(
+                              padding: EdgeInsets.only(left: 40),
+                              child: Row(
+                                children: [
+                                  GestureDetector(
                                     child: Text(
-                                      '${CommonVars.othersFollowings} following',
+                                      '${CommonVars.othersFollowers} followers - ',
                                       style: TextStyle(
                                           fontSize: 10.0, color: Colors.white),
                                     ),
@@ -125,13 +108,56 @@ class _OtherProfile extends State<OtherProfile> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => FollowingsList(
+                                          builder: (context) => FollowersList(
                                             userId: CommonVars.otherUserId,
                                           ),
                                         ),
                                       );
-                                    })
-                              ],
+                                    },
+                                  ),
+                                  GestureDetector(
+                                      child: Text(
+                                        '${CommonVars.othersFollowings} following',
+                                        style: TextStyle(
+                                            fontSize: 10.0,
+                                            color: Colors.white),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowingsList(
+                                              userId: CommonVars.otherUserId,
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                  IconButton(
+                                      padding: EdgeInsets.all(0),
+                                      icon: CommonVars.isFollowing
+                                          ? Icon(
+                                              Icons.arrow_downward_sharp,
+                                              size: 20,
+                                              color: Colors.white,
+                                            )
+                                          : Icon(
+                                              Icons.arrow_upward_sharp,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
+                                      onPressed: () async {
+                                        if (!CommonVars.isFollowing)
+                                          await FlickrRequestsAndResponses
+                                              .FollowUser(
+                                                  CommonVars.otherUserId);
+                                        else
+                                          await FlickrRequestsAndResponses
+                                              .UnFollowUser(
+                                                  CommonVars.otherUserId);
+                                      })
+                                ],
+                              ),
                             )
                           ]),
                         ),
@@ -166,7 +192,7 @@ class _OtherProfile extends State<OtherProfile> {
           body: TabBarView(
               // These are the contents of the tab views, below the tabs.
               children: [
-                AboutState(),
+                OtherUserAboutState(),
                 Public(),
                 AlbumScreen(),
                 Icon(Icons.group),

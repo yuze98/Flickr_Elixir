@@ -56,7 +56,7 @@ class CommonVars {
     changePassword,
     signOut
   ];
-
+  static bool isFollowing = false;
   static List<bool> hasPressed = [];
 
   static List<String> featuredPhotos = [];

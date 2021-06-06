@@ -152,7 +152,11 @@ class _ImageListState extends State<ImageList> {
                   CircleAvatar(
                     child: GestureDetector(
                       onTap: () async {
+                        print('aywa');
                         if (userId[index] != CommonVars.userId) {
+                          print('aywa2');
+                          //CommonVars.otherUserId = userId[index];
+                          print("our name is ${userId[index]}");
                           String body = await FlickrRequestsAndResponses
                               .showOtherUserProfile(userId[index]);
                           Navigator.pushNamed(context, 'OtherSubProfile');
