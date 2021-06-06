@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae839a1b-693f-419e-bfb3-7e66ad4b846c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/flickr/test/Main_test.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flickr/test/Test_Files/ChangePassword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/test/widget_test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flickr/test/Main_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/test/Main_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

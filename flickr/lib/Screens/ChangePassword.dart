@@ -205,11 +205,11 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateOldPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
       return null;
@@ -217,12 +217,12 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateNewPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
     RegExp regex = new RegExp(pattern);
     newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
       return null;
@@ -230,11 +230,11 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateConfirmPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else if (value == oldPasswordController.text ||
         newPassword == oldPasswordController.text) {
       oldBool = false;

@@ -21,17 +21,61 @@ void main() {
   String newPassword;
   bool oldBool;
 
-  String validateNewPassword(String value) {
-    Pattern pattern = r"^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$";
+  String validateOldPassword(String value) {
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
     RegExp regex = new RegExp(pattern);
-    newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
       return null;
     }
+  }
+
+  String validateNewPassword(String value) {
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
+    RegExp regex = new RegExp(pattern);
+    newPassword = value;
+    if (!regex.hasMatch(value) || value == null) {
+      oldBool = false;
+      return 'Enter a valid Password (12 or more characters)';
+    } else {
+      oldBool = true;
+      return null;
+    }
+  }
+
+  String validateConfirmPassword(String value) {
+    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null) {
+      oldBool = false;
+      return 'Enter a valid Password (12 or more characters)';
+    } else if (value == oldPasswordController.text ||
+        newPassword == oldPasswordController.text) {
+      oldBool = false;
+      return "New Password can't be the old password";
+    } else if (value != newPassword) {
+      oldBool = false;
+      return 'Unmatched Passwords! Enter it again';
+    } else {
+      oldBool = true;
+      return null;
+    }
+  }
+
+  String validateConfirm() {
+    String str;
+    print(
+        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
+
+    if (!oldBool && !newBool && !confirmBool) {
+      str = 'Please enter valid parameters!';
+    } else {
+      str = 'Password is changed successfully';
+    }
+    return str;
   }
 
   group('Valid Changing password', () {
