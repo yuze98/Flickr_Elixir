@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../Essentials/CommonVars.dart';
 
 class GetStarted extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _GetstartedState extends State<GetStarted> {
     'Oragnisation simplified',
     'Sharing made easy',
   ];
-  final seconTitles = [
+  final secondTitles = [
     'Save all of your photos and videos in on place.',
     'Your uploaded photos stay private until you choose to share them.',
     'Search, edit and organise in seconds.',
@@ -104,7 +105,7 @@ class _GetstartedState extends State<GetStarted> {
                   padding: EdgeInsets.only(right: 10, left: 40, top: 10),
                   width: deviceSizewidth,
                   child: Text(
-                    seconTitles[index2],
+                    secondTitles[index2],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.normal,
@@ -144,8 +145,11 @@ class _GetstartedState extends State<GetStarted> {
                       //  splashColor: Colors.black26,
                       onPressed: () {
                         print(context);
-
-                        Navigator.pushNamed(context, "LoginScreen");
+                        // menu.yes = false;
+                        if (CommonVars.loggedIn)
+                          Navigator.pushNamed(context, "UserPage");
+                        else
+                          Navigator.pushNamed(context, "LoginScreen");
                       },
                     ),
                   ),

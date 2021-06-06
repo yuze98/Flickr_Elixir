@@ -1,10 +1,16 @@
+import 'dart:async';
 import 'dart:io';
-
+import 'package:flickr/api/RequestAndResponses.dart';
+import 'Explore.dart';
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
 import 'package:http/http.dart' as http;
+import 'dart:ui';
+import 'dart:convert';
+import 'package:async/async.dart';
+import 'SearchScreen.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -13,109 +19,93 @@ class UserPage extends StatefulWidget {
 
 class _UserPage extends State<UserPage> {
   // This widget is the root of your application.
-  PickedFile _photofile;
+  PickedFile photoFile;
   final ImagePicker _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
+    FlickrRequestsAndResponses.GetAbout();
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;
-
+    double buttonWidth = deviceSizewidth / 5;
+    final ImagePicker _picker = ImagePicker();
+    PickedFile _photofile;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-        actions: <Widget>[
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.photo_size_select_actual_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: RawMaterialButton(
-              constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
+      body: DefaultTabController(
+        length: 5,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool Scroll) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverSafeArea(
+                  top: false,
+                  sliver: SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    //  floating: true,
+                    toolbarHeight: deviceSizeheight * .05,
+
+                    backgroundColor: Colors.black,
+                    bottom: TabBar(
+                      indicatorColor: Colors.grey[800],
+                      unselectedLabelColor: Colors.grey[500],
+                      labelColor: Colors.grey[800],
+
+                      // These are the widgets to put in each tab in the tab bar.
+                      tabs: [
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.photo_size_select_actual_outlined,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.search,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.museum_rounded,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          child: Icon(
+                            Icons.notifications,
+                          ),
+                        ),
+                        RawMaterialButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: ((builder) =>
+                                  customisedBottomSheet(context)),
+                            );
+                          },
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              onPressed: () {
-                // do something
-              },
-            ),
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.museum_rounded,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            child: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-          RawMaterialButton(
-            constraints: BoxConstraints.tight(Size(buttonwidth, 80)),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: ((builder) => CustomisedBottomSheet(context)),
-              );
-            },
-            child: Icon(Icons.camera_alt_outlined),
-          ),
-          //onPressed: () {
-          // do something
-        ],
-        toolbarHeight: deviceSizeheight * .07,
-      ),
-      body: SubProfile(
-        photoFile: _photofile,
+            ];
+          },
+          body: TabBarView(
+              // These are the contents of the tab views, below the tabs.
+              children: [
+                ImageList(),
+                SearchScreen(),
+                SubProfile(photoFile: photoFile),
+                Icon(Icons.album_sharp),
+                Icon(Icons.group),
+              ]),
+        ),
       ),
     );
-  }
-
-  void ConvertingPhoto() async {
-    final bytes = await _photofile.readAsBytes();
-    sending(bytes);
-    print(bytes);
-  }
-
-  void sending(final bytes) async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/photo/upload?photo=$bytes&isPublic=true&title=Cairo Tower&allowCommenting=true&license=""&contentType=""&safetyOption=""&description=""';
-
-    var response = await http.post(Uri.parse(url), body: {
-      {
-        "photo":
-            "[255, 216, 255, 225, 1, 25, 69, 120, 105, 102, 0, 0, 77, 77, 0, 42, 0, 0, 0, 8, 0, 5, 1, 0, 0, 3, 0, 0, 0, 1, 4, 56, 0, 0, 1, 1, 0, 3, 0, 0, 0, 1, 9, 96, 0, 0, 1, 49, 0, 2, 0, 0, 0, 38, 0, 0, 0, 74, 135, 105, 0, 4, 0, 0, 0, 1, 0, 0, 0, 112, 1, 18, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 65, 110, 100, 114, 111, 105, 100, 32, 82, 80, 49, 65, 46, 50, 48, 48, 55, 50, 48, 46, 48, 49, 50, 46, 65, 53, 49, 53, 70, 88, 88, 85, 52, 68, 85, 66, 49, 0, 0, 4, 144, 3, 0, 2, 0, 0, 0, 20, 0, 0, 0, 166, 146, 145, 0, 2, 0, 0, 0, 4, 55, 48, 49, 0, 144, 17, 0, 2, 0, 0, 0, 7, 0, 0, 0, 186, 146, 8, 0, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 50, 48, 50, 49, 58, 48, 53, 58, 48, 55, 32, 50, 50, 58, 48, 48, 58, 48, 52, 0, 43, 48, 50, 58, 48, 48, 0, 0, 3, 1, 0, 0, 3, 0, 0, 0, 1, 4, 56, 0, 0, 1, 49, 0, 2, 0, 0, 0, 38, 0, 0, 0, 235, 1, 1, 0, 3, 0, 0, 0, 1, 9, 96, 0, 0, 0, 0, 0, 0, 65, 110, 100, 114, 111, 105, 100, 32, 82, 80, 49, 65, 46, 50, 48, 48, 55, 50, 48, 46, 48, 49, 50, 46, 65, 53, 49, 53, 70, 88, 88, 85, 52, 68, 85, 66, 49, 0]",
-        "isPublic": "true",
-        "title": "Cairo Tower",
-        "allowCommenting": "true",
-        "license": "",
-        "contentType": "",
-        "safetyOption": "",
-        "description": "A photo of Cairo tower at the sunset"
-      }
-    });
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
   }
 
   Widget tempImage() {
@@ -126,26 +116,26 @@ class _UserPage extends State<UserPage> {
         image: DecorationImage(
           image:
               //borderRadius: BorderRadius.all(Radius.circular(.05)),//add border radius here
-              _photofile == null
+              photoFile == null
                   ? AssetImage('images/photo1.jpg')
-                  : FileImage(File(_photofile.path)),
+                  : FileImage(File(photoFile.path)),
           fit: BoxFit.fitHeight, //add image location here
         ),
       ),
     );
   }
 
-  Widget CustomisedBottomSheet(BuildContext context) {
-    double deviceSizeheight = MediaQuery.of(context).size.height;
-    double deviceSizewidth = MediaQuery.of(context).size.width;
+  Widget customisedBottomSheet(BuildContext context) {
+    double deviceSizeHeight = MediaQuery.of(context).size.height;
+    double deviceSizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: deviceSizewidth * .4,
-      width: deviceSizewidth,
+      height: deviceSizeWidth * .4,
+      width: deviceSizeWidth,
 //margin: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 40),
       child: Column(
         children: <Widget>[
           Text("Choose your photo", style: TextStyle(fontSize: 30)),
-          SizedBox(height: deviceSizeheight * .04),
+          SizedBox(height: deviceSizeHeight * .04),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -153,7 +143,7 @@ class _UserPage extends State<UserPage> {
                 //   constraints: BoxConstraints.tight(Size(80, 80)),
                 child: Icon(Icons.camera_alt_sharp, size: 40),
                 onPressed: () {
-                  phototaker(ImageSource.camera);
+                  photoTaker(ImageSource.camera);
                 },
               ),
               SizedBox(
@@ -167,7 +157,7 @@ class _UserPage extends State<UserPage> {
                 ),
                 onPressed: () {
                   print("gallery");
-                  phototaker(ImageSource.gallery);
+                  photoTaker(ImageSource.gallery);
                 },
               ),
             ],
@@ -177,11 +167,15 @@ class _UserPage extends State<UserPage> {
     );
   }
 
-  void phototaker(ImageSource source) async {
-    final token = await _picker.getImage(source: source);
+  void photoTaker(ImageSource source) async {
+    var token = await _picker.getImage(source: source);
+    if (token == null) return;
+
     setState(() {
-      _photofile = token;
+      CommonVars.photoFile = token;
     });
-    // ConvertingPhoto();
+
+    Navigator.pushNamed(context, 'UploadDetails');
+    // FlickrRequestsAndResponses.uploadImage();
   }
 } //assef gedan
