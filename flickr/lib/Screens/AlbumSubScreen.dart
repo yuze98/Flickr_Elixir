@@ -81,6 +81,15 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
 
   @override
   Widget build(BuildContext context) {
+    picIdList.clear();
+    userNameList.clear();
+    imageUrlList.clear();
+    imagesTitleList.clear();
+    favCountList.clear();
+    commetNumList.clear();
+    albumPublicList.clear();
+    albumPrivateList.clear();
+
     String numberOfPhotosString = numberOfPhotos > 1
         ? numberOfPhotos.toString() + ' photos'
         : numberOfPhotos.toString() + ' photo';
@@ -262,7 +271,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   ),
                   tooltip: 'Add Selected Items to Album',
                   onPressed: () {
-                    if (_selectedImagesId.length == 0) {
+                    if (_selectedImagesId.length == 1) {
                       print('add image to album');
                       Navigator.push(
                         context,
@@ -430,11 +439,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           if (_selectedImagesId[i] == picIdList[j]) {
             if (destination == 'Delete from Flickr') {
               print('delete imagesss');
-              FlickrRequestsAndResponses.DeletePicture(_selectedImagesId[i]);
+              FlickrRequestsAndResponses.DeletePicture(
+                  _selectedImagesId[_selectedIndexList[i]]);
             } else if (destination == 'Remove from album') {
               print('remove imagess from album');
               FlickrRequestsAndResponses.RemovePicFromAlbum(
-                  _selectedImagesId[i], albumID);
+                  _selectedImagesId[_selectedIndexList[i]], albumID);
             }
           }
         }

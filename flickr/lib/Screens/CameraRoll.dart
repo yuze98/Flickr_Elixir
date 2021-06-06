@@ -7,6 +7,7 @@ import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Components/ExploreDetails.dart';
 import '../Essentials/CommonVars.dart';
+import 'AlbumScreen.dart';
 
 class CameraRoll extends StatefulWidget {
   CameraRoll({Key key, this.title}) : super(key: key);
@@ -22,6 +23,8 @@ class _CameraRollState extends State<CameraRoll> {
   bool _selectionMode = false;
   bool tapped = false;
 
+  List<String> _selectedImagesId = [];
+
   Future<List<CameraRollModel>> cameraRoll;
   void RollState() {
     cameraRoll = FlickrRequestsAndResponses.GetCameraRoll();
@@ -35,14 +38,6 @@ class _CameraRollState extends State<CameraRoll> {
 
   @override
   Widget build(BuildContext context) {
-    CommonVars.imageList.clear();
-    CommonVars.username.clear();
-    CommonVars.titleCamera.clear();
-    CommonVars.favCount.clear();
-    CommonVars.commentNum.clear();
-    CommonVars.hasPressedCamera.clear();
-    CommonVars.userID.clear();
-    CommonVars.picID.clear();
     RollState();
     List<Widget> _buttons = List();
     if (_selectionMode) {
@@ -64,6 +59,14 @@ class _CameraRollState extends State<CameraRoll> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<CameraRollModel> data = snapshot.data;
+                CommonVars.imageList.clear();
+                CommonVars.username.clear();
+                CommonVars.titleCamera.clear();
+                CommonVars.favCount.clear();
+                CommonVars.commentNum.clear();
+                CommonVars.hasPressedCamera.clear();
+                CommonVars.userID.clear();
+                CommonVars.picID.clear();
                 for (var i in data) {
                   CommonVars.imageList.add(i.url);
                   CommonVars.hasPressedCamera.add(false);
@@ -155,8 +158,10 @@ class _CameraRollState extends State<CameraRoll> {
               setState(() {
                 if (_selectedIndexList.contains(index)) {
                   _selectedIndexList.remove(index);
+                  _selectedImagesId.remove(CommonVars.picID[index]);
                 } else {
                   _selectedIndexList.add(index);
+                  _selectedImagesId.add(CommonVars.picID[index]);
                 }
               });
             },
@@ -180,7 +185,7 @@ class _CameraRollState extends State<CameraRoll> {
                 MaterialPageRoute(
                     builder: (context) => ExploreDetails(
                           photoFile: CommonVars.imageList[index],
-                          profilePic: CommonVars.imageList[index],
+                          profilePic: CommonVars.profilePhotoLink,
                           userName: CommonVars.username[index],
                           title: CommonVars.titleCamera[index],
                           favCount: CommonVars.favCount[index],
@@ -229,45 +234,55 @@ class _CameraRollState extends State<CameraRoll> {
                         print(_selectedIndexList);
 
                         for (int i = 0; i < _selectedIndexList.length; i++) {
-                          print("Selected Image:$_selectedIndexList");
-                          print("Image Image:$CommonVars.imageList");
+                          // print("Selected Image:$_selectedIndexList");
+                          // print("Image Image:$CommonVars.imageList");
 
                           CommonVars.imageList.removeAt(_selectedIndexList[i]);
+
+                          FlickrRequestsAndResponses.DeletePicture(
+                              _selectedImagesId[_selectedIndexList[i]]);
                         }
+
                         _selectedIndexList.clear();
-
-                        //   _selectedIndexList.removeAt(_selectedIndexList[i]);
-                        // for (var elem in _selectedIndexList) {
-                        //   print(elem);
-                        //   _imageList.remove(elem);
-                        // }
-
-                        //  }
-
-                        //  tapped = !tapped;
                       }
                     });
                   },
                 ),
-                PopupMenuButton(
-                  onSelected: movingTo,
-                  color: Colors.white,
-                  icon: Icon(
+                IconButton(
+                  icon: const Icon(
                     Icons.photo_album,
                     color: Colors.black,
                   ),
-                  itemBuilder: (BuildContext context) {
-                    return CommonVars.albums.map(
-                      (String s) {
-                        return PopupMenuItem<String>(
-                          value: s,
-                          child: new Container(
-                            width: devSize.width,
-                            child: Text(s),
+                  tooltip: 'Add Selected Items to Album',
+                  onPressed: () {
+                    print(_selectedImagesId[0]);
+                    if (_selectedImagesId.length == 1) {
+                      print('add image to album');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AlbumScreen(
+                            receivedPicId: _selectedImagesId[0],
                           ),
-                        );
-                      },
-                    ).toList();
+                        ),
+                      );
+                    } else {
+                      for (int i = 0; i < _selectedImagesId.length; i++) {
+                        for (int j = 0; j < CommonVars.picID.length; j++) {
+                          if (_selectedImagesId[i] == CommonVars.picID[j]) {
+                            print('add imagess to album');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AlbumScreen(
+                                  receivedPicId: _selectedImagesId[i],
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      }
+                    }
                   },
                 ),
                 PopupMenuButton(

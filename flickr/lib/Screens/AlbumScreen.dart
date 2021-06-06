@@ -26,6 +26,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
+    listOfAlbumCards.clear();
     return Column(
       children: [
         Expanded(

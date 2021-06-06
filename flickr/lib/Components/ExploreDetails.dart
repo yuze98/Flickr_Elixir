@@ -53,7 +53,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                   fit: BoxFit.contain,
                 ),
                 borderRadius: BorderRadius.circular(5),
-                color: Colors.black,
+                color: Colors.black.withOpacity(0.8),
               ),
             ),
             GestureDetector(
@@ -111,7 +111,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
               ],
             ),
             SizedBox(
-              height: devSize.height * 0.73,
+              height: devSize.height * 0.7,
             ),
             Align(
               alignment: Alignment.topLeft,

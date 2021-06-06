@@ -1,5 +1,6 @@
 import 'package:flickr/Components/ExploreDetails.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Screens/UserPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'CommentsFavoritesNavigator.dart';
@@ -29,6 +30,18 @@ class _ImageListState extends State<ImageList> {
   List<String> picId = [];
   List<String> userId = [];
 
+  Future refreshScreen() async {
+    await Future.delayed(Duration(milliseconds: 500));
+
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UserPage(),
+      ),
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -49,40 +62,43 @@ class _ImageListState extends State<ImageList> {
     profileImage.clear();
     userId.clear();
     picId.clear();
-    return SafeArea(
-      child: Container(
-        child: FutureBuilder<List<Photos>>(
-          future: posts,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Photos> data = snapshot.data;
-              for (var i in data) {
-                userName.add(i.firstName);
-                picId.add(i.id);
-                imageList.add(i.url);
-                profileImage.add(i.profilePhotoUrl);
-                userSecondName.add(i.lastName);
-                title.add(i.title);
-                favCount.add(i.favoriteCount.toString());
-                commentNum.add(i.commentsNum.toString());
-                userId.add(i.userId);
-                CommonVars.hasPressed.add(false);
+    return RefreshIndicator(
+      onRefresh: refreshScreen,
+      child: SafeArea(
+        child: Container(
+          child: FutureBuilder<List<Photos>>(
+            future: posts,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Photos> data = snapshot.data;
+                for (var i in data) {
+                  userName.add(i.firstName);
+                  picId.add(i.id);
+                  imageList.add(i.url);
+                  profileImage.add(i.profilePhotoUrl);
+                  userSecondName.add(i.lastName);
+                  title.add(i.title);
+                  favCount.add(i.favoriteCount.toString());
+                  commentNum.add(i.commentsNum.toString());
+                  userId.add(i.userId);
+                  CommonVars.hasPressed.add(false);
+                }
+                return ListView.builder(
+                  itemCount: imageList.length,
+                  itemBuilder: (context, index) => OuterInfo(context, index),
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
               }
-              return ListView.builder(
-                itemCount: imageList.length,
-                itemBuilder: (context, index) => OuterInfo(context, index),
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            // By default show a loading spinner.
-            return CircularProgressIndicator();
-          },
+              // By default show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+          // child: ListView.builder(
+          //   itemCount: imageList.length,
+          //   itemBuilder: (context, index) => OuterInfo(context, index),
+          // ),
         ),
-        // child: ListView.builder(
-        //   itemCount: imageList.length,
-        //   itemBuilder: (context, index) => OuterInfo(context, index),
-        // ),
       ),
     );
   }
@@ -103,7 +119,7 @@ class _ImageListState extends State<ImageList> {
                 fit: BoxFit.contain,
               ),
               borderRadius: BorderRadius.circular(5),
-              color: Colors.black,
+              color: Colors.white.withOpacity(0.5),
             ),
             child: GestureDetector(
               onTap: () => {
@@ -148,25 +164,27 @@ class _ImageListState extends State<ImageList> {
                     backgroundImage: NetworkImage(profileImage[index]),
                     radius: 25.0,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: devSize.width * 0.03),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${userName[index]} ${userSecondName[index]}",
-                          style: TextStyle(
-                            fontSize: devSize.height * 0.03,
-                            fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: devSize.width * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${userName[index]} ${userSecondName[index]}",
+                            style: TextStyle(
+                              fontSize: devSize.height * 0.03,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "${title[index]}",
-                          style: TextStyle(
-                            fontSize: devSize.height * 0.025,
+                          Text(
+                            "${title[index]}",
+                            style: TextStyle(
+                              fontSize: devSize.height * 0.025,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
