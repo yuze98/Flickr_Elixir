@@ -27,6 +27,7 @@ class _CommentsSectionState extends State<CommentsSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     picComments = FlickrRequestsAndResponses.GetComments(widget.photoId);
   }
 

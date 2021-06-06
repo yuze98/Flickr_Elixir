@@ -32,7 +32,6 @@ class CommonVars {
 
   static bool camerarollbool = false;
 
-
   /*********************************************************/
   static String otherUserId = "";
   static String othersEmail = "";
@@ -75,4 +74,6 @@ class CommonVars {
 
   static const List<String> privacy = <String>[public, private];
   static const List<String> albums = <String>[album];
+
+  static List<String> searchHistory = [];
 }

@@ -17,6 +17,7 @@ import 'Screens/SubProfile.dart';
 import 'package:flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle.dart';
 import 'Screens/SearchScreen.dart';
 import 'Screens/OthersSubProfile.dart';
+import 'Screens/ResetPassword.dart';
 
 void main() {
   runApp(
@@ -33,12 +34,13 @@ void main() {
         'UserPage': (context) => UserPage(),
         'CameraRoll': (context) => CameraRoll(),
         'about': (context) => AboutState(),
-        'forgetPass': (context) => forgetPass(),
+        'forgetPass': (context) => ForgetPass(),
         'ChangePassword': (context) => ChangePassword(),
         'LoadingScreen': (context) => LoadingScreen(),
         'SearchPage': (context) => SearchScreen(),
         'OtherSubProfile': (context) => OtherProfile(),
         'subProfile': (context) => SubProfile(),
+        'ResetPassword': (context) => ResetPassword(),
       },
     ),
   );

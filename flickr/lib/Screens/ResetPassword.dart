@@ -5,19 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../api/RequestAndResponses.dart';
 
-class ChangePassword extends StatefulWidget {
+class ResetPassword extends StatefulWidget {
   @override
-  _ChangePassword createState() => _ChangePassword();
+  _ResetPassword createState() => _ResetPassword();
 }
 
-class _ChangePassword extends State<ChangePassword> {
+class _ResetPassword extends State<ResetPassword> {
   // This widget is the root of your application.
-  final oldPasswordController = TextEditingController();
+  final emailController = TextEditingController();
   final newPasswordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final confirmCodeController = TextEditingController();
 
-  final confirmPassword = TextEditingController();
-  bool oldBool = false;
+  bool emailBool = false;
   bool newBool = false;
   bool confirmBool = false;
   var newPassword;
@@ -53,7 +52,7 @@ class _ChangePassword extends State<ChangePassword> {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     child: Text(
-                      "Enter old Password",
+                      "Enter Your Email",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -67,8 +66,8 @@ class _ChangePassword extends State<ChangePassword> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validateOldPassword,
-                    controller: oldPasswordController,
+                    validator: validateEmail,
+                    controller: emailController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -80,7 +79,7 @@ class _ChangePassword extends State<ChangePassword> {
                           const Radius.circular(10.0),
                         ),
                       ),
-                      hintText: 'Old Password',
+                      hintText: 'Email',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -131,7 +130,7 @@ class _ChangePassword extends State<ChangePassword> {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     child: Text(
-                      "Confirm Password",
+                      "Confirm Code",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -145,8 +144,7 @@ class _ChangePassword extends State<ChangePassword> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
-                    validator: validateConfirmPassword,
-                    controller: confirmPasswordController,
+                    controller: confirmCodeController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -158,7 +156,7 @@ class _ChangePassword extends State<ChangePassword> {
                           const Radius.circular(10.0),
                         ),
                       ),
-                      hintText: 'Confirm Password',
+                      hintText: 'Confirm Code',
                       fillColor: Colors.white,
                     ),
                   ),
@@ -181,7 +179,7 @@ class _ChangePassword extends State<ChangePassword> {
                     ),
                     onPressed: () {
 //                      primary:
-                      changePassword();
+                      resetPassword();
                       //                    Colors.deepOrange;
                       print('Pressed');
                     },
@@ -204,46 +202,30 @@ class _ChangePassword extends State<ChangePassword> {
     );
   }
 
-  String validateOldPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value) || value == null) {
-      oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
-    } else {
-      oldBool = true;
-      return null;
-    }
-  }
-
   String validateNewPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+
     RegExp regex = new RegExp(pattern);
     newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
-      oldBool = false;
+      newBool = false;
       return 'Enter a valid Password (8 or more characters)';
     } else {
-      oldBool = true;
+      newBool = true;
       return null;
     }
   }
 
-  String validateConfirmPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+  String validateEmail(String value) {
+    Pattern pattern =
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value) || value == null) {
-      oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
-    } else if (value == oldPasswordController.text ||
-        newPassword == oldPasswordController.text) {
-      oldBool = false;
-      return "New Password can't be the old password";
-    } else if (value != newPassword) {
-      oldBool = false;
-      return 'Unmatched Passwords! Enter it again';
+    if (!regex.hasMatch(value.toLowerCase()) || value == null) {
+      emailBool = false;
+      return 'Enter a valid email address';
     } else {
-      oldBool = true;
+      emailBool = true;
       return null;
     }
   }
@@ -251,9 +233,9 @@ class _ChangePassword extends State<ChangePassword> {
   String validateConfirm() {
     String str;
     print(
-        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
+        "oldBool is ${emailController.text}  and new is ${newPasswordController.text} and confirm is ${confirmCodeController.text} ");
 
-    if (!oldBool && !newBool && !confirmBool) {
+    if (!emailBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
     } else {
       str = 'Password is changed successfully';
@@ -261,11 +243,13 @@ class _ChangePassword extends State<ChangePassword> {
     return str;
   }
 
-  void changePassword() async {
+  void resetPassword() async {
     if (validateConfirm() == 'Password is changed successfully') {
       print("pressssssssssssssssssssssssssssssssssssssssssssssssssssssssed");
-      var response = await FlickrRequestsAndResponses.changePassword(
-          newPasswordController.text, oldPasswordController.text);
+      var response = await FlickrRequestsAndResponses.resetPassword(
+          emailController.text,
+          newPasswordController.text,
+          confirmCodeController.text);
 
       if (response.statusCode == 200) {
         print("Password is changed successfully");
@@ -285,12 +269,10 @@ class _ChangePassword extends State<ChangePassword> {
       child: Text("OK"),
       onPressed: () {
         if (str == 'Password is changed successfully') {
-          FlickrRequestsAndResponses.signOutRequest();
           Navigator.pushNamedAndRemoveUntil(
-              context, "GetStarted", (r) => false);
+              context, "LoginScreen", (r) => false);
         } else {
           print("hena");
-          Navigator.pop(context);
           Navigator.pop(context);
         }
       },

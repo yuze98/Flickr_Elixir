@@ -1,13 +1,11 @@
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'AlbumSubScreen.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 
-const String TEMPCOVERPHOTO =
-    'https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg';
-
 class AlbumScreen extends StatefulWidget {
+  AlbumScreen({this.receivedPicId});
+  final receivedPicId;
   @override
   _AlbumScreenState createState() => _AlbumScreenState();
 }
@@ -15,42 +13,21 @@ class AlbumScreen extends StatefulWidget {
 class _AlbumScreenState extends State<AlbumScreen> {
   List<Widget> listOfAlbumCards = [];
   Future<List<SingleAlbumModel>> albums;
-  Future<List<GetAlbumMediaModel>> listOfAlbumMedia;
-  // List<Future<List<GetAlbumMediaModel>>> listOfListOfAlbumMedia;
-  // String coverPhoto = '';
+  TextEditingController albumNameController = TextEditingController();
+  String picId;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
+    picId = widget.receivedPicId;
     albums = FlickrRequestsAndResponses.GetAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
+    var deviceSize = MediaQuery.of(context).size;
     return Column(
       children: [
-        Expanded(
-          flex: 1,
-          child: RawMaterialButton(
-            onPressed: () {
-              // TODO e3mel popup yekteb el name w desc
-              FlickrRequestsAndResponses.CreateAlbum(
-                  'First created', 'Mabrook');
-            },
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            elevation: 0,
-            constraints: BoxConstraints.tightFor(
-              width: 20.0,
-              height: 20.0,
-            ),
-            shape: CircleBorder(),
-            fillColor: Color(0xFF0A4FA4),
-          ),
-        ),
         Expanded(
           flex: 5,
           child: FutureBuilder<List<SingleAlbumModel>>(
@@ -60,9 +37,6 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 List<SingleAlbumModel> data = snapshot.data;
 
                 for (var i in data) {
-                  // TODO Store data feen
-                  // listOfListOfAlbumMedia[i] =
-                  // FlickrRequestsAndResponses.GetAlbumMedia(i.albumId);
                   listOfAlbumCards.add(
                     AlbumCard(
                       i.albumId,
@@ -83,6 +57,73 @@ class _AlbumScreenState extends State<AlbumScreen> {
             },
           ),
         ),
+        Visibility(
+          visible: (picId == ''),
+          child: Container(
+            height: deviceSize.height * 0.05,
+            child: RaisedButton.icon(
+              color: Colors.blue,
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+              label: Text(
+                'Create Album',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Create album'),
+                      content: TextField(
+                        controller: albumNameController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          border: OutlineInputBorder(),
+                          fillColor: Colors.white,
+                          hintText: 'Enter a name for your album',
+                        ),
+                      ),
+                      actions: <Widget>[
+                        FlatButton(
+                          color: Colors.white,
+                          textColor: Colors.black,
+                          onPressed: () {
+                            // Send request to create album sending name and empty desciption
+                            FlickrRequestsAndResponses.CreateAlbum(
+                                albumNameController.text.toString().trim(), '');
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          color: Colors.white,
+                          textColor: Colors.grey,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Cancel',
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -93,17 +134,21 @@ class _AlbumScreenState extends State<AlbumScreen> {
         : numberOfPhotos.toString() + ' photo';
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            // builder: (context) => MyHomePage(),
-            builder: (context) => AlbumSubScreen(
-              receivedAlbumID: albumID,
-              receivedAlbumName: albumName,
-              receivedNumberOfPhotos: numberOfPhotos,
+        if (picId == '') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AlbumSubScreen(
+                receivedAlbumID: albumID,
+                receivedAlbumName: albumName,
+                receivedNumberOfPhotos: numberOfPhotos,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          FlickrRequestsAndResponses.AddPhotoToAlbum(picId, albumID);
+          Navigator.pop(context);
+        }
       },
       child: Card(
         child: Column(
@@ -111,8 +156,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           children: <Widget>[
             ListTile(
               leading: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(TEMPCOVERPHOTO), //TODO get first photo
+                backgroundImage: AssetImage('images/albumsCoverPhoto.jpg'),
               ),
               title: Text(albumName),
               isThreeLine: false, // TODO convert it to true if you need date

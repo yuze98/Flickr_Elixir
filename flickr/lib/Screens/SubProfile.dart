@@ -104,7 +104,7 @@ class _SubProfile extends State<SubProfile> {
                             fit: BoxFit.cover,
                             width: deviceSizewidth,
                             alignment: Alignment.center,
-                            image: CommonVars.coverPhotoLink == null
+                            image: CommonVars.coverPhotoLink == ""
                                 ? AssetImage(
                                     'images/photo1.jpg',
                                   )
@@ -124,7 +124,7 @@ class _SubProfile extends State<SubProfile> {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage:
-                                        CommonVars.profilePhotoLink == null
+                                        CommonVars.profilePhotoLink == ""
                                             ? AssetImage('images/photo1.jpg')
                                             : NetworkImage(
                                                 CommonVars.profilePhotoLink),
@@ -229,7 +229,9 @@ class _SubProfile extends State<SubProfile> {
               children: [
                 CameraRoll(),
                 Public(),
-                AlbumScreen(),
+                AlbumScreen(
+                  receivedPicId: '',
+                ),
                 AboutState(),
               ]),
         ),
