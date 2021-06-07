@@ -13,47 +13,76 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  bool visibility;
-  bool hiddenText;
-  bool popUpMsg;
-  String buttonText = 'Next';
-  String email;
+  bool newBool = false;
+  bool confirmBool = false;
   String newPassword;
   bool oldBool;
+  String oldPassword;
+  String confirmPassword;
+  String str;
 
-  String validateOldPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
+  void validateOldPassword(String value) {
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
-      return null;
     }
   }
 
-  String validateNewPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
+  group('Old Password Validation', () {
+    test('Valid Old password', () {
+      oldPassword = "0123456789aaa"; //12
+      validateOldPassword(oldPassword);
+      expect(oldBool, true);
+    });
+
+    test('Invalid Old password', () {
+      oldPassword = "0123456789"; //10
+      validateOldPassword(oldPassword);
+      expect(oldBool, false);
+    });
+  });
+
+  void validateNewPassword(String value) {
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
-      return null;
     }
   }
 
+  group('New password Validation', () {
+    test('Valid New password', () {
+      newPassword = "aaa0123456789"; //12
+      validateNewPassword(newPassword);
+      expect(oldBool, true);
+    });
+
+    test('Invalid New password', () {
+      newPassword = "0123456789"; //10
+      validateNewPassword(newPassword);
+      expect(oldBool, false);
+    });
+  });
+
   String validateConfirmPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{12,}$";
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (12 or more characters)';
-    } else if (value == oldPasswordController.text ||
-        newPassword == oldPasswordController.text) {
+      return 'Enter a valid Password (12 or more characters';
+    } else if (value == oldPassword || newPassword == oldPassword) {
       oldBool = false;
       return "New Password can't be the old password";
     } else if (value != newPassword) {
@@ -65,30 +94,51 @@ void main() {
     }
   }
 
-  String validateConfirm() {
-    String str;
-    print(
-        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
+  group('Confirm Password Validation', () {
+    test('Valid Confirmation password', () {
+      oldPassword = "0123456789aaa";
+      confirmPassword = "aaa0123456789"; //12
+      newPassword = "aaa0123456789"; //10
 
+      validateConfirmPassword(newPassword);
+      expect(oldBool, true);
+    });
+
+    test('Invalid Confirmation password', () {
+      oldPassword = "0123456789";
+      confirmPassword = "0123456789";
+      newPassword = "0123456789"; //10
+      validateConfirmPassword(newPassword);
+      expect(oldBool, false);
+    });
+  });
+
+  String validateConfirm() {
     if (!oldBool && !newBool && !confirmBool) {
-      str = 'Please enter valid parameters!';
+      str = "Please enter valid parameters!";
     } else {
-      str = 'Password is changed successfully';
+      str = "Password is changed successfully";
     }
     return str;
   }
 
-  group('Valid Changing password', () {
-    test('value from true to false', () {
-      newPassword = "0123456789aaa"; //12
-      validateNewPassword(newPassword);
-      expect(oldBool, false);
+  group('validate Confirm ', () {
+    test('Valid Confirmation password', () {
+      oldBool = true;
+      newBool = true; //12
+      confirmBool = true; //10
+
+      validateConfirm();
+      expect(str, "Password is changed successfully");
     });
 
-    test('Valid Changing password', () {
-      newPassword = "0123456789"; //10
-      validateNewPassword(newPassword);
-      expect(oldBool, true);
+    test('Invalid Confirmation password', () {
+      oldBool = false;
+      newBool = false; //12
+      confirmBool = false; //10
+
+      validateConfirm();
+      expect(str, "Please enter valid parameters!");
     });
   });
 }
