@@ -459,26 +459,56 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   }
 
   void privacySettings(String destination) {
-    setState(
-      () {
-        if (destination == CommonVars.public) {
-          for (int i = 0; i < _selectedIndexList.length; i++) {
-            if (!CommonVars.publicList
-                .contains(CommonVars.imageList[_selectedIndexList[i]]))
-              CommonVars.publicList
-                  .add(CommonVars.imageList[_selectedIndexList[i]]);
-          }
-        }
-        if (destination == CommonVars.private) {
-          for (int i = 0; i < _selectedIndexList.length; i++) {
-            if (!CommonVars.private
-                .contains(CommonVars.imageList[_selectedIndexList[i]]))
+    setState(() {
+      if (destination == CommonVars.public) {
+        //here we need to set the privacy of this to public
+
+        for (int i = 0; i < _selectedIndexList.length; i++) {
+          if (!CommonVars.publicList
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+            CommonVars.publicList
+                .add(CommonVars.imageList[_selectedIndexList[i]]);
+
+            if (CommonVars.privateList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
               CommonVars.privateList
-                  .add(CommonVars.imageList[_selectedIndexList[i]]);
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from private");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                true,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
           }
         }
-      },
-    );
+      }
+      if (destination == CommonVars.private) {
+        //here we need to set the privacy of this to private
+
+        for (int i = 0; i < _selectedIndexList.length; i++) {
+          if (!CommonVars.privateList
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+            CommonVars.privateList
+                .add(CommonVars.imageList[_selectedIndexList[i]]);
+
+            if (CommonVars.publicList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+              CommonVars.publicList
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from public");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                false,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
+          }
+        }
+      }
+    });
   }
 
   void _changeSelection({bool enable, int index}) {

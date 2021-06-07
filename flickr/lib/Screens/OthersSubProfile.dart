@@ -7,6 +7,7 @@ import 'OtherUserAbout.dart';
 import 'AlbumScreen.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Components/FollowersList.dart';
+import 'SubPhotoStream.dart';
 
 class OtherProfile extends StatefulWidget {
   PickedFile photoFile;
@@ -190,7 +191,7 @@ class _OtherProfile extends State<OtherProfile> {
               // These are the contents of the tab views, below the tabs.
               children: [
                 OtherUserAboutState(),
-                Public(),
+                SubPhotoStream(),
                 AlbumScreen(
                   receivedPicId: '',
                   receivedUserId: CommonVars.otherUserId,

@@ -141,6 +141,7 @@ class _GetStartedState extends State<GetStarted> {
                       ),
                       //  splashColor: Colors.black26,
                       onPressed: () {
+                        print("is logged in? ${CommonVars.loggedIn}");
                         if (CommonVars.loggedIn)
                           Navigator.pushNamed(context, "UserPage");
                         else

@@ -236,40 +236,15 @@ class _OtherUserAboutStateState extends State<OtherUserAboutState> {
                     CommonVars.camerarollbool
                         ? Row(
                             children: [
-                              CommonVars.imageList.length >= 1
+                              CommonVars.otherFeaturedPhotos.length >= 1
                                   ? imageFeat(context, 0)
                                   : Text(""),
-                              CommonVars.imageList.length >= 2
+                              CommonVars.otherFeaturedPhotos.length >= 2
                                   ? imageFeat(context, 1)
                                   : Text(""),
-                              CommonVars.imageList.length >= 3
+                              CommonVars.otherFeaturedPhotos.length >= 3
                                   ? imageFeat(context, 2)
                                   : Text("")
-                              //   child: Image.network(
-                              //     CommonVars.imageList[0],
-                              //     width: devicesize.width * 0.28,
-                              //     height: devicesize.height * 0.16,
-                              //     fit: BoxFit.cover,
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Image.network(
-                              //     CommonVars.imageList[1],
-                              //     width: devicesize.width * 0.28,
-                              //     height: devicesize.height * 0.16,
-                              //     fit: BoxFit.cover,
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Image.network(
-                              //     CommonVars.imageList[2],
-                              //     width: devicesize.width * 0.28,
-                              //     height: devicesize.height * 0.16,
-                              //     fit: BoxFit.cover,
-                              //   ),
-                              // ),
                             ],
                           )
                         : Text(""),
@@ -343,8 +318,7 @@ class _OtherUserAboutStateState extends State<OtherUserAboutState> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.network(
-        CommonVars.imageList[index],
-        //fit: BoxFit.cover,
+        CommonVars.otherFeaturedPhotos[index],
         width: 100,
         height: 100,
       ),

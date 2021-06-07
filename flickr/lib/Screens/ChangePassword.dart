@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -203,7 +204,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateOldPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
 
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
@@ -217,7 +218,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateNewPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
 
     RegExp regex = new RegExp(pattern);
     newPassword = value;
@@ -232,7 +233,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateConfirmPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
 
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
@@ -283,10 +284,12 @@ class _ChangePassword extends State<ChangePassword> {
     // Create button
     Widget okButton = TextButton(
       child: Text("OK"),
-      onPressed: () {
+      onPressed: () async {
         if (str == 'Password is changed successfully') {
+          CommonVars.loggedIn = false;
+
           FlickrRequestsAndResponses.signOutRequest();
-          Navigator.pushNamedAndRemoveUntil(
+          await Navigator.pushNamedAndRemoveUntil(
               context, "GetStarted", (r) => false);
         } else {
           Navigator.pop(context);
