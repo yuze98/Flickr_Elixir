@@ -155,14 +155,6 @@ class _ForgetPassState extends State<ForgetPass> {
   }
 
   void forgetPass(String email) async {
-    // var url =
-    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
-    //
-    // var response =
-    //     await http.post(Uri.parse(url), body: {"email": "test@test.com"});
-    //
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
     var response = await FlickrRequestsAndResponses.forgetPass(email);
 
     if (response.statusCode == 200) {
