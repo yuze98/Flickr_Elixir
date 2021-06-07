@@ -9,6 +9,8 @@ class CommonVars {
   static const String changePassword = 'Change Password';
   static const String public = 'Public';
   static const String private = 'Private';
+  static bool isPublic;
+
   static String userName = "";
   static String userId = "";
   static bool hideAppBar = false;

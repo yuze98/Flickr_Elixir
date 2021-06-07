@@ -858,10 +858,10 @@ class FlickrRequestsAndResponses {
     return response;
   }
 
-  static void allowCommenting(String photoId, bool isPublic) async {
+  static Future allowCommenting(String photoId, bool isPublic) async {
     var url = "https://api.qasaqees.tech/photo/allowCommenting";
 
-    var jso = {"photoId": photoId};
+    var jso = {"photoId": photoId, "isPublic": isPublic};
     print("Before Res");
 
     var response = await http.post(
@@ -873,5 +873,31 @@ class FlickrRequestsAndResponses {
       body: jsonEncode(jso),
     );
     print(json.decode(response.body));
+  }
+
+  static Future editPhoto(String photoId, bool isPublic, String title) async {
+    var url = "https://api.qasaqees.tech/photo/$photoId";
+
+    var jso = {
+      "isPublic": isPublic,
+      "title": title,
+      "description": '',
+      "tags": [],
+      "allowCommenting": true,
+    };
+
+    var response = await http.patch(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+      },
+      body: jsonEncode(jso),
+    );
+
+    if (response.statusCode == 200) {
+    } else {
+      throw Exception('Failed to edit photo');
+    }
   }
 }

@@ -102,6 +102,13 @@ class _AboutPhotoState extends State<AboutPhoto> {
                               setState(() {
                                 tiitleBool = !tiitleBool;
                                 title = titleController.text;
+
+                                if (privacy == 'Private')
+                                  FlickrRequestsAndResponses.editPhoto(
+                                      widget.picId, false, title);
+                                else
+                                  FlickrRequestsAndResponses.editPhoto(
+                                      widget.picId, true, title);
                               });
                             },
                           )
@@ -330,21 +337,32 @@ class _AboutPhotoState extends State<AboutPhoto> {
                       enabled: moreBool,
                       onSelected: (value) {
                         setState(() {
-                          print(value);
                           privacy = value;
-                          if (value == 'Private')
-                            FlickrRequestsAndResponses.allowCommenting(
-                                widget.picId, false);
-                          else
-                            FlickrRequestsAndResponses.allowCommenting(
-                                widget.picId, true);
                         });
+
+                        if (value == 'Private')
+                          FlickrRequestsAndResponses.editPhoto(
+                              widget.picId, false, title);
+                        else
+                          FlickrRequestsAndResponses.editPhoto(
+                              widget.picId, true, title);
+
+                        if (value == 'Private') {
+                          CommonVars.privateList.add(image);
+                          if (CommonVars.publicList.contains(image)) {
+                            CommonVars.publicList.remove(image);
+                            print("adding in public");
+                          }
+                        } else {
+                          CommonVars.publicList.add(image);
+                          if (CommonVars.privateList.contains(image)) {
+                            CommonVars.privateList.remove(image);
+                            print("adding in public");
+                          }
+                        }
                       },
-                      icon: IconButton(
-                        icon: Icon(
-                          privacy == 'Private' ? Icons.lock : Icons.public,
-                        ),
-                        onPressed: () async {},
+                      icon: Icon(
+                        privacy == 'Private' ? Icons.lock : Icons.public,
                         color: moreBool ? Colors.black : Colors.grey,
                       ),
                       color: Colors.white,

@@ -8,7 +8,7 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'about.dart';
+import 'About.dart';
 import 'AlbumScreen.dart';
 
 class SubProfile extends StatefulWidget {
