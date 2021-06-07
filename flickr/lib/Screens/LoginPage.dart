@@ -311,7 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   TextSpan(
-                      text: "Sign up here.",
+                      text: " Sign up here.",
                       style: TextStyle(
                         color: Colors.blue.shade600,
                       ),
@@ -379,7 +379,8 @@ String validateEmail(String value) {
 }
 
 String validatePassword(String value) {
-  Pattern pattern = r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
+  Pattern pattern =
+      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {

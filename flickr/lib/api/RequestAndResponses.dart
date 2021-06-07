@@ -449,6 +449,7 @@ class FlickrRequestsAndResponses {
           "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
         },
         body: jsonEncode(body));
+    print(response.body);
   }
 
   static Future followUser(String userTobeFollowed) async {

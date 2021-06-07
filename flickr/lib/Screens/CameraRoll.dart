@@ -83,6 +83,8 @@ class _CameraRollState extends State<CameraRoll> {
                   CommonVars.picID.add(i.pictureID);
                   CommonVars.isPublic = i.isPublic;
                 }
+
+                //  CommonVars.isPublic = i.isPublic;
                 return _createBody();
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -109,7 +111,7 @@ class _CameraRollState extends State<CameraRoll> {
 
   void _changeSelection({bool enable, int index}) {
     _selectionMode = enable;
-    _selectedIndexList.add(index);
+    // _selectedIndexList.add(index);
     if (index == -1) {
       _selectedIndexList.clear();
     }
@@ -237,10 +239,10 @@ class _CameraRollState extends State<CameraRoll> {
                       //_volume += 10;
                       if (_selectedIndexList.isNotEmpty) {
                         for (int i = 0; i < _selectedIndexList.length; i++) {
-                          CommonVars.imageList.removeAt(_selectedIndexList[i]);
+                          CommonVars.imageList.removeAt(i);
 
                           FlickrRequestsAndResponses.deletePicture(
-                              _selectedImagesId[_selectedIndexList[i]]);
+                              _selectedImagesId[i]);
                         }
 
                         _selectedIndexList.clear();
@@ -261,6 +263,7 @@ class _CameraRollState extends State<CameraRoll> {
                         MaterialPageRoute(
                           builder: (context) => AlbumScreen(
                             receivedPicId: _selectedImagesId[0],
+                            receivedUserId: CommonVars.userId,
                           ),
                         ),
                       );
@@ -273,6 +276,7 @@ class _CameraRollState extends State<CameraRoll> {
                               MaterialPageRoute(
                                 builder: (context) => AlbumScreen(
                                   receivedPicId: _selectedImagesId[i],
+                                  receivedUserId: CommonVars.userId,
                                 ),
                               ),
                             );

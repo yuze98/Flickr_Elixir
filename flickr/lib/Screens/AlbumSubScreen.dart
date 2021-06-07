@@ -283,6 +283,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                         MaterialPageRoute(
                           builder: (context) => AlbumScreen(
                             receivedPicId: _selectedImagesId[0],
+                            receivedUserId: CommonVars.userId,
                           ),
                         ),
                       );
@@ -294,8 +295,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => AlbumScreen(
-                                  receivedPicId: _selectedImagesId[i],
-                                ),
+                                    receivedPicId: _selectedImagesId[i],
+                                    receivedUserId: CommonVars.userId),
                               ),
                             );
                           }
@@ -400,10 +401,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   // Request Album delete
                   FlickrRequestsAndResponses.DeleteAlbum(albumID);
                   Navigator.pop(context);
-                  showAlertDialog(
-                    context,
-                    'Album deleted please exit to refresh',
-                  );
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Delete',
@@ -445,12 +443,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           if (_selectedImagesId[i] == picIdList[j]) {
             if (destination == 'Delete from Flickr') {
               print('delete imagesss');
-              FlickrRequestsAndResponses.deletePicture(
-                  _selectedImagesId[_selectedIndexList[i]]);
+
+              FlickrRequestsAndResponses.deletePicture(_selectedImagesId[i]);
             } else if (destination == 'Remove from album') {
               print('remove imagess from album');
               FlickrRequestsAndResponses.removePicFromAlbum(
-                  _selectedImagesId[_selectedIndexList[i]], albumID);
+                  _selectedImagesId[i], albumID);
             }
           }
         }
@@ -513,7 +511,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
 
   void _changeSelection({bool enable, int index}) {
     _selectionMode = enable;
-    _selectedIndexList.add(index);
+    //_selectedIndexList.add(index);
     if (index == -1) {
       _selectedIndexList.clear();
     }

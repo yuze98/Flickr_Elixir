@@ -204,7 +204,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateOldPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
@@ -218,7 +218,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateNewPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
     RegExp regex = new RegExp(pattern);
     newPassword = value;
@@ -233,7 +233,7 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateConfirmPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {

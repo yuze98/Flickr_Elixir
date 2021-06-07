@@ -417,12 +417,12 @@ String validateAge(String value) {
 
 String validatePassword(String value) {
   Pattern pattern =
-      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
     pwBool = false;
-    return 'Enter a valid Password (10 or more characters)';
+    return 'Enter a valid Password (12 or more characters)';
   } else {
     pwBool = true;
     return null;

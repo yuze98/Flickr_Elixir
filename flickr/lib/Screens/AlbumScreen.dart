@@ -8,7 +8,7 @@ import 'package:flickr/Models/GetAlbumMedia.dart';
 class AlbumScreen extends StatefulWidget {
   AlbumScreen({
     this.receivedPicId,
-    this.receivedUserId,
+    @required this.receivedUserId,
   });
   final receivedPicId;
   final receivedUserId;
