@@ -12,14 +12,17 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 
 class AlbumSubScreen extends StatefulWidget {
-  AlbumSubScreen(
-      {this.receivedAlbumID,
-      this.receivedAlbumName,
-      this.receivedNumberOfPhotos});
+  AlbumSubScreen({
+    this.receivedAlbumID,
+    this.receivedAlbumName,
+    this.receivedNumberOfPhotos,
+    @required this.receivedUserId,
+  });
   // List of images and add it in the initializer
   final String receivedAlbumID;
   final String receivedAlbumName;
   final int receivedNumberOfPhotos;
+  final String receivedUserId;
 
   @override
   _AlbumSubScreenState createState() => _AlbumSubScreenState();
@@ -74,6 +77,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           receivedAlbumID: albumID,
           receivedAlbumName: albumName,
           receivedNumberOfPhotos: numberOfPhotos,
+          receivedUserId: widget.receivedUserId,
         ),
       ),
     );
@@ -114,22 +118,24 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                       pinned: true,
                       backgroundColor: Colors.white,
                       actions: <Widget>[
-                        PopupMenuButton(
-                          onSelected: movingTo,
-                          color: Colors.white,
-                          icon: Icon(
-                            Icons.more_vert,
-                            color: Colors.white,
-                          ),
-                          itemBuilder: (BuildContext context) {
-                            return menu.map((String s) {
-                              return PopupMenuItem<String>(
-                                value: s,
-                                child: Text(s),
-                              );
-                            }).toList();
-                          },
-                        ),
+                        (widget.receivedUserId == CommonVars.userId)
+                            ? PopupMenuButton(
+                                onSelected: movingTo,
+                                color: Colors.white,
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                itemBuilder: (BuildContext context) {
+                                  return menu.map((String s) {
+                                    return PopupMenuItem<String>(
+                                      value: s,
+                                      child: Text(s),
+                                    );
+                                  }).toList();
+                                },
+                              )
+                            : Text(''),
                       ],
                       toolbarHeight: deviceSizeheight * .07,
                       flexibleSpace: FlexibleSpaceBar(
@@ -394,6 +400,10 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   // Request Album delete
                   FlickrRequestsAndResponses.DeleteAlbum(albumID);
                   Navigator.pop(context);
+                  showAlertDialog(
+                    context,
+                    'Album deleted please exit to refresh',
+                  );
                 },
                 child: Text(
                   'Delete',
@@ -575,7 +585,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
             setState(() {
               _changeSelection(enable: true, index: index);
               tapped = !tapped;
-              // TODO momken yeb2a el 7al hna
             });
           },
           onTap: () {

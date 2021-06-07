@@ -231,6 +231,7 @@ class _SubProfile extends State<SubProfile> {
                 Public(),
                 AlbumScreen(
                   receivedPicId: '',
+                  receivedUserId: CommonVars.userId,
                 ),
                 AboutState(),
               ]),

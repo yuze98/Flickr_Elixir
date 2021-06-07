@@ -1,11 +1,17 @@
+import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Screens/RedirectAbPage.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'AlbumSubScreen.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 
 class AlbumScreen extends StatefulWidget {
-  AlbumScreen({this.receivedPicId});
+  AlbumScreen({
+    this.receivedPicId,
+    this.receivedUserId,
+  });
   final receivedPicId;
+  final receivedUserId;
   @override
   _AlbumScreenState createState() => _AlbumScreenState();
 }
@@ -14,13 +20,16 @@ class _AlbumScreenState extends State<AlbumScreen> {
   List<Widget> listOfAlbumCards = [];
   Future<List<SingleAlbumModel>> albums;
   TextEditingController albumNameController = TextEditingController();
+  String alertController;
   String picId;
+  String userId;
 
   @override
   void initState() {
     super.initState();
     picId = widget.receivedPicId;
-    albums = FlickrRequestsAndResponses.getAlbum();
+    userId = widget.receivedUserId;
+    albums = FlickrRequestsAndResponses.getAlbum(userId);
   }
 
   @override
@@ -59,7 +68,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           ),
         ),
         Visibility(
-          visible: (picId == ''),
+          visible: (picId == '' && userId == CommonVars.userId),
           child: Container(
             height: deviceSize.height * 0.05,
             child: RaisedButton.icon(
@@ -99,12 +108,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
                             FlickrRequestsAndResponses.createAlbum(
                                 albumNameController.text.toString().trim(), '');
                             Navigator.of(context).pop();
-
-                            SnackBar mySnackBar = SnackBar(
-                              content: Text(
-                                  'Album ${albumNameController.text.toString()} created'),
-                            );
-                            Scaffold.of(context).showSnackBar(mySnackBar);
+                            showAlertDialog(
+                                context,
+                                'Album {albumNameController.text.toString()} created',
+                                alertController);
                           },
                           child: Text(
                             'Save',
@@ -149,6 +156,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 receivedAlbumID: albumID,
                 receivedAlbumName: albumName,
                 receivedNumberOfPhotos: numberOfPhotos,
+                receivedUserId: userId,
               ),
             ),
           );

@@ -677,8 +677,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
-  static Future<List<SingleAlbumModel>> getAlbum() async {
-    var url = '$_baseURL/user/albums/${CommonVars.userId}';
+  static Future<List<SingleAlbumModel>> getAlbum(String userId) async {
+    var url = '$_baseURL/user/albums/$userId';
 
     var response = await http.get(
       Uri.parse(url),

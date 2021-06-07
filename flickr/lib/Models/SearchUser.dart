@@ -4,7 +4,7 @@ class SearchUser {
   final String firstName;
   final String lastName;
   final int numberOfFollowers;
-  final int numberOfFollowings; // TODO check law fe number of photos instead
+  final int numberOfPhotos;
   final bool isFollowing;
 
   SearchUser({
@@ -13,7 +13,7 @@ class SearchUser {
     this.firstName,
     this.lastName,
     this.numberOfFollowers,
-    this.numberOfFollowings,
+    this.numberOfPhotos,
     this.isFollowing,
   });
 
@@ -24,7 +24,7 @@ class SearchUser {
       firstName: json['firstName'],
       lastName: json['lastName'],
       numberOfFollowers: json['numberOfFollowers'],
-      numberOfFollowings: json['numberOfFollowings'],
+      numberOfPhotos: json['numberOfPhotos'],
       isFollowing: json['isFollowing'],
     );
   }
