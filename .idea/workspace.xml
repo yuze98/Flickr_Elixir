@@ -21,46 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ae839a1b-693f-419e-bfb3-7e66ad4b846c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/Components/AboutPhoto.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Components/AboutPhoto.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Components/CommentSection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Components/CommentSection.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Components/CommentsFavoritesNavigator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Components/CommentsFavoritesNavigator.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Components/ExploreDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Components/ExploreDetails.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Components/FavoritesSection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Components/FavoritesSection.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Models/CameralRollModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Models/CameralRollModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/About.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/About.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/AlbumScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/AlbumScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/AlbumSubScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/AlbumSubScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/CameraRoll.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/CameraRoll.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/CheckInboxPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/CheckInboxPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/Explore.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/Explore.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ForgetPass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ForgetPass.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/GetStarted.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/GetStarted.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/LoginPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/OtherUserAbout.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/OtherUserAbout.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/OthersSubProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/OthersSubProfile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/Public.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/Public.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/RedirectAbPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/RedirectAbPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ResetPassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ResetPassword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SearchScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SearchScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SignUp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SignUp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/SubProfile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/UploadDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/UploadDetails.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/UserPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,22 +123,22 @@
     </state>
     <state x="592" y="218" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1622754853638" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1619208845859" />
-    <state width="1491" height="128" key="GridCell.Tab.0.bottom" timestamp="1623028938667">
+    <state width="1491" height="102" key="GridCell.Tab.0.bottom" timestamp="1623031860510">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="128" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623028938667" />
-    <state width="1491" height="128" key="GridCell.Tab.0.center" timestamp="1623028938667">
+    <state width="1491" height="102" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623031860510" />
+    <state width="1491" height="102" key="GridCell.Tab.0.center" timestamp="1623031860509">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="128" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623028938667" />
-    <state width="1491" height="128" key="GridCell.Tab.0.left" timestamp="1623028938667">
+    <state width="1491" height="102" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623031860509" />
+    <state width="1491" height="102" key="GridCell.Tab.0.left" timestamp="1623031860509">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="128" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623028938667" />
-    <state width="1491" height="128" key="GridCell.Tab.0.right" timestamp="1623028938667">
+    <state width="1491" height="102" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623031860509" />
+    <state width="1491" height="102" key="GridCell.Tab.0.right" timestamp="1623031860510">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="128" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623028938667" />
+    <state width="1491" height="102" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623031860510" />
     <state x="369" y="0" key="SettingsEditor" timestamp="1622765257050">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -857,4 +857,21 @@ class FlickrRequestsAndResponses {
 
     return response;
   }
+
+  static void allowCommenting(String photoId, bool isPublic) async {
+    var url = "https://api.qasaqees.tech/photo/allowCommenting";
+
+    var jso = {"photoId": photoId};
+    print("Before Res");
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
+      },
+      body: jsonEncode(jso),
+    );
+    print(json.decode(response.body));
+  }
 }

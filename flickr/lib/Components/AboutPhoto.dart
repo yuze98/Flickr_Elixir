@@ -330,14 +330,21 @@ class _AboutPhotoState extends State<AboutPhoto> {
                       enabled: moreBool,
                       onSelected: (value) {
                         setState(() {
+                          print(value);
                           privacy = value;
+                          if (value == 'Private')
+                            FlickrRequestsAndResponses.allowCommenting(
+                                widget.picId, false);
+                          else
+                            FlickrRequestsAndResponses.allowCommenting(
+                                widget.picId, true);
                         });
                       },
                       icon: IconButton(
                         icon: Icon(
                           privacy == 'Private' ? Icons.lock : Icons.public,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {},
                         color: moreBool ? Colors.black : Colors.grey,
                       ),
                       color: Colors.white,
