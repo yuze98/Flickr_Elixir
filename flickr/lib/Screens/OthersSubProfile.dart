@@ -1,6 +1,4 @@
 import 'package:flickr/Components/FollowingsList.dart';
-
-import 'CameraRoll.dart';
 import 'Public.dart';
 import 'package:flutter/material.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
@@ -8,14 +6,12 @@ import 'package:image_picker/image_picker.dart';
 import 'OtherUserAbout.dart';
 import 'AlbumScreen.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
-
 import 'package:flickr/Components/FollowersList.dart';
 
 class OtherProfile extends StatefulWidget {
   PickedFile photoFile;
   String userId;
-  // OtherProfile({Key key, @required this.photoFile, this.userId})
-  // : super(key: key);
+
   @override
   _OtherProfile createState() => _OtherProfile();
 }
@@ -23,7 +19,6 @@ class OtherProfile extends StatefulWidget {
 class _OtherProfile extends State<OtherProfile> {
   // This widget is the root of your application.
 
-  //PickedFile  photoFile;
   final ImagePicker _picker = ImagePicker();
   PickedFile profilePhotoFile, coverPhotoFile;
 
@@ -31,8 +26,10 @@ class _OtherProfile extends State<OtherProfile> {
   Widget build(BuildContext context) {
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
-    double buttonwidth = deviceSizewidth / 5;
+    double buttonWidth = deviceSizewidth / 5;
     CommonVars.sameUser = false;
+    print(
+        "is followinggggggggggggggggggggggggggggggggggg ${CommonVars.isFollowing}");
     return Scaffold(
       body: DefaultTabController(
         length: 4,
@@ -149,11 +146,11 @@ class _OtherProfile extends State<OtherProfile> {
                                       onPressed: () async {
                                         if (!CommonVars.isFollowing)
                                           await FlickrRequestsAndResponses
-                                              .FollowUser(
+                                              .followUser(
                                                   CommonVars.otherUserId);
                                         else
                                           await FlickrRequestsAndResponses
-                                              .UnFollowUser(
+                                              .unFollowUser(
                                                   CommonVars.otherUserId);
                                       })
                                 ],

@@ -16,12 +16,11 @@ class _AboutStateState extends State<AboutState> {
   var result = 'Heyoo';
 
   void AboutAPI() async {
-    await FlickrRequestsAndResponses.GetAbout();
+    await FlickrRequestsAndResponses.getAbout();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     AboutAPI();
     super.initState();
   }
@@ -32,7 +31,7 @@ class _AboutStateState extends State<AboutState> {
         {
           result = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DescripData()),
+            MaterialPageRoute(builder: (context) => DescriptionData()),
           );
 
           setState(() => CommonVars.description = result);
@@ -89,7 +88,7 @@ class _AboutStateState extends State<AboutState> {
         }
         break;
     }
-    await FlickrRequestsAndResponses.EditAboutInfo(
+    await FlickrRequestsAndResponses.editAboutInfo(
         CommonVars.occupation, CommonVars.hometown, CommonVars.city);
   }
 

@@ -27,11 +27,16 @@ class _CameraRollState extends State<CameraRoll> {
 
   Future<List<CameraRollModel>> cameraRoll;
   void RollState() {
-    cameraRoll = FlickrRequestsAndResponses.GetCameraRoll();
+    cameraRoll = FlickrRequestsAndResponses.getCameraRoll();
+  }
+
+  void getData() async {
+    await FlickrRequestsAndResponses.getAbout();
   }
 
   @override
   void initState() {
+    getData();
     CommonVars.camerarollbool = true;
     super.initState();
   }
@@ -220,7 +225,6 @@ class _CameraRollState extends State<CameraRoll> {
                       if (_selectedIndexList.isNotEmpty)
                         CommonFunctions().showAlertDialog(context,
                             CommonVars.imageList[_selectedIndexList[0]]);
-                      print('Increase volume by 10');
                     });
                   },
                 ),
@@ -231,15 +235,10 @@ class _CameraRollState extends State<CameraRoll> {
                     setState(() {
                       //_volume += 10;
                       if (_selectedIndexList.isNotEmpty) {
-                        print(_selectedIndexList);
-
                         for (int i = 0; i < _selectedIndexList.length; i++) {
-                          // print("Selected Image:$_selectedIndexList");
-                          // print("Image Image:$CommonVars.imageList");
-
                           CommonVars.imageList.removeAt(_selectedIndexList[i]);
 
-                          FlickrRequestsAndResponses.DeletePicture(
+                          FlickrRequestsAndResponses.deletePicture(
                               _selectedImagesId[_selectedIndexList[i]]);
                         }
 
@@ -255,9 +254,7 @@ class _CameraRollState extends State<CameraRoll> {
                   ),
                   tooltip: 'Add Selected Items to Album',
                   onPressed: () {
-                    print(_selectedImagesId[0]);
                     if (_selectedImagesId.length == 1) {
-                      print('add image to album');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -270,7 +267,6 @@ class _CameraRollState extends State<CameraRoll> {
                       for (int i = 0; i < _selectedImagesId.length; i++) {
                         for (int j = 0; j < CommonVars.picID.length; j++) {
                           if (_selectedImagesId[i] == CommonVars.picID[j]) {
-                            print('add imagess to album');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -323,7 +319,6 @@ class _CameraRollState extends State<CameraRoll> {
             CommonVars.publicList
                 .add(CommonVars.imageList[_selectedIndexList[i]]);
         }
-        print(CommonVars.publicList);
       }
       if (destination == CommonVars.private) {
         for (int i = 0; i < _selectedIndexList.length; i++) {
@@ -332,10 +327,7 @@ class _CameraRollState extends State<CameraRoll> {
             CommonVars.privateList
                 .add(CommonVars.imageList[_selectedIndexList[i]]);
         }
-        print(CommonVars.private);
       }
-
-      print(destination);
     });
   }
 }

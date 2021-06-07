@@ -52,7 +52,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
     albumName = widget.receivedAlbumName;
     numberOfPhotos = widget.receivedNumberOfPhotos;
 
-    listOfAlbumMedia = FlickrRequestsAndResponses.GetAlbumMedia(albumID);
+    listOfAlbumMedia = FlickrRequestsAndResponses.getAlbumMedia(albumID);
     // Get list of images
   }
 
@@ -272,7 +272,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   tooltip: 'Add Selected Items to Album',
                   onPressed: () {
                     if (_selectedImagesId.length == 1) {
-                      print('add image to album');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -285,7 +284,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                       for (int i = 0; i < _selectedImagesId.length; i++) {
                         for (int j = 0; j < picIdList.length; j++) {
                           if (_selectedImagesId[i] == picIdList[j]) {
-                            print('add imagess to album');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -353,9 +351,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   String newAlbumName = renameController.text.toString().trim();
                   if (newAlbumName.isNotEmpty) {
                     Navigator.of(context).pop(newAlbumName);
-                    print(newAlbumName);
                     // Request change album title
-                    FlickrRequestsAndResponses.RenameAlbum(
+                    FlickrRequestsAndResponses.renameAlbum(
                         albumID, newAlbumName);
                   }
                 },
@@ -423,14 +420,13 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   }
 
   void deleteIconClicked(String destination) {
-    print(_selectedImagesId[0]);
     if (_selectedIndexList.length == 1) {
       if (destination == 'Delete from Flickr') {
         print('delete image');
-        FlickrRequestsAndResponses.DeletePicture(_selectedImagesId[0]);
+        FlickrRequestsAndResponses.deletePicture(_selectedImagesId[0]);
       } else if (destination == 'Remove from album') {
         print('remove from album');
-        FlickrRequestsAndResponses.RemovePicFromAlbum(
+        FlickrRequestsAndResponses.removePicFromAlbum(
             _selectedImagesId[0], albumID);
       }
     } else {
@@ -439,11 +435,11 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           if (_selectedImagesId[i] == picIdList[j]) {
             if (destination == 'Delete from Flickr') {
               print('delete imagesss');
-              FlickrRequestsAndResponses.DeletePicture(
+              FlickrRequestsAndResponses.deletePicture(
                   _selectedImagesId[_selectedIndexList[i]]);
             } else if (destination == 'Remove from album') {
               print('remove imagess from album');
-              FlickrRequestsAndResponses.RemovePicFromAlbum(
+              FlickrRequestsAndResponses.removePicFromAlbum(
                   _selectedImagesId[_selectedIndexList[i]], albumID);
             }
           }
@@ -456,15 +452,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
     setState(
       () {
         if (destination == CommonVars.public) {
-          // CommonVars.publicList.clear();
-
           for (int i = 0; i < _selectedIndexList.length; i++) {
             if (!CommonVars.publicList
                 .contains(CommonVars.imageList[_selectedIndexList[i]]))
               CommonVars.publicList
                   .add(CommonVars.imageList[_selectedIndexList[i]]);
           }
-          print(CommonVars.publicList);
         }
         if (destination == CommonVars.private) {
           for (int i = 0; i < _selectedIndexList.length; i++) {
@@ -473,7 +466,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
               CommonVars.privateList
                   .add(CommonVars.imageList[_selectedIndexList[i]]);
           }
-          print(CommonVars.private);
         }
       },
     );

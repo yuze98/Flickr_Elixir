@@ -20,7 +20,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
   void initState() {
     super.initState();
     picId = widget.receivedPicId;
-    albums = FlickrRequestsAndResponses.GetAlbum();
+    albums = FlickrRequestsAndResponses.getAlbum();
   }
 
   @override
@@ -96,7 +96,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                           textColor: Colors.black,
                           onPressed: () {
                             // Send request to create album sending name and empty desciption
-                            FlickrRequestsAndResponses.CreateAlbum(
+                            FlickrRequestsAndResponses.createAlbum(
                                 albumNameController.text.toString().trim(), '');
                             Navigator.of(context).pop();
                           },
@@ -147,7 +147,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
             ),
           );
         } else {
-          FlickrRequestsAndResponses.AddPhotoToAlbum(picId, albumID);
+          FlickrRequestsAndResponses.addPhotoToAlbum(picId, albumID);
           Navigator.pop(context);
         }
       },

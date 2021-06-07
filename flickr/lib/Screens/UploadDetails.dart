@@ -2,7 +2,6 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ImageDetails extends StatefulWidget {
   @override

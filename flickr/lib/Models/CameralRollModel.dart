@@ -7,6 +7,7 @@ class CameraRollModel {
   final String lastName;
   final int favoriteCount;
   final int commentsNum;
+  final bool isPublic;
   final String profilePhotoUrl;
 
   CameraRollModel({
@@ -19,20 +20,21 @@ class CameraRollModel {
     this.favoriteCount,
     this.commentsNum,
     this.profilePhotoUrl,
+    this.isPublic,
   });
 
   factory CameraRollModel.fromJson(Map<String, dynamic> json) {
     print(json['favouriteCount']);
     return CameraRollModel(
-      userID: json['creator']['_id'],
-      pictureID: json['_id'],
-      url: json['url'],
-      profilePhotoUrl: json['creator']['profilePhotoUrl'],
-      firstName: json['creator']['firstName'],
-      title: json['title'],
-      lastName: json['creator']['lastName'],
-      favoriteCount: json['favouriteCount'],
-      commentsNum: json['commentsNum'],
-    );
+        userID: json['creator']['_id'],
+        pictureID: json['_id'],
+        url: json['url'],
+        profilePhotoUrl: json['creator']['profilePhotoUrl'],
+        firstName: json['creator']['firstName'],
+        title: json['title'],
+        lastName: json['creator']['lastName'],
+        favoriteCount: json['favouriteCount'],
+        commentsNum: json['commentsNum'],
+        isPublic: json['isPublic']);
   }
 }

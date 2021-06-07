@@ -90,9 +90,7 @@ class _ForgetPassState extends State<ForgetPass> {
                               hintText: 'Enter email',
                               fillColor: Colors.white,
                             ),
-                            onFieldSubmitted: (text) {
-                              //     print(emailController.text);
-                            },
+                            onFieldSubmitted: (text) {},
                           ),
                         ),
                       ),
@@ -122,7 +120,6 @@ class _ForgetPassState extends State<ForgetPass> {
                             onPressed: () {
                               // setState(() {
                               //
-                              print(EmailController.text);
                               // sendMail(emailController.text);
                               forgetPass(EmailController.text);
                               // };
@@ -142,10 +139,9 @@ class _ForgetPassState extends State<ForgetPass> {
     );
   }
 
-  String validateubmit(int value) {
+  String validateSubmit(int value) {
     String str;
-    print("Value is ");
-    print(value);
+
     if (value != 200) {
       str = 'Enter valid parameters';
     } else {
@@ -158,7 +154,7 @@ class _ForgetPassState extends State<ForgetPass> {
     var response = await FlickrRequestsAndResponses.forgetPass(email);
 
     if (response.statusCode == 200) {
-      showAlertDialog(context, validateubmit(200));
+      showAlertDialog(context, validateSubmit(200));
       Navigator.pushNamed(context, 'ResetPassword');
     } else {
       showAlertDialog(context, jsonDecode(response.body)["message"]);

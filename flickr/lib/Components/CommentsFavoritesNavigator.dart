@@ -55,7 +55,6 @@ class _CommentsFavoritesNavigatorState
                   sliver: SliverSafeArea(
                     top: false,
                     sliver: SliverAppBar(
-                      //  floating: true,
                       pinned: true,
                       backgroundColor: Colors.white,
                       toolbarHeight: 0,

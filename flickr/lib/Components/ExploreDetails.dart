@@ -1,8 +1,6 @@
-import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flickr/Components/CommentsFavoritesNavigator.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
@@ -141,7 +139,7 @@ class _ExploreDetailsState extends State<ExploreDetails> {
                         setState(
                           () {
                             widget.hasPressed = !widget.hasPressed;
-                            FlickrRequestsAndResponses.AddToFavorite(
+                            FlickrRequestsAndResponses.addToFavorite(
                                 widget.picId);
                           },
                         );

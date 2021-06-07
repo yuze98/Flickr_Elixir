@@ -53,12 +53,11 @@ class _ImageListState extends State<ImageList> {
     CommonVars.count = 5;
 
     super.initState();
-    posts = FlickrRequestsAndResponses.GetExplore();
+    posts = FlickrRequestsAndResponses.getExplore();
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent)
         CommonVars.count = CommonVars.count + 5;
-      print("here");
     });
   }
 
@@ -170,16 +169,11 @@ class _ImageListState extends State<ImageList> {
                   CircleAvatar(
                     child: GestureDetector(
                       onTap: () async {
-                        print('aywa');
                         if (userId[index] != CommonVars.userId) {
-                          print('aywa2');
-                          //CommonVars.otherUserId = userId[index];
-                          print("our name is ${userId[index]}");
                           String body = await FlickrRequestsAndResponses
                               .showOtherUserProfile(userId[index]);
                           Navigator.pushNamed(context, 'OtherSubProfile');
                         } else
-                          //String body = await FlickrRequestsAndResponses.Get(userId[index]);
                           Navigator.pushNamed(context, 'subProfile');
                       },
                     ),
@@ -237,7 +231,7 @@ class _ImageListState extends State<ImageList> {
                             !CommonVars.hasPressed[index];
 
                         if (CommonVars.hasPressed[index]) {
-                          FlickrRequestsAndResponses.AddToFavorite(
+                          FlickrRequestsAndResponses.addToFavorite(
                               picId[index]);
                         }
                       },

@@ -176,10 +176,7 @@ class _ResetPassword extends State<ResetPassword> {
                       ),
                     ),
                     onPressed: () {
-//                      primary:
                       resetPassword();
-                      //                    Colors.deepOrange;
-                      print('Pressed');
                     },
                     child: Text(
                       'Confirm',
@@ -230,8 +227,6 @@ class _ResetPassword extends State<ResetPassword> {
 
   String validateConfirm() {
     String str;
-    print(
-        "oldBool is ${emailController.text}  and new is ${newPasswordController.text} and confirm is ${confirmCodeController.text} ");
 
     if (!emailBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
@@ -243,7 +238,6 @@ class _ResetPassword extends State<ResetPassword> {
 
   void resetPassword() async {
     if (validateConfirm() == 'Password is changed successfully') {
-      print("pressssssssssssssssssssssssssssssssssssssssssssssssssssssssed");
       var response = await FlickrRequestsAndResponses.resetPassword(
           emailController.text,
           newPasswordController.text,
@@ -270,7 +264,6 @@ class _ResetPassword extends State<ResetPassword> {
           Navigator.pushNamedAndRemoveUntil(
               context, "LoginScreen", (r) => false);
         } else {
-          print("hena");
           Navigator.pop(context);
         }
       },

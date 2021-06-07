@@ -23,7 +23,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    favPics = FlickrRequestsAndResponses.GetFavoiteUsers(widget.picId);
+    favPics = FlickrRequestsAndResponses.getFavoriteUsers(widget.picId);
   }
 
   @override
@@ -126,11 +126,10 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                         setState(() {
                           CommonVars.favoriteUsersFollow[index] =
                               !CommonVars.favoriteUsersFollow[index];
-                          print(CommonVars.favoriteUsersFollow[index]);
                           if (CommonVars.favoriteUsersFollow[index]) {
-                            FlickrRequestsAndResponses.FollowUser(id);
+                            FlickrRequestsAndResponses.followUser(id);
                           } else {
-                            FlickrRequestsAndResponses.UnFollowUser(id);
+                            FlickrRequestsAndResponses.unFollowUser(id);
                           }
                         });
                       },

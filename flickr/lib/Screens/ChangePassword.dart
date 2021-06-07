@@ -180,10 +180,7 @@ class _ChangePassword extends State<ChangePassword> {
                       ),
                     ),
                     onPressed: () {
-//                      primary:
                       changePassword();
-                      //                    Colors.deepOrange;
-                      print('Pressed');
                     },
                     child: Text(
                       'Confirm',
@@ -256,8 +253,6 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateConfirm() {
     String str;
-    print(
-        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
 
     if (!oldBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
@@ -294,7 +289,6 @@ class _ChangePassword extends State<ChangePassword> {
           Navigator.pushNamedAndRemoveUntil(
               context, "GetStarted", (r) => false);
         } else {
-          print("hena");
           Navigator.pop(context);
           Navigator.pop(context);
         }

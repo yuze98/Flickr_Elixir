@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flickr/Components/FollowingsList.dart';
 import 'package:flickr/Components/FollowersList.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
-
 import 'CameraRoll.dart';
 import 'Public.dart';
 import 'package:flutter/material.dart';
@@ -293,13 +291,12 @@ class _SubProfile extends State<SubProfile> {
     Navigator.pop(context);
     Navigator.pushNamed(context, "LoadingScreen");
     String id = await FlickrRequestsAndResponses.uploadImage();
-    // print(id);
 
     if (file == "cover")
       FlickrRequestsAndResponses.changeCoverPhoto(id);
     else if (file == "profile")
       FlickrRequestsAndResponses.profileCoverPhoto(id);
-    FlickrRequestsAndResponses.GetAbout();
+    FlickrRequestsAndResponses.getAbout();
     Navigator.pop(context);
     Navigator.pushNamed(context, "UserPage");
     // ConvertingPhoto();
@@ -326,7 +323,6 @@ class _SubProfile extends State<SubProfile> {
       if (destination == CommonVars.help) {
         launch('https://www.flickr.com/help/terms');
       }
-      // print(destination);
     });
   }
 }

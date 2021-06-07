@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'Explore.dart';
@@ -6,10 +5,7 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'SubProfile.dart';
-import 'package:http/http.dart' as http;
 import 'dart:ui';
-import 'dart:convert';
-import 'package:async/async.dart';
 import 'SearchScreen.dart';
 
 class UserPage extends StatefulWidget {
@@ -24,7 +20,7 @@ class _UserPage extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    FlickrRequestsAndResponses.GetAbout();
+    FlickrRequestsAndResponses.getAbout();
     double deviceSizeheight = MediaQuery.of(context).size.height;
     double deviceSizewidth = MediaQuery.of(context).size.width;
     double buttonwidth = deviceSizewidth / 5;

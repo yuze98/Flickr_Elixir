@@ -16,7 +16,6 @@ class _OtherUserAboutStateState extends State<OtherUserAboutState> {
   var result = 'Heyoo';
 
   void AboutAPI() async {
-    print("iddddddddd ${CommonVars.otherUserId}");
     await FlickrRequestsAndResponses.showOtherUserProfile(
         CommonVars.otherUserId);
   }

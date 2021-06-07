@@ -5,8 +5,6 @@ class checkInbox extends StatelessWidget {
   final String email;
   checkInbox({Key key, @required this.email}) : super(key: key);
 
-  // TextEditingController emailController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     var devicesize = MediaQuery.of(context).size;
@@ -95,7 +93,6 @@ class checkInbox extends StatelessWidget {
                                       MaterialStateProperty.all(Colors.blue)),
                               onPressed: () {
                                 // setState(() {
-                                print(email);
 
                                 // sendMail(emailController.text);
                                 Navigator.pop(context, LoginScreen());

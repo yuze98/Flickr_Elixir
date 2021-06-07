@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   static final FacebookLogin facebookSignIn = new FacebookLogin();
 
   void _login() async {
-    var response = await FlickrRequestsAndResponses.LogInFB(facebookSignIn);
+    var response = await FlickrRequestsAndResponses.logInFB(facebookSignIn);
 
     var passLogin;
 
@@ -78,14 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if (response.statusCode == 200) {
       passLogin = true;
-      // showAlertDialog(context, validateubmit());
     } else {
       passLogin = false;
-      // showAlertDialog(context, 'Enter valid parameters');
     }
 
     if (passwordCheck && emailCheck) {
-      print(passLogin);
       if (passLogin == true) {
         setState(() {
           CommonVars.loggedIn = true;
@@ -101,7 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
           CommonVars.followings =
               CommonVars.loginRes["user"]["numberOfFollowings"];
           CommonVars.userId = CommonVars.loginRes["user"]["_id"];
-          print(CommonVars.coverPhotoLink);
         });
 
         Navigator.pop(context);
@@ -326,7 +322,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Signup()));
-                          print('Moved to third');
                         }),
                 ]),
               ),
@@ -384,8 +379,7 @@ String validateEmail(String value) {
 }
 
 String validatePassword(String value) {
-  Pattern pattern =
-      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+  Pattern pattern = r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{8,}$";
 
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {

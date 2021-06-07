@@ -202,132 +202,26 @@ class _PublicState extends State<Public> {
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.share_sharp),
-                  tooltip: 'Increase volume by 10',
+                  tooltip: 'Share with friends',
                   onPressed: () {
                     setState(() {
-                      //_volume += 10;
                       if (_selectedIndexList.isNotEmpty)
                         CommonFunctions().showAlertDialog(context,
                             CommonVars.imageList[_selectedIndexList[0]]);
-                      // print('Increase volume by 10');
                     });
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete),
-                  tooltip: 'Increase volume by 10',
+                  tooltip: 'Delete picture',
                   onPressed: () {
                     setState(() {
                       //_volume += 10;
                       if (_selectedIndexList.isNotEmpty) {
-                        // print(_selectedIndexList);
-
                         for (int i = 0; i < _selectedIndexList.length; i++) {
                           CommonVars.imageList.removeAt(_selectedIndexList[i]);
                         }
                         _selectedIndexList.clear();
-                      }
-                    });
-                  },
-                ),
-                PopupMenuButton(
-                  onSelected: movingTo,
-                  color: Colors.white,
-                  icon: Icon(
-                    Icons.photo_album,
-                    color: Colors.black,
-                  ),
-                  itemBuilder: (BuildContext context) {
-                    return CommonVars.albums.map(
-                      (String s) {
-                        return PopupMenuItem<String>(
-                          value: s,
-                          child: new Container(
-                            width: devSize.width,
-                            child: Text(s),
-                          ),
-                        );
-                      },
-                    ).toList();
-                  },
-                ),
-                PopupMenuButton(
-                  onSelected: movingTo,
-                  color: Colors.white,
-                  icon: Icon(
-                    Icons.privacy_tip,
-                    color: Colors.black,
-                  ),
-                  itemBuilder: (BuildContext context) {
-                    return CommonVars.privacy.map((String s) {
-                      return PopupMenuItem<String>(
-                        value: s,
-                        child: new Container(
-                          width: devSize.width,
-                          child: Text(s),
-                        ),
-                      );
-                    }).toList();
-                  },
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget OverLay2(BuildContext context) {
-    var devSize = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            ButtonBar(
-              buttonTextTheme: ButtonTextTheme.accent,
-              alignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.share_sharp),
-                  tooltip: 'Increase volume by 10',
-                  onPressed: () {
-                    setState(() {
-                      //_volume += 10;
-                      if (_selectedIndexList.isNotEmpty)
-                        CommonFunctions().showAlertDialog(context,
-                            CommonVars.imageList[_selectedIndexList[0]]);
-                      //  print('Increase volume by 10');
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  tooltip: 'Increase volume by 10',
-                  onPressed: () {
-                    setState(() {
-                      //_volume += 10;
-                      if (_selectedIndexList.isNotEmpty) {
-                        //  print(_selectedIndexList);
-
-                        for (int i = 0; i < _selectedIndexList.length; i++) {
-                          //  print("Selected Image:$_selectedIndexList");
-                          //  print("Image Image:$CommonVars.imageList");
-
-                          CommonVars.imageList.removeAt(_selectedIndexList[i]);
-                        }
-                        _selectedIndexList.clear();
-
-                        //   _selectedIndexList.removeAt(_selectedIndexList[i]);
-                        // for (var elem in _selectedIndexList) {
-                        //   print(elem);
-
-                        // }
-
-                        //  }
-
-                        //  tapped = !tapped;
                       }
                     });
                   },
@@ -396,7 +290,6 @@ class _PublicState extends State<Public> {
       if (destination == CommonVars.help) {
         launch('https://www.flickr.com/help/terms');
       }
-      // print(destination);
     });
   }
 

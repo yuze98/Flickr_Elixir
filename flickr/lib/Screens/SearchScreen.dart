@@ -271,7 +271,7 @@ class SearchResultsListView extends StatelessWidget {
       );
     } else {
       userFoundList =
-          FlickrRequestsAndResponses.SearchOnUser(searchTerm.toLowerCase());
+          FlickrRequestsAndResponses.searchOnUser(searchTerm.toLowerCase());
 
       return FutureBuilder<List<SearchUser>>(
         future: userFoundList,

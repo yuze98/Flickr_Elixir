@@ -44,7 +44,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
 
   void prepareAbout() async {
     // Navigator.pushNamed(context, 'LoadingScreen');
-    aboutPic = await FlickrRequestsAndResponses.GetaboutPhoto(widget.picId);
+    aboutPic = await FlickrRequestsAndResponses.getAboutPhoto(widget.picId);
 
     //  Navigator.pop(context);
     setState(() {
@@ -58,8 +58,6 @@ class _AboutPhotoState extends State<AboutPhoto> {
       } else {
         isUser = false;
       }
-      // print("widget user ${widget.userId}");
-      // print("commonvars user${CommonVars.userId}");
     });
   }
 
@@ -160,8 +158,8 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            AlbumScreen(receivedPicId: '')));
+                                        builder: (context) => AlbumScreen(
+                                            receivedPicId: widget.picId)));
                               });
                             },
                           )
@@ -178,6 +176,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
                       child: Image.network(image),
                       onTap: () {
                         //Go to Album page
+
                         albumBool
                             ? print("go to album")
                             : print("not editable");
@@ -243,7 +242,7 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                   onPressed: () {
                                     setState(
                                       () {
-                                        FlickrRequestsAndResponses.AddTags(
+                                        FlickrRequestsAndResponses.addTags(
                                             widget.picId, tagsController.text);
                                         for (var i = 0;
                                             i < tagList.length;
@@ -251,9 +250,6 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                           if (tagList[i].toLowerCase() ==
                                               tagsController.text
                                                   .toLowerCase()) {
-                                            print(
-                                                'Using loop: ${tagsController.text}');
-
                                             // Found the person, stop the loop
                                             return;
                                           }
@@ -337,9 +333,12 @@ class _AboutPhotoState extends State<AboutPhoto> {
                           privacy = value;
                         });
                       },
-                      icon: Icon(
-                        privacy == 'Private' ? Icons.lock : Icons.public,
-                        color: Colors.grey,
+                      icon: IconButton(
+                        icon: Icon(
+                          privacy == 'Private' ? Icons.lock : Icons.public,
+                        ),
+                        onPressed: () {},
+                        color: moreBool ? Colors.black : Colors.grey,
                       ),
                       color: Colors.white,
                       itemBuilder: (BuildContext context) {
@@ -369,8 +368,10 @@ class _AboutPhotoState extends State<AboutPhoto> {
                             icon: Icon(Icons.delete),
                             onPressed: () {
                               //delete function request
-                              FlickrRequestsAndResponses.DeletePicture(
+                              FlickrRequestsAndResponses.deletePicture(
                                   widget.picId);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
                             },
                           )
                         : Text(''),
