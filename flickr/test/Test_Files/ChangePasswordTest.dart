@@ -141,4 +141,41 @@ void main() {
       expect(str, "Please enter valid parameters!");
     });
   });
+
+  bool _selectionModel;
+  bool isCleared;
+  void changeSelection(bool enable, int index) {
+    /// If true then _selectedIndexList is cleared
+    isCleared = false;
+    _selectionModel = enable;
+    if (index == -1) {
+      isCleared = true;
+    }
+  }
+
+  group('Change Selection check ', () {
+    test('index is -1, enable is true', () {
+      changeSelection(true, -1);
+      expect(_selectionModel, true);
+      expect(isCleared, true);
+    });
+
+    test('index is -1, enable is false', () {
+      changeSelection(false, -1);
+      expect(_selectionModel, false);
+      expect(isCleared, true);
+    });
+
+    test('index is not -1, enable is true', () {
+      changeSelection(true, 0);
+      expect(_selectionModel, true);
+      expect(isCleared, false);
+    });
+
+    test('index is not -1, enable is false', () {
+      changeSelection(false, 0);
+      expect(_selectionModel, false);
+      expect(isCleared, false);
+    });
+  });
 }

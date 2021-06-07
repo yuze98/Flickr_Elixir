@@ -159,7 +159,9 @@ class _AboutPhotoState extends State<AboutPhoto> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => AlbumScreen(
-                                            receivedPicId: widget.picId)));
+                                              receivedPicId: widget.picId,
+                                              receivedUserId: widget.userId,
+                                            )));
                               });
                             },
                           )

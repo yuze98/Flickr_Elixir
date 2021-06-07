@@ -191,7 +191,10 @@ class _OtherProfile extends State<OtherProfile> {
               children: [
                 OtherUserAboutState(),
                 Public(),
-                AlbumScreen(),
+                AlbumScreen(
+                  receivedPicId: '',
+                  receivedUserId: CommonVars.otherUserId,
+                ),
                 Icon(Icons.group),
               ]),
         ),

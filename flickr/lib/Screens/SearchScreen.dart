@@ -190,14 +190,17 @@ class SearchResultsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    listOfSearchedUsers.clear();
+    var deviceSize = MediaQuery.of(context).size;
     Widget UserSearchedCard(
       String userId,
       String userPhotoUrl,
       String userFirstName,
       String userLastName,
       int userNumberOfFollowers,
-      int userNumberOfFollowing,
+      int userNumberOfPhotos,
       bool isFollowingUser,
+      int index,
     ) {
       return GestureDetector(
         onTap: () async {
@@ -231,17 +234,12 @@ class SearchResultsListView extends StatelessWidget {
                 isThreeLine: false,
                 // add number of photos/following and number of followers
                 subtitle: Text(
-                  userNumberOfFollowing.toString() +
-                      ' following(s)' +
-                      ' - ' +
-                      userNumberOfFollowers.toString() +
-                      ' follower(s)',
+                  '${userNumberOfPhotos.toString()} photo(s) - ${userNumberOfFollowers.toString()} follower(s)',
                   style: TextStyle(
                     // fontSize: 10.0,
                     color: Colors.grey,
                   ),
                 ),
-                // TODO trailing button of following or follow
               ),
             ],
           ),
@@ -249,9 +247,9 @@ class SearchResultsListView extends StatelessWidget {
       );
     }
 
-    var deviceSize = MediaQuery.of(context).size;
     if (searchTerm == null) {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Icon(
@@ -279,7 +277,7 @@ class SearchResultsListView extends StatelessWidget {
           if (snapshot.hasData) {
             List<SearchUser> data = snapshot.data;
             // TODO delete all comments in this function
-            // int index = 0;
+            int index = 0;
             for (var i in data) {
               // addedTextToFollowing[index] =
               //     (i.numberOfFollowings == 1) ? ' following' : ' followings';
@@ -292,11 +290,12 @@ class SearchResultsListView extends StatelessWidget {
                   i.firstName,
                   i.lastName,
                   i.numberOfFollowers,
-                  i.numberOfFollowings,
+                  i.numberOfPhotos,
                   i.isFollowing,
+                  index,
                 ),
               );
-              // index++;
+              index++;
             }
             return ListView.builder(
               padding: EdgeInsets.only(
