@@ -12,6 +12,7 @@ import 'package:flickr/Models/UserFollowings.dart';
 import 'package:flickr/Models/UserFollowers.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 import 'package:flickr/Models/SearchUser.dart';
+import 'package:flickr/Models/PhotoStreamModel.dart';
 
 class FlickrRequestsAndResponses {
   static final String _baseURL = 'https://api.qasaqees.tech';
@@ -104,7 +105,7 @@ class FlickrRequestsAndResponses {
     var response = await http.post(Uri.parse(url), headers: {
       "Authorization": "Bearer ${CommonVars.loginRes["accessToken"]}"
     });
-
+    print(response.body);
     return response.statusCode;
   }
 
@@ -373,7 +374,6 @@ class FlickrRequestsAndResponses {
 
   static Future<List<CameraRollModel>> getCameraRoll() async {
     var url = '$_baseURL/user/cameraRoll';
-
     var response = await http.get(
       Uri.parse(url),
       headers: {
@@ -898,6 +898,35 @@ class FlickrRequestsAndResponses {
     if (response.statusCode == 200) {
     } else {
       throw Exception('Failed to edit photo');
+    }
+  }
+
+  static Future<List<PhotoStreamModel>> getPhotoStream(String id) async {
+    var url = '$_baseURL/user/photostream/$id';
+
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+      },
+    );
+
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      final cameralist = json.decode(response.body);
+
+      List<PhotoStreamModel> vo = [];
+      for (var i in cameralist['photos']) {
+        vo.add(PhotoStreamModel.fromJson(i));
+      }
+
+      return vo;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load camera roll');
     }
   }
 }

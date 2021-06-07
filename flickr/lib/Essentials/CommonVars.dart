@@ -36,7 +36,6 @@ class CommonVars {
 
   static bool camerarollbool = false;
 
-  /*********************************************************/
   static String otherUserId = "";
   static String othersEmail = "";
   static String othersAccupation = "";
@@ -50,7 +49,6 @@ class CommonVars {
   static String othersCoverPhotoUrl = "";
   static String othersProfilePhotoUrl = "";
 
-  /**********************************************************/
   static const List<String> menu = <String>[
     notifications,
     about,
@@ -79,6 +77,9 @@ class CommonVars {
   static List<String> picID = [];
   static List<String> publicList = List();
   static List<String> privateList = List();
+
+  static List<String> otherPublicList = List();
+  static List<String> otherPrivateList = List();
 
   static const List<String> privacy = <String>[public, private];
   static const List<String> albums = <String>[album];

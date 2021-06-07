@@ -99,6 +99,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
                             FlickrRequestsAndResponses.createAlbum(
                                 albumNameController.text.toString().trim(), '');
                             Navigator.of(context).pop();
+
+                            SnackBar mySnackBar = SnackBar(
+                              content: Text(
+                                  'Album ${albumNameController.text.toString()} created'),
+                            );
+                            Scaffold.of(context).showSnackBar(mySnackBar);
                           },
                           child: Text(
                             'Save',
