@@ -20,33 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae839a1b-693f-419e-bfb3-7e66ad4b846c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/flickr/lib/Models/PhotoStreamModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flickr/lib/Screens/SubPhotoStream.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flickr/test/Test_Files/CameraRollTest.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/6.7/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Essentials/CommonVars.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/About.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/About.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/AlbumScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/AlbumScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/ChangePassword.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/GetStarted.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/GetStarted.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/OtherUserAbout.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/OtherUserAbout.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/lib/Screens/OthersSubProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/Screens/OthersSubProfile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/lib/api/RequestAndResponses.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flickr/test/Main_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flickr/test/Main_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

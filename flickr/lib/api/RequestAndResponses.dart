@@ -534,9 +534,9 @@ class FlickrRequestsAndResponses {
   static Future<String> showOtherUserProfile(String id) async {
     var url = 'https://api.qasaqees.tech/user/about/$id';
 
-    var response = await http.get(
-      Uri.parse(url),
-    );
+    var response = await http.get(Uri.parse(url), headers: {
+      'Authorization': 'Bearer ${CommonVars.loginRes['accessToken']}'
+    });
 
     if (response.statusCode == 200) {
       final about = json.decode(response.body);
