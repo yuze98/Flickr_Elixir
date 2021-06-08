@@ -8,6 +8,12 @@ import 'package:flickr/Essentials/LoadingScreen.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'package:flutter/rendering.dart';
 
+/// Shows the details of the photo.
+/// Allows you to delete, add tags and go to its album if it is in an album.
+/// Add photo to an album if the image is yours
+/// @picId : Picutre ID
+/// @userId : User ID
+
 class AboutPhoto extends StatefulWidget {
   final picId, userId;
   AboutPhoto({

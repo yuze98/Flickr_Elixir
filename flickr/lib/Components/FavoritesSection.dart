@@ -6,6 +6,9 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Screens/SubProfile.dart';
 import 'package:flickr/Screens/OthersSubProfile.dart';
 
+/// Shows the users who faved the image
+/// @picId : picture ID
+
 class FavoritesSection extends StatefulWidget {
   final picId;
   FavoritesSection({Key key, this.picId}) : super(key: key);

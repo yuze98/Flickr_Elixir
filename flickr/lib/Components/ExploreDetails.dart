@@ -4,6 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 import 'AboutPhoto.dart';
 
+/// This shows each image details
+/// @profilePic : profile picture of picture owner
+/// @userName : user name of picture owner
+/// @title : title of image
+/// @commentNum : number of comments in picture
+/// @favCount : number of favs in picture
+/// @picId :  picture's ID
+/// @userId : user ID of picture's owner
+
 class ExploreDetails extends StatefulWidget {
   final String photoFile,
       profilePic,

@@ -4,6 +4,9 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// This takes the photo Id and calls [CommentsFavoritesNavigator]
+/// photoId: photo id
+
 class CommentsSection extends StatefulWidget {
   final photoId;
   CommentsSection({Key key, this.photoId}) : super(key: key);

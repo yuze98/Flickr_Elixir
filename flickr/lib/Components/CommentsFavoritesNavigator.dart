@@ -4,6 +4,12 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// This view shows the comments on the posts and allows you to add comment
+/// @commentsNumber : Number of comments in the photo commented by other users
+/// @favoriteNumber : Number of favorites in the photo commented by other users
+/// @userName : The name of the photo's owner
+/// @picId : picture id
+
 class CommentsFavoritesNavigator extends StatefulWidget {
   final String commentsNumber, favoriteNumber, userName, picId;
   CommentsFavoritesNavigator(

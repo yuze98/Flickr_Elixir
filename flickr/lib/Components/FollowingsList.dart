@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Models/UserFollowings.dart';
 
+/// Shows the users who someone with this @userId follow
+
 class FollowingsList extends StatefulWidget {
   final userId;
   FollowingsList({Key key, this.userId}) : super(key: key);
