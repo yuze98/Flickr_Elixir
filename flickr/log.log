@@ -1,0 +1,250 @@
+* 5ad14dd : Update README.md
+* 0b83b3b : Update README.md
+* 3b5bd1d : Update README.md
+* e8d9fd3 : flickr Elixir readme
+*   8522dbe : Merge branch 'Documentation' of https://github.com/yuze98/Flickr_Elixir into Documentation
+|\  
+| * 57dfc52 : Models Doc
+| *   c456bfb : Merge branch 'Documentation' of https://github.com/yuze98/Flickr_Elixir into Documentation
+| |\  
+| | * f7252b1 : documented Request and responses
+| * | 0d914d1 : Requests and Responses Doc
+| |/  
+* / 591dc25 : First half of screens
+|/  
+* f989739 : Delete message.txt
+* 1f5bce8 : Last APK submission
+* 3bde848 : Last Commit ISA
+*   d95a796 : Merge branch 'Testing_Integ' of https://github.com/yuze98/Flickr_Elixir into Testing_Integ
+|\  
+| *   0d287b8 : Merge branch 'Testing_Integ' of https://github.com/yuze98/Flickr_Elixir into Testing_Integ
+| |\  
+| * | 6e8e7dc : Final final integration
+* | | 272a1ce : Get About bugs Solved
+| |/  
+|/|   
+* | b9b6f4b : Final Submission
+* | 00ebf53 : fixed Bugs in album, CameraRoll public and Image details
+* | a26d11e : AboutPhoto bugs Solved
+|/  
+* a6c9fe8 : Final Submission V0
+*   0d0787b : Merge branch 'UnitTest' of https://github.com/yuze98/Flickr_Elixir into UnitTest
+|\  
+| * b14ab39 : unit testing for signup validations
+* | b69e8f4 : Upload Details Testing
+|/  
+* 617dee8 : Another Origin
+* 2899306 : Unit Test Origin
+* de14bc3 : changes and bugs solved in explore
+* ce20622 : Reset visible  Pass  bugs solved
+* 8a4f007 : Albums and Search profile Bugs solved
+*   985e597 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\  
+| * 37127f7 : added refresh and album changes BUGGGS
+| *   211c73c : Update RequestAndResponse
+| |\  
+| * | b70380b : Album Sub Screen & Search Screen
+* | | 58b2cb6 : OtherUserProfile bugs Solved
+| |/  
+|/|   
+* | b176245 : Comment & Fav bugs solved
+* | d846dc0 : Doc Added
+|/  
+* fa59218 : SubProfile bugs solved
+* fb4c539 : Add photo to album bug
+* 1080e46 : Extra Bugs Solved
+* 411ca1a : Integ Bugs Solved
+*   fa9797e : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\  
+| * 158314c : changed bugs
+| *   98fe7c1 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\  
+| | *   97db8fc : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| | |\  
+| | | *   905bc48 : Added forget
+| | | |\  
+| | | * | 73d1e69 : Added Forget Password Final
+| | * | | fe0b0fa : Camera Roll Bugs Solved
+| | | |/  
+| | |/|   
+| * / | c9fa41b : mandatory push
+| |/ /  
+| * | 2a1a4a5 : Fav Modifications
+| * |   1eae85a : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\ \  
+| | * | 2a506d4 : delete photo has problem still api
+| * | | f235895 : Follow Request added
+| * | | ed7cb3a : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\| | 
+| | * | 7c9ad97 : you cant follow yourself
+| | * | cd66d28 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| | |\| 
+| | * | 361b657 : unfollow user is done with api
+| | * | a1b67e5 : signups problem solved
+| * | | f414c37 : Null
+| * | | 1b99323 : Following , followers and Other UserProfiles api added
+* | | | 26aa1a7 : Album Bugs Solved
+* | | |   8cd8080 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\ \ \ \  
+| | |_|/  
+| |/| |   
+| * | | 151f625 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\| | 
+| * | | a672867 : Added Helwa Final
+| * | |   b63f413 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\ \ \  
+| | | |/  
+| | |/|   
+| * | | 5d8b152 : Added camera roll
+* | | | 78e9513 : Created album
+| |_|/  
+|/| |   
+* | | 5c9da07 : Main routes Added
+* | | 1d83a8c : Album and search Screens
+| |/  
+|/|   
+* |   e34884c : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\ \  
+| * | 2a69122 : done adding tags api
+* | | f46df8f : Nothing
+* | | 88a2ff2 : Login Bugs are solved
+|/ /  
+* |   5e99149 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\ \  
+| * | 19a8879 : done comments
+| * | 8615d1f : following works as ui
+| * | 088f8fa : added git ignore
+| * | 6098791 : done about photo user handling privacy
+| * | 62f13a1 : Update .gitignore
+| * | 4f4e39c : favorited done
+* | | e822a02 : Most of API are done
+|/ /  
+* | de275ab : CommonVars Modified
+* |   20482f7 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\ \  
+| * | 6ac22ab : error in flick
+| * | 5f86536 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\| 
+| | *   f869d1e : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| | |\  
+| | * | 0e0b519 : Added About API
+| * | | 169364d : about editing for owner user is acceptable now
+| | |/  
+| |/|   
+| * | 2976ee7 : comments done
+| * |   54b0ea0 : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+| |\ \  
+| * | | 8d1e5d8 : added explore with main api
+* | | | 072e60b : Profile and cover Photo API added
+| |/ /  
+|/| |   
+* | | 50621cc : Button bugs solved
+* | | fb936bd : Merge branch 'Fat7y_yuze_integ' of https://github.com/yuze98/Flickr_Elixir into Fat7y_yuze_integ
+|\| | 
+| * | 6677b13 : get details photo about api
+| * | 2adcee8 : updated our original API server
+| * | ede0094 : comment fetch done api
+| * | f35dcc3 : done stuff
+| |/  
+| * cb22472 : integ with helwa
+| * d216cbf : add fav working
+| * 4d70ac1 : Comments with favorites naviagtor is done api handling
+| * 67b7258 : followers done api
+* | b18154a : LoginPage changes and Upoad photo api added
+|/  
+* d2270b2 : title to explore details
+* 41c441c : integrated with fatoo7
+* dd3b624 : idchanged
+* 81cd843 : api done for explore
+* 838e27e : made about page
+* cf8505a : added models and apis
+* 4e32652 : added comments and stuff
+* ade4082 : favorites
+* c0b0163 : Explore good
+* 3b60e08 : vars changed
+* 599250a : done alot
+* 4f01c5b : Fav without api
+* 76d392e : aboutphoto is done
+* 14330b1 : commonfunc
+* b7d1937 : alot of changes including explore
+* f6ed3f9 : with opacity
+* 79dd731 : Added  Explore
+* f2b6f0b : folders added
+* 346683c : Profile Page Changes
+*   f15b7a0 : Merge pull request #6 from yuze98/Development
+|\  
+| * 62ec956 : Create log.txt
+* | eeb1a88 : Merge pull request #5 from yuze98/Development
+|\| 
+| * 22dfd27 : Update AndroidManifest.xml
+| * 01be5c3 : done for logging in and signup with thirdparty access tokens
+* | cef745a : Merge pull request #4 from yuze98/Development
+|\| 
+| * 697aa8a : done
+| *   2fce59c : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| |\  
+| | * 7eb9616 : poping right
+| | * f5e3789 : Push Modifications
+| * | 3a60ac7 : Final changes by Helwa-007
+| |/  
+| * 27f453c : changesss
+| * 9d86e78 : done stuff
+| *   f3a54e4 : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| |\  
+| | *   7ed4a3c : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| | |\  
+| | * | f48de61 : with ignored files
+| | * | 58e583f : Login done
+| * | | e88da3d : Added Api
+| * | |   4cb52d1 : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| |\ \ \  
+| | | |/  
+| | |/|   
+| | * | 3ce54d5 : mistakes were made again
+| | * | 5bb8071 : some mistakes were made
+| | |/  
+| * / 604c398 : Api Modifications
+| |/  
+* | 7b82529 : Merge pull request #3 from yuze98/Development
+|\| 
+| * 059524c : done
+| * cb7489e : Extra Modifications
+| *   3cd3616 : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| |\  
+| | * 6994d71 : Semi Integration
+| * | 0578958 : Added API & Some Modifications
+| |/  
+| * 0090556 : New changes
+| *   0452bc9 : Merge branch 'Development' of https://github.com/yuze98/Flickr_Elixir into Development
+| |\  
+| | * f08ceac : some adjustments
+| | * 4779391 : alertbox handled
+| | * 59be2d3 : someaddups
+| | * 5aca69b : Signup with finally facebook
+| | * 8ea8ea0 : with part fb
+| | * 6c80829 : signupstuff
+| | * cd73bcb : validation in signup
+| | * b6147a6 : changes again in signup
+| | * 2558e10 : added some stuff for the signup
+| | * 00f5f57 : Update SignUp.dart
+| |/  
+|/|   
+* | 31f02cd : New Modifications
+* | b234a59 : clean without builds and with gitignore
+| * 1bd1a80 : Added Some Screens
+|/  
+* 42b953f : Create .gitignore
+* 6d0880a : changed main to call pages/getstarted
+*   6725df4 : njkj
+|\  
+| * bd2d4d9 : Added some signup
+* | 8ca4eb4 : GetStarted
+|/  
+* 1e3dd98 : Added GetStarted
+* 3d4110f : Update widget_test.dart
+* fc290f5 : call from main
+* 1955502 : created login page
+* aa4eec7 : rounded appbar
+* 0b91ae6 : changed to app bar flickr
+* b6a9c75 : Add files via upload
+* 5e7adbc : Initial commit
