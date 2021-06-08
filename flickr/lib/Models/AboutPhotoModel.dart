@@ -1,3 +1,9 @@
+///Fetches info about Photo from API
+/// @tags : the tags of the photo
+/// @title : creation date
+/// @firstName : First name of user's photo
+/// @lastName : Last name of user's photo
+/// @albumPic : Album of the associated photo
 class AboutPhotoModel {
   final List<String> tags;
   final String title;

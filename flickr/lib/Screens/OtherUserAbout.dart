@@ -7,6 +7,7 @@ import 'RedirectAbPage.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 
+/// Displays other user's About info to the user.
 class OtherUserAboutState extends StatefulWidget {
   @override
   _OtherUserAboutStateState createState() => _OtherUserAboutStateState();

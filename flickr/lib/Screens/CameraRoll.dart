@@ -9,6 +9,11 @@ import 'package:flickr/Components/ExploreDetails.dart';
 import '../Essentials/CommonVars.dart';
 import 'AlbumScreen.dart';
 
+
+
+/// This displays all images inside the camera roll view in a GridView format
+/// @title : the title of the cameraroll
+
 class CameraRoll extends StatefulWidget {
   CameraRoll({Key key, this.title}) : super(key: key);
 

@@ -1,6 +1,8 @@
 import 'package:flickr/Components/ExploreDetails.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/material.dart';
+
+///Redirects the editable part of the about page to change description, occupation,homeotwn, or city.
+import 'package:flickr/Essentials/CommonVars.dart';
 
 class DescriptionData extends StatefulWidget {
   @override

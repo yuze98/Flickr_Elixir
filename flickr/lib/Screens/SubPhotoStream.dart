@@ -10,6 +10,8 @@ import '../Essentials/CommonVars.dart';
 import 'AlbumScreen.dart';
 import 'package:flickr/Models/PhotoStreamModel.dart';
 
+///Contains the details of every photo
+
 class SubPhotoStream extends StatefulWidget {
   SubPhotoStream({Key key, this.title}) : super(key: key);
 

@@ -8,6 +8,7 @@ import 'SubProfile.dart';
 import 'dart:ui';
 import 'SearchScreen.dart';
 
+/// The UserPage displays all the info about the user and different views such as notifications, search, etc.
 class UserPage extends StatefulWidget {
   @override
   _UserPage createState() => _UserPage();

@@ -8,6 +8,8 @@ import 'package:flickr/Essentials/CommonVars.dart';
 // List<String> addedTextToFollowing = [];
 // List<String> addedTextToFollowers = [];
 
+/// Displays a seach bar that searches for other users.
+
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
