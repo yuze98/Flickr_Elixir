@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flickr/Models/CameralRollModel.dart';
+import 'package:flickr/Screens/CameraRoll.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import 'dart:async';
@@ -14,9 +15,15 @@ import 'package:flickr/Models/GetAlbumMedia.dart';
 import 'package:flickr/Models/SearchUser.dart';
 import 'package:flickr/Models/PhotoStreamModel.dart';
 
+/// This class is responsible for sending requests and receiving responses
+/// @_baseURL: is the url of our server
+
 class FlickrRequestsAndResponses {
   static final String _baseURL = 'https://api.qasaqees.tech';
 
+  /// LogIn function is responsible for sending @email and @password to allow to the user to logIn in his account and view [LoginScreen]
+  /// @email: User Email
+  /// @password: User Password
   static Future<http.Response> logIn(final email, final password) async {
     const String baseURL = 'https://api.qasaqees.tech/register/logIn';
 
@@ -37,6 +44,9 @@ class FlickrRequestsAndResponses {
     return response;
   }
 
+  /// changePassword function is responsible for allowing the user to change his account Password through [ChangePassword]
+  /// @newPasswordController: User New Password
+  /// @oldPasswordController: User Old Password
   static Future<http.Response> changePassword(
       String newPasswordController, String oldPasswordController) async {
     var url = "https://api.qasaqees.tech/register/changePassword";
@@ -72,6 +82,8 @@ class FlickrRequestsAndResponses {
     return followings.length;
   }
 
+  /// getFollowings function is responsible for getting the number of Followings for a certain user
+  /// @id: Required User Id
   static Future<int> getFollowings(String id) async {
     var url = '$_baseURL/user/followings/:$id';
 
@@ -85,6 +97,8 @@ class FlickrRequestsAndResponses {
     return followings.length;
   }
 
+  /// getFollowers function is responsible for getting the number of followers for a certain user
+  /// @id: Required User Id
   static Future<int> getFollowers(String id) async {
     var url = '$_baseURL/user/followers/:$id';
     var response = await http.get(
@@ -98,6 +112,7 @@ class FlickrRequestsAndResponses {
     return followers.length;
   }
 
+  /// signOutRequest function is responsible for inform the server that a certain user logout and redirect the user to [GetStarted]
   static Future<int> signOutRequest() async {
     var urll = 'https://api.qasaqees.tech';
     var url = '$urll/register/logOut';
@@ -109,6 +124,12 @@ class FlickrRequestsAndResponses {
     return response.statusCode;
   }
 
+  /// signUpRequests function is responsible for sending User Date to the server to allow the user to Sign up with his email [Signup]
+  /// @passwordController: User Password
+  /// @emailController: User Email
+  /// @firstNameController: User First Name
+  /// @secondNameController: User Second Name
+  /// @ageController: User Age
   static Future<int> signUpRequests(
       final contextCon,
       final passwordController,
@@ -133,6 +154,8 @@ class FlickrRequestsAndResponses {
     return response.statusCode;
   }
 
+  /// signUpFB function is responsible for sending Sending requesto to FB API to get the token of the user to signup [Signup]
+  /// @facebookSignIn: FB Token
   static Future<int> signUpFB(final FacebookLogin facebookSignIn) async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
     int statusCode = 0;
@@ -166,6 +189,9 @@ class FlickrRequestsAndResponses {
     }
     return statusCode;
   }
+
+  /// logInFB function is responsible for sending a login request to FB API to allow the user to login in our APP [LoginScreen]
+  /// @facebookSignIn: FB Access Token
 
   static Future<http.Response> logInFB(
       final FacebookLogin facebookSignIn) async {
@@ -205,6 +231,7 @@ class FlickrRequestsAndResponses {
     return response;
   }
 
+  /// getExplore function is responsible for fetching the photos from the server and put them in [ImageList]
   static Future<List<Photos>> getExplore() async {
     var urll = '$_baseURL/photo/explore';
 
@@ -226,6 +253,9 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to load album');
     }
   }
+
+  /// addToFavorite function is responsible to allow the user to favourite a photo using get the photo id
+  /// @photoIDFaved: Photo's ID
 
   static Future addToFavorite(String photoIDFaved) async {
     var url = '$_baseURL/photo/addToFavorites';
@@ -252,6 +282,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// getFavoriteUsers function is responsible to get the user who Favorite a certain photo
+  /// @picId: Photo's ID
   static Future<List<PictureFavorites>> getFavoriteUsers(String picId) async {
     var urll = '$_baseURL/photo/whoFavorited/$picId';
 
@@ -275,6 +307,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// addComment function is responsible to add comments to a certain photo of a certain user
+  /// @picId: Photo's ID
+  /// @userComment: Photo's ID
   static Future addComment(String picId, String userComment) async {
     var urll = '$_baseURL/photo/$picId/comment';
 
@@ -292,6 +327,7 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// getAbout function is responsible to return the info about a certain user and display it in [AboutState] view
   static Future getAbout() async {
     var url = 'https://api.qasaqees.tech/user/about/${CommonVars.userId}';
 
@@ -322,6 +358,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// GetComments function is responsible to return the photo comments and their data
+  /// @picId: Photo Id
+
   static Future<List<PictureComments>> GetComments(String picId) async {
     var urll = '$_baseURL/photo/getComments';
     final bodyy = {"photoId": '$picId'};
@@ -347,6 +386,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// getAboutPhoto function is responsible to return the photo info [AboutPhoto] view
+  /// @picId: Photo Id
   static Future<AboutPhotoModel> getAboutPhoto(String picId) async {
     var urll = '$_baseURL/photo/getDetails/';
 
@@ -371,6 +412,8 @@ class FlickrRequestsAndResponses {
       throw Exception('Failed to load info of the pic');
     }
   }
+
+  /// getCameraRoll function is responsible to return the photos of user photostream about a certain user and display it in [CameraRoll] view
 
   static Future<List<CameraRollModel>> getCameraRoll() async {
     var url = '$_baseURL/user/cameraRoll';
@@ -425,6 +468,7 @@ class FlickrRequestsAndResponses {
     return body["_id"];
   }
 
+  /// This API Function takes the user's @id and changes his Cover Photo
   static changeCoverPhoto(String id) async {
     const String baseURL = 'https://api.qasaqees.tech';
     var urll = 'https://api.qasaqees.tech/user/editCoverPhoto';
@@ -438,6 +482,7 @@ class FlickrRequestsAndResponses {
         body: jsonEncode(body));
   }
 
+  /// This API Function takes the user's @id and changes his Profile Photo
   static profileCoverPhoto(String id) async {
     const String baseURL = 'https://api.qasaqees.tech';
     var urll = 'https://api.qasaqees.tech/user/editProfilePhoto';
@@ -452,6 +497,7 @@ class FlickrRequestsAndResponses {
     print(response.body);
   }
 
+  /// This API Function takes the user's @id and Sends a request to follow him
   static Future followUser(String userTobeFollowed) async {
     var urll = '$_baseURL/user/followUser';
 
@@ -470,6 +516,7 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the user's picture ID and the Tag @picId @tag
   static Future addTags(String picId, String tag) async {
     var urll = '$_baseURL/photo/addTags/$picId';
 
@@ -490,6 +537,10 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the changes needed to edit his info
+  /// @occupation: takes the occupation of the user
+  /// @hometown: takes the hometown of the user
+  /// @city: takes the city the user entered
   static Future editAboutInfo(
       String occupation, String hometown, String city) async {
     var urll = '$_baseURL/user/editInfo';
@@ -512,6 +563,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the user email and the server send him a recovery password to his email
+  /// @email: takes the user's email
   static Future forgetPass(String email) async {
     var url = '$_baseURL/register/forgetPassword';
     var jso = {'email': email};
@@ -532,6 +585,8 @@ class FlickrRequestsAndResponses {
     return response;
   }
 
+  /// This API Function takes the other user's id and gets all his info for his profile page
+  /// @id: takes the other user's id
   static Future<String> showOtherUserProfile(String id) async {
     var url = 'https://api.qasaqees.tech/user/about/$id';
 
@@ -571,6 +626,8 @@ class FlickrRequestsAndResponses {
     print(response.body);
   }
 
+  /// This API Function takes the user's id and returns a list containing all the other users he follows
+  /// @userid: the user id
   static Future<List<UserFollowings>> getUserFollowings(String userid) async {
     var urll = '$_baseURL/user/followings/$userid';
 
@@ -594,6 +651,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the user's id and returns a list containing all his followers
+  /// @userid: the user id
   static Future<List<UserFollowers>> getUserFollowers(String userid) async {
     var urll = '$_baseURL/user/followers/$userid';
 
@@ -617,6 +676,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the user's id  who is going to be unfollowed by the current user
+  /// @userTobeUnFollowed: the id of the user to be unfollowed by the current user
   static Future unFollowUser(String userTobeUnFollowed) async {
     var urll = '$_baseURL/user/unfollowUser';
 
@@ -637,6 +698,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the pictures id which will be deleted
+  /// @picId: the picture id which will be deleted
   static Future deletePicture(String picId) async {
     var urll = '$_baseURL/photo/delete/$picId';
 
@@ -657,6 +720,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function creates a new album by taking the follwoing parameters
+  /// @albumTitle: takes the title of the album to be created
+  /// @albumDescription: takes the description of the album to be created
   static Future createAlbum(String albumTitle, String albumDescription) async {
     var url = '$_baseURL/album/createAlbum';
 
@@ -678,6 +744,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function takes the user id and returns a list containing all his albums
+  /// @userid: the user's id to capture his albums
   static Future<List<SingleAlbumModel>> getAlbum(String userId) async {
     var url = '$_baseURL/user/albums/$userId';
 
@@ -702,6 +770,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function adds a photo to a certain album
+  /// @photoId: takes the id of the photo to be added
+  /// @albumId: takes the id of the album to add the the photo in
   static Future addPhotoToAlbum(String photoId, String albumId) async {
     var url = '$_baseURL/album/addPhoto';
 
@@ -725,6 +796,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function returns a list which will have all the picture in an album
+  /// @albumId: the id of the album which contains all the pictures
   static Future<List<GetAlbumMediaModel>> getAlbumMedia(String albumId) async {
     var urll = '$_baseURL/album/$albumId';
 
@@ -751,6 +824,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function deleted a certain album
+  /// @albumId: the id of the album to be deleted
   static Future DeleteAlbum(String albumId) async {
     var urll = '$_baseURL/album/deleteAlbum/$albumId';
 
@@ -768,6 +843,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function Renames the album and changes its title
+  /// @albumId: the id of the album to be renamed
+  /// @newAlbumTitle : the new title of the album
   static Future renameAlbum(String albumId, String newAlbumTitle) async {
     var urll = '$_baseURL/album/$albumId';
 
@@ -792,6 +870,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function searches for a specific user and returns the list of all users with similar names
+  /// @searchKeyword: takes the name of a user to search for
   static Future<List<SearchUser>> searchOnUser(String searchKeyword) async {
     var urll = '$_baseURL/user/search/$searchKeyword';
 
@@ -815,6 +895,9 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function removes a pictures from the album
+  /// @picId: takes the id of the picture to be removed from the album
+  /// @albumId: takes the id of the album
   static Future removePicFromAlbum(String picId, String albumId) async {
     var urll = '$_baseURL/album/deletePhoto';
 
@@ -838,6 +921,10 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function resets the password and sends a new password to the user's email returns the response of the server
+  /// @emailController: the email of the user
+  /// @newPasswordController: takes the user's the new password
+  /// @codeController: the verification code which was sent to the user's
   static Future<http.Response> resetPassword(String emailController,
       String newPasswordController, String codeController) async {
     var url = "https://api.qasaqees.tech/register/resetPassword";
@@ -859,6 +946,9 @@ class FlickrRequestsAndResponses {
     return response;
   }
 
+  /// This API Function allows other users to comment on the picture
+  /// @photoId: the id of the picture
+  /// isPublic: a boolean to set the picture to public or private
   static Future allowCommenting(String photoId, bool isPublic) async {
     var url = "https://api.qasaqees.tech/photo/allowCommenting";
 
@@ -876,6 +966,10 @@ class FlickrRequestsAndResponses {
     print(json.decode(response.body));
   }
 
+  /// This API Function edits the photo and changes its title and its publicity
+  /// @photoId: the id of the photo to be edited
+  /// isPublic: a boolean to set the picture to public or private
+  /// title: the new changed title of the picture
   static Future editPhoto(String photoId, bool isPublic, String title) async {
     var url = "https://api.qasaqees.tech/photo/$photoId";
 
@@ -902,6 +996,8 @@ class FlickrRequestsAndResponses {
     }
   }
 
+  /// This API Function returns a list containing all the photos in the [CameraRoll]
+  /// @id: the id of the user for his pictures
   static Future<List<PhotoStreamModel>> getPhotoStream(String id) async {
     var url = '$_baseURL/user/photostream/$id';
 
