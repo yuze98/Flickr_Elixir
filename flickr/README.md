@@ -6,12 +6,12 @@
 ### Note: The application will no longer work as the back-end server hosting subscription has ended
 
 # Screenshots
-![](screenshots/screenshot_1.PNG) |![](screenshots/screenshot_2.png) |![](screenshots/screenshot_3.png)
+![](screenshots/screenshot_1.PNG) |![](screenshots/screenshot_2.PNG) |![](screenshots/screenshot_3.PNG)
 :-----------------------------:|:-----------------------------:|:-----------------------------:
-![](screenshots/screenshot_4.png) |![](screenshots/screenshot_5.png) |![](screenshots/screenshot_6.png)
-![](screenshots/screenshot_7.png) |![](screenshots/screenshot_8.png) |![](screenshots/screenshot_9.png)
-![](screenshots/screenshot_10.png) |![](screenshots/screenshot_11.png) |![](screenshots/screenshot_12.png)
-![](screenshots/screenshot_13.png) |![](screenshots/screenshot_14.png) |![](screenshots/screenshot_15.png)
+![](screenshots/screenshot_4.PNG) |![](screenshots/screenshot_5.PNG) |![](screenshots/screenshot_6.PNG)
+![](screenshots/screenshot_7.PNG) |![](screenshots/screenshot_8.PNG) |![](screenshots/screenshot_9.PNG)
+![](screenshots/screenshot_10.PNG) |![](screenshots/screenshot_11.PNG) |![](screenshots/screenshot_12.PNG)
+![](screenshots/screenshot_13.PNG) |![](screenshots/screenshot_14.PNG) |![](screenshots/screenshot_15.PNG)
 
 
 ### Prerequisites
