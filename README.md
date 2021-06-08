@@ -6,12 +6,12 @@
 ### Note: The application will no longer work as the back-end server hosting subscription has ended
 
 # Screenshots
-![](screenshots/screenshot_1.PNG) |![](screenshots/screenshot_2.PNG) |![](screenshots/screenshot_3.PNG)
+![](flickr/screenshots/screenshot_1.PNG) |![](flickr/screenshots/screenshot_2.PNG) |![](flickr/screenshots/screenshot_3.PNG)
 :-----------------------------:|:-----------------------------:|:-----------------------------:
-![](screenshots/screenshot_4.PNG) |![](screenshots/screenshot_5.PNG) |![](screenshots/screenshot_6.PNG)
-![](screenshots/screenshot_7.PNG) |![](screenshots/screenshot_8.PNG) |![](screenshots/screenshot_9.PNG)
-![](screenshots/screenshot_10.PNG) |![](screenshots/screenshot_11.PNG) |![](screenshots/screenshot_12.PNG)
-![](screenshots/screenshot_13.PNG) |![](screenshots/screenshot_14.PNG) |![](screenshots/screenshot_15.PNG)
+![](flickr/screenshots/screenshot_4.PNG) |![](flickr/screenshots/screenshot_5.PNG) |![](flickr/screenshots/screenshot_6.PNG)
+![](flickr/screenshots/screenshot_7.PNG) |![](flickr/screenshots/screenshot_8.PNG) |![](flickr/screenshots/screenshot_9.PNG)
+![](flickr/screenshots/screenshot_10.PNG) |![](flickr/screenshots/screenshot_11.PNG) |![](flickr/screenshots/screenshot_12.PNG)
+![](flickr/screenshots/screenshot_13.PNG) |![](flickr/screenshots/screenshot_14.PNG) |![](flickr/screenshots/screenshot_15.PNG)
 
 
 ### Prerequisites
