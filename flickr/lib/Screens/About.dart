@@ -7,6 +7,8 @@ import 'RedirectAbPage.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 
+/// This view is inside the [SubProfile] and [OtherProfile] to show the description, occupation, hometown, and city of the user
+
 class AboutState extends StatefulWidget {
   @override
   _AboutStateState createState() => _AboutStateState();

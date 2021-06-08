@@ -11,6 +11,10 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Models/Photos.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 
+/// This screen shows all the posts
+/// Allows you to preview images using [ExploreDetails]
+/// Allows you to fav and comment on images
+
 class ImageList extends StatefulWidget {
   @override
   _ImageListState createState() => _ImageListState();

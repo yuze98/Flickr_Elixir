@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 0.44.0">
+  <meta name="description" content="flickr API docs, for the Dart programming language.">
+  <title>flickr - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href=""
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">flickr package</li>
+  </ol>
+  <div class="self-name">flickr</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="flickr_elixir">Flickr_Elixir</h1>
+<h3 id="this-is-a-flickrs-android-application-clone-with-flutter">This is a Flickr's android application clone with Flutter.</h3>
+<h3 id="this-is-a-part-of-a-bigger-project-including-front-endhttpsgithubcomomarelwakilswfrontend-and-back-endhttpsgithubcomyousefwalidspotifyelghalaba">This is a part of a bigger project including <a href="https://github.com/omarelwakil/SWFrontend">front-end</a> and <a href="https://github.com/yousefwalid/SpotifyElGhalaba">back-end</a></h3>
+<h3 id="note-the-application-will-no-longer-work-as-the-back-end-server-hosting-subscription-has-ended">Note: The application will no longer work as the back-end server hosting subscription has ended</h3>
+<h1 id="screenshots">Screenshots</h1>
+<table><thead><tr><th style="text-align: center;"><img src="screenshots/screenshot_1.png" alt=""></th><th style="text-align: center;"><img src="screenshots/screenshot_2.png" alt=""></th><th style="text-align: center;"><img src="screenshots/screenshot_3.png" alt=""></th></tr></thead><tbody><tr><td style="text-align: center;"><img src="screenshots/screenshot_4.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_5.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_6.png" alt=""></td></tr><tr><td style="text-align: center;"><img src="screenshots/screenshot_7.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_8.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_9.png" alt=""></td></tr><tr><td style="text-align: center;"><img src="screenshots/screenshot_10.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_11.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_12.png" alt=""></td></tr><tr><td style="text-align: center;"><img src="screenshots/screenshot_13.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_14.png" alt=""></td><td style="text-align: center;"><img src="screenshots/screenshot_15.png" alt=""></td></tr></tbody></table>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><a href="https://developer.android.com/studio/">Android Studio 4 or higher</a></li>
+<li>Minimum SDK version is 21 (Android Lollipop)</li>
+<li>Flutter v2 and Dart SDK plugin</li>
+</ul>
+<h3 id="how-to-run-for-developers">How to run for developers</h3>
+<ol>
+<li>Clone the repository.</li>
+<li>Open Android Studio, click on "open" from "File" tab to open the project from the corresponding directory.</li>
+<li>Type in terminal Flutter clean and then Flutter run (to get dependencies)</li>
+<li>Connect a mobile phone to the device and wait for build gradles to finish.</li>
+<li>Click on run button from the toolbar.</li>
+<li>As the mobile phone is turned on, the application can be accessible.</li>
+</ol>
+<h2 id="running-the-tests">Running the tests</h2>
+<ol>
+<li>Go to test directory with the terminal with cd test</li>
+<li>To run all tests type in the terminal flutter test</li>
+<li>flutter will generate all tests and evaluate them</li>
+</ol>
+<h2 id="generating-documentation-report">Generating Documentation Report</h2>
+<ol>
+<li></li>
+<li>Type in the terminal dartdoc</li>
+</ol>
+<h3 id="build-for-production">Build for production</h3>
+<ol>
+<li>Click on Build tab and select generate signed bunddle/apk.</li>
+<li>Choose APK and then click on next.</li>
+<li>In key sotre path choose create new if there is no key store or choose existing.</li>
+<li>Click next and choose releas then select both v1 and v2 then finish.</li>
+</ol>
+<h3 id="how-to-generate-functional-documentation">How to generate functional documentation</h3>
+<ol>
+<li>Click on tools tab in toolbar and then select generate JavaDoc</li>
+<li>Select prefered options to generate the required JavaDoc</li>
+<li>Specify the output directory then click OK</li>
+</ol>
+<h3 id="used-tools-and-technologies">Used Tools and technologies</h3>
+<ul>
+<li>Retrofit (Connection with REST API)</li>
+<li>Picasso (Download and display images)</li>
+<li>gson (JSON Serialization and Deserialization)</li>
+<li>Espresso (UI testing)</li>
+<li>MVVM Architectural Design Pattern</li>
+<li>Singleton Design Pattern</li>
+</ul>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="About">
+  <span class="name"><a href="Screens_About/Screens_About-library.html">About</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="AboutPhoto">
+  <span class="name"><a href="Components_AboutPhoto/Components_AboutPhoto-library.html">AboutPhoto</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="AboutPhotoModel">
+  <span class="name"><a href="Models_AboutPhotoModel/Models_AboutPhotoModel-library.html">AboutPhotoModel</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="AlbumScreen">
+  <span class="name"><a href="Screens_AlbumScreen/Screens_AlbumScreen-library.html">AlbumScreen</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="AlbumSubScreen">
+  <span class="name"><a href="Screens_AlbumSubScreen/Screens_AlbumSubScreen-library.html">AlbumSubScreen</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CameralRollModel">
+  <span class="name"><a href="Models_CameralRollModel/Models_CameralRollModel-library.html">CameralRollModel</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CameraRoll">
+  <span class="name"><a href="Screens_CameraRoll/Screens_CameraRoll-library.html">CameraRoll</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="ChangePassword">
+  <span class="name"><a href="Screens_ChangePassword/Screens_ChangePassword-library.html">ChangePassword</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CheckInboxPage">
+  <span class="name"><a href="Screens_CheckInboxPage/Screens_CheckInboxPage-library.html">CheckInboxPage</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CommentSection">
+  <span class="name"><a href="Components_CommentSection/Components_CommentSection-library.html">CommentSection</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CommentsFavoritesNavigator">
+  <span class="name"><a href="Components_CommentsFavoritesNavigator/Components_CommentsFavoritesNavigator-library.html">CommentsFavoritesNavigator</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CommonFunctions">
+  <span class="name"><a href="Essentials_CommonFunctions/Essentials_CommonFunctions-library.html">CommonFunctions</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="CommonVars">
+  <span class="name"><a href="Essentials_CommonVars/Essentials_CommonVars-library.html">CommonVars</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="Explore">
+  <span class="name"><a href="Screens_Explore/Screens_Explore-library.html">Explore</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="ExploreDetails">
+  <span class="name"><a href="Components_ExploreDetails/Components_ExploreDetails-library.html">ExploreDetails</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="FavoritesSection">
+  <span class="name"><a href="Components_FavoritesSection/Components_FavoritesSection-library.html">FavoritesSection</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="FollowersList">
+  <span class="name"><a href="Components_FollowersList/Components_FollowersList-library.html">FollowersList</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="FollowingsList">
+  <span class="name"><a href="Components_FollowingsList/Components_FollowingsList-library.html">FollowingsList</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="ForgetPass">
+  <span class="name"><a href="Screens_ForgetPass/Screens_ForgetPass-library.html">ForgetPass</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="GetAlbumMedia">
+  <span class="name"><a href="Models_GetAlbumMedia/Models_GetAlbumMedia-library.html">GetAlbumMedia</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="GetStarted">
+  <span class="name"><a href="Screens_GetStarted/Screens_GetStarted-library.html">GetStarted</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="LoadingScreen">
+  <span class="name"><a href="Essentials_LoadingScreen/Essentials_LoadingScreen-library.html">LoadingScreen</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="LoginPage">
+  <span class="name"><a href="Screens_LoginPage/Screens_LoginPage-library.html">LoginPage</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="main">
+  <span class="name"><a href="main/main-library.html">main</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="OthersSubProfile">
+  <span class="name"><a href="Screens_OthersSubProfile/Screens_OthersSubProfile-library.html">OthersSubProfile</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="OtherUserAbout">
+  <span class="name"><a href="Screens_OtherUserAbout/Screens_OtherUserAbout-library.html">OtherUserAbout</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="Photos">
+  <span class="name"><a href="Models_Photos/Models_Photos-library.html">Photos</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="PhotoStreamModel">
+  <span class="name"><a href="Models_PhotoStreamModel/Models_PhotoStreamModel-library.html">PhotoStreamModel</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="PictureComments">
+  <span class="name"><a href="Models_PictureComments/Models_PictureComments-library.html">PictureComments</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="PictureFavorites">
+  <span class="name"><a href="Models_PictureFavorites/Models_PictureFavorites-library.html">PictureFavorites</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="Public">
+  <span class="name"><a href="Screens_Public/Screens_Public-library.html">Public</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="RedirectAbPage">
+  <span class="name"><a href="Screens_RedirectAbPage/Screens_RedirectAbPage-library.html">RedirectAbPage</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="RequestAndResponses">
+  <span class="name"><a href="api_RequestAndResponses/api_RequestAndResponses-library.html">RequestAndResponses</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="ResetPassword">
+  <span class="name"><a href="Screens_ResetPassword/Screens_ResetPassword-library.html">ResetPassword</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="SearchScreen">
+  <span class="name"><a href="Screens_SearchScreen/Screens_SearchScreen-library.html">SearchScreen</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="SearchUser">
+  <span class="name"><a href="Models_SearchUser/Models_SearchUser-library.html">SearchUser</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="SignUp">
+  <span class="name"><a href="Screens_SignUp/Screens_SignUp-library.html">SignUp</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="SubPhotoStream">
+  <span class="name"><a href="Screens_SubPhotoStream/Screens_SubPhotoStream-library.html">SubPhotoStream</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="SubProfile">
+  <span class="name"><a href="Screens_SubProfile/Screens_SubProfile-library.html">SubProfile</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="Tags">
+  <span class="name"><a href="Screens_Tags/Screens_Tags-library.html">Tags</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="UploadDetails">
+  <span class="name"><a href="Screens_UploadDetails/Screens_UploadDetails-library.html">UploadDetails</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="UserFollowers">
+  <span class="name"><a href="Models_UserFollowers/Models_UserFollowers-library.html">UserFollowers</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="UserFollowings">
+  <span class="name"><a href="Models_UserFollowings/Models_UserFollowings-library.html">UserFollowings</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+          <dt id="UserPage">
+  <span class="name"><a href="Screens_UserPage/Screens_UserPage-library.html">UserPage</a></span> 
+
+</dt>
+<dd> 
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li class="self-crumb">flickr package</li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">flickr</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="Screens_About/Screens_About-library.html">About</a></li>
+      <li><a href="Components_AboutPhoto/Components_AboutPhoto-library.html">AboutPhoto</a></li>
+      <li><a href="Models_AboutPhotoModel/Models_AboutPhotoModel-library.html">AboutPhotoModel</a></li>
+      <li><a href="Screens_AlbumScreen/Screens_AlbumScreen-library.html">AlbumScreen</a></li>
+      <li><a href="Screens_AlbumSubScreen/Screens_AlbumSubScreen-library.html">AlbumSubScreen</a></li>
+      <li><a href="Models_CameralRollModel/Models_CameralRollModel-library.html">CameralRollModel</a></li>
+      <li><a href="Screens_CameraRoll/Screens_CameraRoll-library.html">CameraRoll</a></li>
+      <li><a href="Screens_ChangePassword/Screens_ChangePassword-library.html">ChangePassword</a></li>
+      <li><a href="Screens_CheckInboxPage/Screens_CheckInboxPage-library.html">CheckInboxPage</a></li>
+      <li><a href="Components_CommentSection/Components_CommentSection-library.html">CommentSection</a></li>
+      <li><a href="Components_CommentsFavoritesNavigator/Components_CommentsFavoritesNavigator-library.html">CommentsFavoritesNavigator</a></li>
+      <li><a href="Essentials_CommonFunctions/Essentials_CommonFunctions-library.html">CommonFunctions</a></li>
+      <li><a href="Essentials_CommonVars/Essentials_CommonVars-library.html">CommonVars</a></li>
+      <li><a href="Screens_Explore/Screens_Explore-library.html">Explore</a></li>
+      <li><a href="Components_ExploreDetails/Components_ExploreDetails-library.html">ExploreDetails</a></li>
+      <li><a href="Components_FavoritesSection/Components_FavoritesSection-library.html">FavoritesSection</a></li>
+      <li><a href="Components_FollowersList/Components_FollowersList-library.html">FollowersList</a></li>
+      <li><a href="Components_FollowingsList/Components_FollowingsList-library.html">FollowingsList</a></li>
+      <li><a href="Screens_ForgetPass/Screens_ForgetPass-library.html">ForgetPass</a></li>
+      <li><a href="Models_GetAlbumMedia/Models_GetAlbumMedia-library.html">GetAlbumMedia</a></li>
+      <li><a href="Screens_GetStarted/Screens_GetStarted-library.html">GetStarted</a></li>
+      <li><a href="Essentials_LoadingScreen/Essentials_LoadingScreen-library.html">LoadingScreen</a></li>
+      <li><a href="Screens_LoginPage/Screens_LoginPage-library.html">LoginPage</a></li>
+      <li><a href="main/main-library.html">main</a></li>
+      <li><a href="Screens_OthersSubProfile/Screens_OthersSubProfile-library.html">OthersSubProfile</a></li>
+      <li><a href="Screens_OtherUserAbout/Screens_OtherUserAbout-library.html">OtherUserAbout</a></li>
+      <li><a href="Models_Photos/Models_Photos-library.html">Photos</a></li>
+      <li><a href="Models_PhotoStreamModel/Models_PhotoStreamModel-library.html">PhotoStreamModel</a></li>
+      <li><a href="Models_PictureComments/Models_PictureComments-library.html">PictureComments</a></li>
+      <li><a href="Models_PictureFavorites/Models_PictureFavorites-library.html">PictureFavorites</a></li>
+      <li><a href="Screens_Public/Screens_Public-library.html">Public</a></li>
+      <li><a href="Screens_RedirectAbPage/Screens_RedirectAbPage-library.html">RedirectAbPage</a></li>
+      <li><a href="api_RequestAndResponses/api_RequestAndResponses-library.html">RequestAndResponses</a></li>
+      <li><a href="Screens_ResetPassword/Screens_ResetPassword-library.html">ResetPassword</a></li>
+      <li><a href="Screens_SearchScreen/Screens_SearchScreen-library.html">SearchScreen</a></li>
+      <li><a href="Models_SearchUser/Models_SearchUser-library.html">SearchUser</a></li>
+      <li><a href="Screens_SignUp/Screens_SignUp-library.html">SignUp</a></li>
+      <li><a href="Screens_SubPhotoStream/Screens_SubPhotoStream-library.html">SubPhotoStream</a></li>
+      <li><a href="Screens_SubProfile/Screens_SubProfile-library.html">SubProfile</a></li>
+      <li><a href="Screens_Tags/Screens_Tags-library.html">Tags</a></li>
+      <li><a href="Screens_UploadDetails/Screens_UploadDetails-library.html">UploadDetails</a></li>
+      <li><a href="Models_UserFollowers/Models_UserFollowers-library.html">UserFollowers</a></li>
+      <li><a href="Models_UserFollowings/Models_UserFollowings-library.html">UserFollowings</a></li>
+      <li><a href="Screens_UserPage/Screens_UserPage-library.html">UserPage</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    flickr
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

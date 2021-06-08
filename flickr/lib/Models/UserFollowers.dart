@@ -1,3 +1,8 @@
+/// This class is responsible to returns the user follower
+/// @id : User Photo Id
+/// @firstName : User First Name
+/// @lastName : User last Name
+/// @profilePhoto : User Profile photo link
 class UserFollowers {
   final String id;
   final String firstName;

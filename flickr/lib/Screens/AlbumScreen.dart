@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'AlbumSubScreen.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 
+/// This view is inside the [SubProfile] and [OtherProfile], it shows the albums of the users.
+/// When an album is pressed it goes to [AlbumSubScreen]
+/// @receivedPicId : if not '', this picture will be added to this album.
+/// @receivedUserId : to preview the albums of the user with this user ID
+
 class AlbumScreen extends StatefulWidget {
   AlbumScreen({
     this.receivedPicId,

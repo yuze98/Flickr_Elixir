@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 import '../api/RequestAndResponses.dart';
 
+/// This view allows you to enter your account if you enter valid username and password
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();

@@ -5,6 +5,10 @@ import 'CheckInboxPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flickr/api/RequestAndResponses.dart';
 
+/// This screen allows you to send an email to change your password
+/// @receivedEmailController : is the email written at the [LoginScreen] if written
+/// If email is valid it sends you an email to change password and sends you to [checkInbox] screen
+
 class ForgetPass extends StatefulWidget {
   ForgetPass({this.receivedEmailController});
 
