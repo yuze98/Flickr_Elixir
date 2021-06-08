@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../api/RequestAndResponses.dart';
 
+/// Displays the Reset Password page for changing your password.
 class ResetPassword extends StatefulWidget {
   @override
   _ResetPassword createState() => _ResetPassword();

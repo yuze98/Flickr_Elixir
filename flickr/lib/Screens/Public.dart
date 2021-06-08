@@ -5,6 +5,7 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flickr/Components/ExploreDetails.dart';
 
+/// Contains all images that are either public or private.
 class Public extends StatefulWidget {
   Public({Key key, this.title}) : super(key: key);
 

@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'About.dart';
 import 'AlbumScreen.dart';
 
+///Displays the user's profile inclusing their about, cameraroll, album, and public page along with additional settings.
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
   String userId;

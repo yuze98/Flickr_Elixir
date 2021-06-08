@@ -1,3 +1,14 @@
+///Fetches info about Photo from API
+/// @id : ID of the photo
+/// @url : URL of the Image
+/// @title : Title of the photo
+/// @firstName : First name of user's photo
+/// @lastName : Last name of user's photo
+/// @favoriteCount : Number of people who liked
+/// @commentsNum : Number of people who commented
+/// @userId : ID of the user
+/// @profilePhotoUrl : URL of the profilePhoto
+
 class Photos {
   final String id;
   final String url;

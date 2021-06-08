@@ -3,6 +3,7 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+///Uploads the photo and its info, tags, & description.
 class ImageDetails extends StatefulWidget {
   @override
   _ImageDetails createState() => _ImageDetails();

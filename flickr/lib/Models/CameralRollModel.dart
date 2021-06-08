@@ -1,3 +1,15 @@
+///Fetches info about Photo from API
+/// @userID : ID of the user
+/// @pictureID : ID of the picture
+/// @url : URL of the Images
+/// @title : Title of the photo
+/// @firstName : First name of user's photo
+/// @lastName : Last name of user's photo
+/// @favoriteCount : Number of people who liked
+/// @commentsNum : Number of people who commented
+/// @isPublic :Privacy status of photo
+/// @profilePhotoUrl : URL of the profilePhoto
+
 class CameraRollModel {
   final String userID;
   final String pictureID;

@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 
+///Displays the sign up page presented when creating a new account.
+
 class Signup extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
