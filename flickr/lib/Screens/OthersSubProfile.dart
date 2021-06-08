@@ -9,6 +9,10 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Components/FollowersList.dart';
 import 'SubPhotoStream.dart';
 
+/// This view shows profile of other users
+/// @photoFile : the profile picture of the other user
+/// @userId : the id of the user you will preview their profile
+
 class OtherProfile extends StatefulWidget {
   PickedFile photoFile;
   String userId;

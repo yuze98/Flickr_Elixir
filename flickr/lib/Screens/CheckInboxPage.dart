@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 
+/// This screen tells the user to check his/her email
+
 class checkInbox extends StatelessWidget {
   final String email;
   checkInbox({Key key, @required this.email}) : super(key: key);

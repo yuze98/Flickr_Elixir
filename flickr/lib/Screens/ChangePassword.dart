@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../api/RequestAndResponses.dart';
 
+/// This view allows the user to change his/her password.
+
 class ChangePassword extends StatefulWidget {
   @override
   _ChangePassword createState() => _ChangePassword();

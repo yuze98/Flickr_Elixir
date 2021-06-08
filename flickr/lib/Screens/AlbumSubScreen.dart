@@ -11,6 +11,12 @@ import 'package:flickr/Components/ExploreDetails.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 
+/// This view is inside the [AlbumScreen]. It shows photos of the user that he inserted inside in the clicked album.
+/// @receivedAlbumID : preview the pictures of the album with this ID
+/// @receivedAlbumName : the name of the album
+/// @receivedNumberOfPhotos : the number of the users
+/// @receivedUserId : user id of the person opened the album to allow editting if he is the owner of the album
+
 class AlbumSubScreen extends StatefulWidget {
   AlbumSubScreen({
     this.receivedAlbumID,

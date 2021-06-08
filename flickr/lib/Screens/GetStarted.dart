@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../Essentials/CommonVars.dart';
 
+/// The first screen when you open the application
+
 class GetStarted extends StatefulWidget {
   @override
   _GetStartedState createState() => _GetStartedState();
