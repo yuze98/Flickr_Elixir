@@ -1,3 +1,8 @@
+/// This class is responsible to save the data of comments for a certain Photo
+/// @profilePhotoUrl : User Photo Id
+/// @firstName : User First Name
+/// @lastName : User Last Name
+/// @commment : User Comment content
 class PictureComments {
   final String profilePhotoUrl;
   final String firstName;

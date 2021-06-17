@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../api/RequestAndResponses.dart';
+
+/// This view allows the user to change his/her password.
 
 class ChangePassword extends StatefulWidget {
   @override
@@ -180,10 +183,7 @@ class _ChangePassword extends State<ChangePassword> {
                       ),
                     ),
                     onPressed: () {
-//                      primary:
                       changePassword();
-                      //                    Colors.deepOrange;
-                      print('Pressed');
                     },
                     child: Text(
                       'Confirm',
@@ -205,11 +205,13 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateOldPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
       return null;
@@ -217,12 +219,14 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateNewPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       oldBool = true;
       return null;
@@ -230,11 +234,13 @@ class _ChangePassword extends State<ChangePassword> {
   }
 
   String validateConfirmPassword(String value) {
-    Pattern pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    Pattern pattern =
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
+
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null) {
       oldBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else if (value == oldPasswordController.text ||
         newPassword == oldPasswordController.text) {
       oldBool = false;
@@ -250,8 +256,6 @@ class _ChangePassword extends State<ChangePassword> {
 
   String validateConfirm() {
     String str;
-    print(
-        "oldBool is ${oldPasswordController.text}  and new is ${newPasswordController.text} and confirm is ${confirmPasswordController.text} ");
 
     if (!oldBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
@@ -263,7 +267,6 @@ class _ChangePassword extends State<ChangePassword> {
 
   void changePassword() async {
     if (validateConfirm() == 'Password is changed successfully') {
-      print("pressssssssssssssssssssssssssssssssssssssssssssssssssssssssed");
       var response = await FlickrRequestsAndResponses.changePassword(
           newPasswordController.text, oldPasswordController.text);
 
@@ -283,13 +286,14 @@ class _ChangePassword extends State<ChangePassword> {
     // Create button
     Widget okButton = TextButton(
       child: Text("OK"),
-      onPressed: () {
+      onPressed: () async {
         if (str == 'Password is changed successfully') {
+          CommonVars.loggedIn = false;
+
           FlickrRequestsAndResponses.signOutRequest();
-          Navigator.pushNamedAndRemoveUntil(
+          await Navigator.pushNamedAndRemoveUntil(
               context, "GetStarted", (r) => false);
         } else {
-          print("hena");
           Navigator.pop(context);
           Navigator.pop(context);
         }

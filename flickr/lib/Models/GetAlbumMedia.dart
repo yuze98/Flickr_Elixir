@@ -1,3 +1,8 @@
+///Fetches info about Album from API
+/// @albumId : ID of the Album
+/// @albumTitle : Title of the Album
+/// @numberOfPhotos : Number of photos in album
+
 class SingleAlbumModel {
   final String albumId;
   final String albumTitle;

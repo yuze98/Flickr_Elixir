@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+///Displays the tags of each individual user.
 class Tags extends StatefulWidget {
   @override
   _Tags createState() => _Tags();

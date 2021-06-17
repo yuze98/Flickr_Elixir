@@ -1,11 +1,22 @@
+import 'package:flickr/Essentials/CommonVars.dart';
+import 'package:flickr/Screens/RedirectAbPage.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/material.dart';
 import 'AlbumSubScreen.dart';
 import 'package:flickr/Models/GetAlbumMedia.dart';
 
+/// This view is inside the [SubProfile] and [OtherProfile], it shows the albums of the users.
+/// When an album is pressed it goes to [AlbumSubScreen]
+/// @receivedPicId : if not '', this picture will be added to this album.
+/// @receivedUserId : to preview the albums of the user with this user ID
+
 class AlbumScreen extends StatefulWidget {
-  AlbumScreen({this.receivedPicId});
+  AlbumScreen({
+    this.receivedPicId,
+    @required this.receivedUserId,
+  });
   final receivedPicId;
+  final receivedUserId;
   @override
   _AlbumScreenState createState() => _AlbumScreenState();
 }
@@ -14,13 +25,16 @@ class _AlbumScreenState extends State<AlbumScreen> {
   List<Widget> listOfAlbumCards = [];
   Future<List<SingleAlbumModel>> albums;
   TextEditingController albumNameController = TextEditingController();
+  String alertController;
   String picId;
+  String userId;
 
   @override
   void initState() {
     super.initState();
     picId = widget.receivedPicId;
-    albums = FlickrRequestsAndResponses.GetAlbum();
+    userId = widget.receivedUserId;
+    albums = FlickrRequestsAndResponses.getAlbum(userId);
   }
 
   @override
@@ -59,7 +73,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
           ),
         ),
         Visibility(
-          visible: (picId == ''),
+          visible: (picId == '' && userId == CommonVars.userId),
           child: Container(
             height: deviceSize.height * 0.05,
             child: RaisedButton.icon(
@@ -96,9 +110,13 @@ class _AlbumScreenState extends State<AlbumScreen> {
                           textColor: Colors.black,
                           onPressed: () {
                             // Send request to create album sending name and empty desciption
-                            FlickrRequestsAndResponses.CreateAlbum(
+                            FlickrRequestsAndResponses.createAlbum(
                                 albumNameController.text.toString().trim(), '');
                             Navigator.of(context).pop();
+                            showAlertDialog(
+                                context,
+                                'Album {albumNameController.text.toString()} created',
+                                alertController);
                           },
                           child: Text(
                             'Save',
@@ -143,11 +161,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 receivedAlbumID: albumID,
                 receivedAlbumName: albumName,
                 receivedNumberOfPhotos: numberOfPhotos,
+                receivedUserId: userId,
               ),
             ),
           );
         } else {
-          FlickrRequestsAndResponses.AddPhotoToAlbum(picId, albumID);
+          FlickrRequestsAndResponses.addPhotoToAlbum(picId, albumID);
           Navigator.pop(context);
         }
       },

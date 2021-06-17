@@ -5,6 +5,10 @@ import 'CheckInboxPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flickr/api/RequestAndResponses.dart';
 
+/// This screen allows you to send an email to change your password
+/// @receivedEmailController : is the email written at the [LoginScreen] if written
+/// If email is valid it sends you an email to change password and sends you to [checkInbox] screen
+
 class ForgetPass extends StatefulWidget {
   ForgetPass({this.receivedEmailController});
 
@@ -90,9 +94,7 @@ class _ForgetPassState extends State<ForgetPass> {
                               hintText: 'Enter email',
                               fillColor: Colors.white,
                             ),
-                            onFieldSubmitted: (text) {
-                              //     print(emailController.text);
-                            },
+                            onFieldSubmitted: (text) {},
                           ),
                         ),
                       ),
@@ -122,7 +124,6 @@ class _ForgetPassState extends State<ForgetPass> {
                             onPressed: () {
                               // setState(() {
                               //
-                              print(EmailController.text);
                               // sendMail(emailController.text);
                               forgetPass(EmailController.text);
                               // };
@@ -142,10 +143,9 @@ class _ForgetPassState extends State<ForgetPass> {
     );
   }
 
-  String validateubmit(int value) {
+  String validateSubmit(int value) {
     String str;
-    print("Value is ");
-    print(value);
+
     if (value != 200) {
       str = 'Enter valid parameters';
     } else {
@@ -155,18 +155,10 @@ class _ForgetPassState extends State<ForgetPass> {
   }
 
   void forgetPass(String email) async {
-    // var url =
-    //     'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io//register/forgetPassword?email=${EmailController.text}';
-    //
-    // var response =
-    //     await http.post(Uri.parse(url), body: {"email": "test@test.com"});
-    //
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
     var response = await FlickrRequestsAndResponses.forgetPass(email);
 
     if (response.statusCode == 200) {
-      showAlertDialog(context, validateubmit(200));
+      showAlertDialog(context, validateSubmit(200));
       Navigator.pushNamed(context, 'ResetPassword');
     } else {
       showAlertDialog(context, jsonDecode(response.body)["message"]);

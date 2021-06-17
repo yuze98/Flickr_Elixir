@@ -9,6 +9,11 @@ import 'package:flickr/Components/ExploreDetails.dart';
 import '../Essentials/CommonVars.dart';
 import 'AlbumScreen.dart';
 
+
+
+/// This displays all images inside the camera roll view in a GridView format
+/// @title : the title of the cameraroll
+
 class CameraRoll extends StatefulWidget {
   CameraRoll({Key key, this.title}) : super(key: key);
 
@@ -27,11 +32,16 @@ class _CameraRollState extends State<CameraRoll> {
 
   Future<List<CameraRollModel>> cameraRoll;
   void RollState() {
-    cameraRoll = FlickrRequestsAndResponses.GetCameraRoll();
+    cameraRoll = FlickrRequestsAndResponses.getCameraRoll();
+  }
+
+  void getData() async {
+    await FlickrRequestsAndResponses.getAbout();
   }
 
   @override
   void initState() {
+    getData();
     CommonVars.camerarollbool = true;
     super.initState();
   }
@@ -76,7 +86,10 @@ class _CameraRollState extends State<CameraRoll> {
                   CommonVars.commentNum.add(i.commentsNum.toString());
                   CommonVars.userID.add(i.userID);
                   CommonVars.picID.add(i.pictureID);
+                  CommonVars.isPublic = i.isPublic;
                 }
+
+                //  CommonVars.isPublic = i.isPublic;
                 return _createBody();
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -103,7 +116,7 @@ class _CameraRollState extends State<CameraRoll> {
 
   void _changeSelection({bool enable, int index}) {
     _selectionMode = enable;
-    _selectedIndexList.add(index);
+    // _selectedIndexList.add(index);
     if (index == -1) {
       _selectedIndexList.clear();
     }
@@ -220,7 +233,6 @@ class _CameraRollState extends State<CameraRoll> {
                       if (_selectedIndexList.isNotEmpty)
                         CommonFunctions().showAlertDialog(context,
                             CommonVars.imageList[_selectedIndexList[0]]);
-                      print('Increase volume by 10');
                     });
                   },
                 ),
@@ -231,16 +243,11 @@ class _CameraRollState extends State<CameraRoll> {
                     setState(() {
                       //_volume += 10;
                       if (_selectedIndexList.isNotEmpty) {
-                        print(_selectedIndexList);
-
                         for (int i = 0; i < _selectedIndexList.length; i++) {
-                          // print("Selected Image:$_selectedIndexList");
-                          // print("Image Image:$CommonVars.imageList");
+                          CommonVars.imageList.removeAt(i);
 
-                          CommonVars.imageList.removeAt(_selectedIndexList[i]);
-
-                          FlickrRequestsAndResponses.DeletePicture(
-                              _selectedImagesId[_selectedIndexList[i]]);
+                          FlickrRequestsAndResponses.deletePicture(
+                              _selectedImagesId[i]);
                         }
 
                         _selectedIndexList.clear();
@@ -255,14 +262,13 @@ class _CameraRollState extends State<CameraRoll> {
                   ),
                   tooltip: 'Add Selected Items to Album',
                   onPressed: () {
-                    print(_selectedImagesId[0]);
                     if (_selectedImagesId.length == 1) {
-                      print('add image to album');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AlbumScreen(
                             receivedPicId: _selectedImagesId[0],
+                            receivedUserId: CommonVars.userId,
                           ),
                         ),
                       );
@@ -270,12 +276,12 @@ class _CameraRollState extends State<CameraRoll> {
                       for (int i = 0; i < _selectedImagesId.length; i++) {
                         for (int j = 0; j < CommonVars.picID.length; j++) {
                           if (_selectedImagesId[i] == CommonVars.picID[j]) {
-                            print('add imagess to album');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => AlbumScreen(
                                   receivedPicId: _selectedImagesId[i],
+                                  receivedUserId: CommonVars.userId,
                                 ),
                               ),
                             );
@@ -315,27 +321,53 @@ class _CameraRollState extends State<CameraRoll> {
   void movingTo(String destination) {
     setState(() {
       if (destination == CommonVars.public) {
-        // CommonVars.publicList.clear();
+        //here we need to set the privacy of this to public
 
         for (int i = 0; i < _selectedIndexList.length; i++) {
           if (!CommonVars.publicList
-              .contains(CommonVars.imageList[_selectedIndexList[i]]))
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
             CommonVars.publicList
                 .add(CommonVars.imageList[_selectedIndexList[i]]);
+
+            if (CommonVars.privateList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+              CommonVars.privateList
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from private");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                true,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
+          }
         }
-        print(CommonVars.publicList);
       }
       if (destination == CommonVars.private) {
+        //here we need to set the privacy of this to private
+
         for (int i = 0; i < _selectedIndexList.length; i++) {
-          if (!CommonVars.private
-              .contains(CommonVars.imageList[_selectedIndexList[i]]))
+          if (!CommonVars.privateList
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
             CommonVars.privateList
                 .add(CommonVars.imageList[_selectedIndexList[i]]);
-        }
-        print(CommonVars.private);
-      }
 
-      print(destination);
+            if (CommonVars.publicList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+              CommonVars.publicList
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from public");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                false,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
+          }
+        }
+      }
     });
   }
 }

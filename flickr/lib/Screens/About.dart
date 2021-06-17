@@ -7,6 +7,8 @@ import 'RedirectAbPage.dart';
 import 'package:http/http.dart' as http;
 import '../Essentials/CommonVars.dart';
 
+/// This view is inside the [SubProfile] and [OtherProfile] to show the description, occupation, hometown, and city of the user
+
 class AboutState extends StatefulWidget {
   @override
   _AboutStateState createState() => _AboutStateState();
@@ -16,12 +18,11 @@ class _AboutStateState extends State<AboutState> {
   var result = 'Heyoo';
 
   void AboutAPI() async {
-    await FlickrRequestsAndResponses.GetAbout();
+    await FlickrRequestsAndResponses.getAbout();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     AboutAPI();
     super.initState();
   }
@@ -32,7 +33,7 @@ class _AboutStateState extends State<AboutState> {
         {
           result = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DescripData()),
+            MaterialPageRoute(builder: (context) => DescriptionData()),
           );
 
           setState(() => CommonVars.description = result);
@@ -89,7 +90,7 @@ class _AboutStateState extends State<AboutState> {
         }
         break;
     }
-    await FlickrRequestsAndResponses.EditAboutInfo(
+    await FlickrRequestsAndResponses.editAboutInfo(
         CommonVars.occupation, CommonVars.hometown, CommonVars.city);
   }
 
@@ -319,13 +320,13 @@ class _AboutStateState extends State<AboutState> {
                     CommonVars.camerarollbool
                         ? Row(
                             children: [
-                              CommonVars.imageList.length >= 1
+                              CommonVars.featuredPhotos.length >= 1
                                   ? imageFeat(context, 0)
                                   : Text(""),
-                              CommonVars.imageList.length >= 2
+                              CommonVars.featuredPhotos.length >= 2
                                   ? imageFeat(context, 1)
                                   : Text(""),
-                              CommonVars.imageList.length >= 3
+                              CommonVars.featuredPhotos.length >= 3
                                   ? imageFeat(context, 2)
                                   : Text("")
                               //   child: Image.network(
@@ -431,7 +432,7 @@ class _AboutStateState extends State<AboutState> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.network(
-        CommonVars.imageList[index],
+        CommonVars.featuredPhotos[0],
         //fit: BoxFit.cover,
         width: 100,
         height: 100,

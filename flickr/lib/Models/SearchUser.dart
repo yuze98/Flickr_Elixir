@@ -1,10 +1,19 @@
+/// This class is responsible to returns the user names who matches the word of search
+/// @id : User Photo Id
+/// @isFollowing : Following this user or not
+/// @firstName : User First Name
+/// @lastName : User last Name
+/// @favoriteCount : Number of users who favourite the photo
+/// @numberOfPhotos : Number of User Photos
+/// @profilePhotoUrl : User Profile photo link
+/// @numberOfFollowers : Number of User's followers
 class SearchUser {
   final String id;
   final String profilePhotoUrl;
   final String firstName;
   final String lastName;
   final int numberOfFollowers;
-  final int numberOfFollowings; // TODO check law fe number of photos instead
+  final int numberOfPhotos;
   final bool isFollowing;
 
   SearchUser({
@@ -13,7 +22,7 @@ class SearchUser {
     this.firstName,
     this.lastName,
     this.numberOfFollowers,
-    this.numberOfFollowings,
+    this.numberOfPhotos,
     this.isFollowing,
   });
 
@@ -24,7 +33,7 @@ class SearchUser {
       firstName: json['firstName'],
       lastName: json['lastName'],
       numberOfFollowers: json['numberOfFollowers'],
-      numberOfFollowings: json['numberOfFollowings'],
+      numberOfPhotos: json['numberOfPhotos'],
       isFollowing: json['isFollowing'],
     );
   }

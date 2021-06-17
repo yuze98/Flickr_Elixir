@@ -1,16 +1,16 @@
-import 'package:flickr/Screens/SignUp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Essentials/CommonVars.dart';
+
+/// The first screen when you open the application
 
 class GetStarted extends StatefulWidget {
   @override
-  _GetstartedState createState() => _GetstartedState();
+  _GetStartedState createState() => _GetStartedState();
 }
 
-class _GetstartedState extends State<GetStarted> {
+class _GetStartedState extends State<GetStarted> {
   final myImage = [
     'images/photo1.jpg',
     'images/photo2.jpg',
@@ -49,7 +49,6 @@ class _GetstartedState extends State<GetStarted> {
             setState(() {
               index2 += 2;
               if (index2 == 5) index2 = 0;
-              print("index2 =$index2");
             });
           },
           itemCount: myImage.length,
@@ -144,8 +143,7 @@ class _GetstartedState extends State<GetStarted> {
                       ),
                       //  splashColor: Colors.black26,
                       onPressed: () {
-                        print(context);
-                        // menu.yes = false;
+                        print("is logged in? ${CommonVars.loggedIn}");
                         if (CommonVars.loggedIn)
                           Navigator.pushNamed(context, "UserPage");
                         else

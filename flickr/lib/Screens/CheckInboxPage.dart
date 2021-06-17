@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 
+/// This screen tells the user to check his/her email
+
 class checkInbox extends StatelessWidget {
   final String email;
   checkInbox({Key key, @required this.email}) : super(key: key);
-
-  // TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,6 @@ class checkInbox extends StatelessWidget {
                                       MaterialStateProperty.all(Colors.blue)),
                               onPressed: () {
                                 // setState(() {
-                                print(email);
 
                                 // sendMail(emailController.text);
                                 Navigator.pop(context, LoginScreen());

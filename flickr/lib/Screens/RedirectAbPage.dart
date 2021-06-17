@@ -1,16 +1,15 @@
-import 'dart:convert';
 import 'package:flickr/Components/ExploreDetails.dart';
-import 'package:flickr/Essentials/CommonVars.dart';
-import 'About.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-class DescripData extends StatefulWidget {
+///Redirects the editable part of the about page to change description, occupation,homeotwn, or city.
+import 'package:flickr/Essentials/CommonVars.dart';
+
+class DescriptionData extends StatefulWidget {
   @override
-  _DescripDataState createState() => _DescripDataState();
+  _DescriptionDataState createState() => _DescriptionDataState();
 }
 
-class _DescripDataState extends State<DescripData> {
+class _DescriptionDataState extends State<DescriptionData> {
   TextEditingController dataController = new TextEditingController();
 
   @override
@@ -55,7 +54,6 @@ class _DescripDataState extends State<DescripData> {
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
                       Navigator.pop(context, dataController.text);
-                      print(dataController.text);
                     },
                   ),
                 ),
@@ -65,26 +63,6 @@ class _DescripDataState extends State<DescripData> {
         ),
       ),
     );
-  }
-
-  void sending() async {
-    var url =
-        'https://a1a0f024-6781-4afc-99de-c0f6fbb5d73d.mock.pstmn.io/user/about/5?userId=5349b4ddd2781d08c09890f4';
-
-    var response = await http.get(Uri.parse(url));
-    var decoded = jsonDecode(response.body)['description'];
-    print('Response status: ${response.statusCode}');
-    print('Response body: $decoded');
-
-    if (response.statusCode == 200) {
-      showAlertDialog(context, validateubmit(200), dataController.text);
-      // Navigator.pop(context, dataController.text);
-      //  print("ttttt")+
-      ;
-      print(dataController.text);
-    } else {
-      showAlertDialog(context, 'Enter valid parameters', dataController.text);
-    }
   }
 }
 
@@ -96,7 +74,6 @@ showAlertDialog(BuildContext context, String str, String controller) {
     onPressed: () {
       if (str == 'Data entry successful') {
         print("success");
-        print("Controller is  $controller");
         Navigator.of(context).pop();
 
         Navigator.pop(context, controller);
@@ -125,10 +102,8 @@ showAlertDialog(BuildContext context, String str, String controller) {
   );
 }
 
-String validateubmit(int value) {
+String validateSubmit(int value) {
   String str;
-  print("Value is ");
-  print(value);
   if (value != 200) {
     str = 'Enter valid parameters';
   } else {
@@ -187,7 +162,6 @@ class _AddressDataState extends State<AddressData> {
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
                       Navigator.pop(context, dataController.text);
-                      print(dataController.text);
                     },
                   ),
                 ),
@@ -250,7 +224,6 @@ class _OccupationState extends State<Occupation> {
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
                       Navigator.pop(context, dataController.text);
-                      print(dataController.text);
                     },
                   ),
                 ),
@@ -313,7 +286,6 @@ class _CurrentCityState extends State<CurrentCity> {
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
                       Navigator.pop(context, dataController.text);
-                      print(dataController.text);
                     },
                   ),
                 ),
@@ -376,7 +348,6 @@ class _HometownState extends State<Hometown> {
                             MaterialStateProperty.all(Colors.blue)),
                     onPressed: () {
                       Navigator.pop(context, dataController.text);
-                      print(dataController.text);
                     },
                   ),
                 ),

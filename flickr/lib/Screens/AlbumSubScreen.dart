@@ -11,15 +11,24 @@ import 'package:flickr/Components/ExploreDetails.dart';
 import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Essentials/CommonFunctions.dart';
 
+/// This view is inside the [AlbumScreen]. It shows photos of the user that he inserted inside in the clicked album.
+/// @receivedAlbumID : preview the pictures of the album with this ID
+/// @receivedAlbumName : the name of the album
+/// @receivedNumberOfPhotos : the number of the users
+/// @receivedUserId : user id of the person opened the album to allow editting if he is the owner of the album
+
 class AlbumSubScreen extends StatefulWidget {
-  AlbumSubScreen(
-      {this.receivedAlbumID,
-      this.receivedAlbumName,
-      this.receivedNumberOfPhotos});
+  AlbumSubScreen({
+    this.receivedAlbumID,
+    this.receivedAlbumName,
+    this.receivedNumberOfPhotos,
+    @required this.receivedUserId,
+  });
   // List of images and add it in the initializer
   final String receivedAlbumID;
   final String receivedAlbumName;
   final int receivedNumberOfPhotos;
+  final String receivedUserId;
 
   @override
   _AlbumSubScreenState createState() => _AlbumSubScreenState();
@@ -52,7 +61,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
     albumName = widget.receivedAlbumName;
     numberOfPhotos = widget.receivedNumberOfPhotos;
 
-    listOfAlbumMedia = FlickrRequestsAndResponses.GetAlbumMedia(albumID);
+    listOfAlbumMedia = FlickrRequestsAndResponses.getAlbumMedia(albumID);
     // Get list of images
   }
 
@@ -74,6 +83,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           receivedAlbumID: albumID,
           receivedAlbumName: albumName,
           receivedNumberOfPhotos: numberOfPhotos,
+          receivedUserId: widget.receivedUserId,
         ),
       ),
     );
@@ -114,22 +124,24 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                       pinned: true,
                       backgroundColor: Colors.white,
                       actions: <Widget>[
-                        PopupMenuButton(
-                          onSelected: movingTo,
-                          color: Colors.white,
-                          icon: Icon(
-                            Icons.more_vert,
-                            color: Colors.white,
-                          ),
-                          itemBuilder: (BuildContext context) {
-                            return menu.map((String s) {
-                              return PopupMenuItem<String>(
-                                value: s,
-                                child: Text(s),
-                              );
-                            }).toList();
-                          },
-                        ),
+                        (widget.receivedUserId == CommonVars.userId)
+                            ? PopupMenuButton(
+                                onSelected: movingTo,
+                                color: Colors.white,
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                itemBuilder: (BuildContext context) {
+                                  return menu.map((String s) {
+                                    return PopupMenuItem<String>(
+                                      value: s,
+                                      child: Text(s),
+                                    );
+                                  }).toList();
+                                },
+                              )
+                            : Text(''),
                       ],
                       toolbarHeight: deviceSizeheight * .07,
                       flexibleSpace: FlexibleSpaceBar(
@@ -272,12 +284,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   tooltip: 'Add Selected Items to Album',
                   onPressed: () {
                     if (_selectedImagesId.length == 1) {
-                      print('add image to album');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AlbumScreen(
                             receivedPicId: _selectedImagesId[0],
+                            receivedUserId: CommonVars.userId,
                           ),
                         ),
                       );
@@ -285,13 +297,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                       for (int i = 0; i < _selectedImagesId.length; i++) {
                         for (int j = 0; j < picIdList.length; j++) {
                           if (_selectedImagesId[i] == picIdList[j]) {
-                            print('add imagess to album');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => AlbumScreen(
-                                  receivedPicId: _selectedImagesId[i],
-                                ),
+                                    receivedPicId: _selectedImagesId[i],
+                                    receivedUserId: CommonVars.userId),
                               ),
                             );
                           }
@@ -353,9 +364,8 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   String newAlbumName = renameController.text.toString().trim();
                   if (newAlbumName.isNotEmpty) {
                     Navigator.of(context).pop(newAlbumName);
-                    print(newAlbumName);
                     // Request change album title
-                    FlickrRequestsAndResponses.RenameAlbum(
+                    FlickrRequestsAndResponses.renameAlbum(
                         albumID, newAlbumName);
                   }
                 },
@@ -397,6 +407,7 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
                   // Request Album delete
                   FlickrRequestsAndResponses.DeleteAlbum(albumID);
                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Delete',
@@ -423,14 +434,13 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   }
 
   void deleteIconClicked(String destination) {
-    print(_selectedImagesId[0]);
     if (_selectedIndexList.length == 1) {
       if (destination == 'Delete from Flickr') {
         print('delete image');
-        FlickrRequestsAndResponses.DeletePicture(_selectedImagesId[0]);
+        FlickrRequestsAndResponses.deletePicture(_selectedImagesId[0]);
       } else if (destination == 'Remove from album') {
         print('remove from album');
-        FlickrRequestsAndResponses.RemovePicFromAlbum(
+        FlickrRequestsAndResponses.removePicFromAlbum(
             _selectedImagesId[0], albumID);
       }
     } else {
@@ -439,12 +449,12 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
           if (_selectedImagesId[i] == picIdList[j]) {
             if (destination == 'Delete from Flickr') {
               print('delete imagesss');
-              FlickrRequestsAndResponses.DeletePicture(
-                  _selectedImagesId[_selectedIndexList[i]]);
+
+              FlickrRequestsAndResponses.deletePicture(_selectedImagesId[i]);
             } else if (destination == 'Remove from album') {
               print('remove imagess from album');
-              FlickrRequestsAndResponses.RemovePicFromAlbum(
-                  _selectedImagesId[_selectedIndexList[i]], albumID);
+              FlickrRequestsAndResponses.removePicFromAlbum(
+                  _selectedImagesId[i], albumID);
             }
           }
         }
@@ -453,35 +463,61 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
   }
 
   void privacySettings(String destination) {
-    setState(
-      () {
-        if (destination == CommonVars.public) {
-          // CommonVars.publicList.clear();
+    setState(() {
+      if (destination == CommonVars.public) {
+        //here we need to set the privacy of this to public
 
-          for (int i = 0; i < _selectedIndexList.length; i++) {
-            if (!CommonVars.publicList
-                .contains(CommonVars.imageList[_selectedIndexList[i]]))
-              CommonVars.publicList
-                  .add(CommonVars.imageList[_selectedIndexList[i]]);
-          }
-          print(CommonVars.publicList);
-        }
-        if (destination == CommonVars.private) {
-          for (int i = 0; i < _selectedIndexList.length; i++) {
-            if (!CommonVars.private
-                .contains(CommonVars.imageList[_selectedIndexList[i]]))
+        for (int i = 0; i < _selectedIndexList.length; i++) {
+          if (!CommonVars.publicList
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+            CommonVars.publicList
+                .add(CommonVars.imageList[_selectedIndexList[i]]);
+
+            if (CommonVars.privateList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
               CommonVars.privateList
-                  .add(CommonVars.imageList[_selectedIndexList[i]]);
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from private");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                true,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
           }
-          print(CommonVars.private);
         }
-      },
-    );
+      }
+      if (destination == CommonVars.private) {
+        //here we need to set the privacy of this to private
+
+        for (int i = 0; i < _selectedIndexList.length; i++) {
+          if (!CommonVars.privateList
+              .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+            CommonVars.privateList
+                .add(CommonVars.imageList[_selectedIndexList[i]]);
+
+            if (CommonVars.publicList
+                .contains(CommonVars.imageList[_selectedIndexList[i]])) {
+              CommonVars.publicList
+                  .remove(CommonVars.imageList[_selectedIndexList[i]]);
+
+              print("removing from public");
+            }
+
+            FlickrRequestsAndResponses.editPhoto(
+                CommonVars.picID[_selectedIndexList[i]],
+                false,
+                CommonVars.titleCamera[_selectedIndexList[i]]);
+          }
+        }
+      }
+    });
   }
 
   void _changeSelection({bool enable, int index}) {
     _selectionMode = enable;
-    _selectedIndexList.add(index);
+    //_selectedIndexList.add(index);
     if (index == -1) {
       _selectedIndexList.clear();
     }
@@ -553,7 +589,6 @@ class _AlbumSubScreenState extends State<AlbumSubScreen> {
             setState(() {
               _changeSelection(enable: true, index: index);
               tapped = !tapped;
-              // TODO momken yeb2a el 7al hna
             });
           },
           onTap: () {

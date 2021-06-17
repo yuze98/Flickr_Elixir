@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../api/RequestAndResponses.dart';
 
+/// Displays the Reset Password page for changing your password.
 class ResetPassword extends StatefulWidget {
   @override
   _ResetPassword createState() => _ResetPassword();
@@ -176,10 +177,7 @@ class _ResetPassword extends State<ResetPassword> {
                       ),
                     ),
                     onPressed: () {
-//                      primary:
                       resetPassword();
-                      //                    Colors.deepOrange;
-                      print('Pressed');
                     },
                     child: Text(
                       'Confirm',
@@ -202,13 +200,13 @@ class _ResetPassword extends State<ResetPassword> {
 
   String validateNewPassword(String value) {
     Pattern pattern =
-        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+        r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
     RegExp regex = new RegExp(pattern);
     newPassword = value;
     if (!regex.hasMatch(value) || value == null) {
       newBool = false;
-      return 'Enter a valid Password (8 or more characters)';
+      return 'Enter a valid Password (12 or more characters)';
     } else {
       newBool = true;
       return null;
@@ -230,8 +228,6 @@ class _ResetPassword extends State<ResetPassword> {
 
   String validateConfirm() {
     String str;
-    print(
-        "oldBool is ${emailController.text}  and new is ${newPasswordController.text} and confirm is ${confirmCodeController.text} ");
 
     if (!emailBool && !newBool && !confirmBool) {
       str = 'Please enter valid parameters!';
@@ -243,7 +239,6 @@ class _ResetPassword extends State<ResetPassword> {
 
   void resetPassword() async {
     if (validateConfirm() == 'Password is changed successfully') {
-      print("pressssssssssssssssssssssssssssssssssssssssssssssssssssssssed");
       var response = await FlickrRequestsAndResponses.resetPassword(
           emailController.text,
           newPasswordController.text,
@@ -270,7 +265,6 @@ class _ResetPassword extends State<ResetPassword> {
           Navigator.pushNamedAndRemoveUntil(
               context, "LoginScreen", (r) => false);
         } else {
-          print("hena");
           Navigator.pop(context);
         }
       },

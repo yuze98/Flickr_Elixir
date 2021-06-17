@@ -4,6 +4,9 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// This takes the photo Id and calls [CommentsFavoritesNavigator]
+/// photoId: photo id
+
 class CommentsSection extends StatefulWidget {
   final photoId;
   CommentsSection({Key key, this.photoId}) : super(key: key);
@@ -25,7 +28,6 @@ class _CommentsSectionState extends State<CommentsSection> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     picComments = FlickrRequestsAndResponses.GetComments(widget.photoId);
@@ -47,7 +49,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                     List<PictureComments> data = snapshot.data;
                     for (var i in data) {
                       commentsList.add(
-                        CommentInfo(context, i.profilePhotoUrl,
+                        commentInfo(context, i.profilePhotoUrl,
                             '${i.firstName} ${i.lastName}', i.commment),
                       );
                     }
@@ -62,10 +64,6 @@ class _CommentsSectionState extends State<CommentsSection> {
                   return CircularProgressIndicator();
                 },
               ),
-              // child: ListView.builder(
-              //   itemCount: commentsList.length,
-              //   itemBuilder: (context, index) => commentsList[index],
-              // ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -79,7 +77,6 @@ class _CommentsSectionState extends State<CommentsSection> {
                           minLines: null,
                           controller: sendComment,
                           decoration: InputDecoration(
-                            //enabledBorder: OutlineInputBorder(),
                             filled: true,
                             hintText: 'Write a comment...',
                             fillColor: Colors.white,
@@ -93,7 +90,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                         ),
                         onPressed: () {
                           //send first to server then clear
-                          FlickrRequestsAndResponses.AddComment(
+                          FlickrRequestsAndResponses.addComment(
                               widget.photoId, sendComment.text);
                           sendComment.clear();
                         },
@@ -109,7 +106,7 @@ class _CommentsSectionState extends State<CommentsSection> {
     );
   }
 
-  Widget CommentInfo(BuildContext context, String profilePic, String userName,
+  Widget commentInfo(BuildContext context, String profilePic, String userName,
       String comment) {
     var devSize = MediaQuery.of(context).size;
 

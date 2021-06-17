@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
 
+///Displays the sign up page presented when creating a new account.
+
 class Signup extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
@@ -44,7 +46,7 @@ class _SignupState extends State<Signup> {
   Future<Null> SingUpFB() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
-    int response = await FlickrRequestsAndResponses.SignUpFB(facebookSignIn);
+    int response = await FlickrRequestsAndResponses.signUpFB(facebookSignIn);
 
     //checks if the user is already sign up
     if (response == 201) {
@@ -360,7 +362,7 @@ class _SignupState extends State<Signup> {
   }
 
   void sending() async {
-    int response = await FlickrRequestsAndResponses.SignupRequests(
+    int response = await FlickrRequestsAndResponses.signUpRequests(
         context,
         passwordController,
         emailController,
@@ -417,12 +419,12 @@ String validateAge(String value) {
 
 String validatePassword(String value) {
   Pattern pattern =
-      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{10,}$";
+      r"^([0-9]|[A-Za-z])*(.*[A-Za-z]*)(?=.*\d*)[A-Za-z\d*]{12,}$";
 
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value) || value == null) {
     pwBool = false;
-    return 'Enter a valid Password (10 or more characters)';
+    return 'Enter a valid Password (12 or more characters)';
   } else {
     pwBool = true;
     return null;

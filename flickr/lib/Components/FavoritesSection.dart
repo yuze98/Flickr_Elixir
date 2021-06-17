@@ -6,6 +6,9 @@ import 'package:flickr/api/RequestAndResponses.dart';
 import 'package:flickr/Screens/SubProfile.dart';
 import 'package:flickr/Screens/OthersSubProfile.dart';
 
+/// Shows the users who faved the image
+/// @picId : picture ID
+
 class FavoritesSection extends StatefulWidget {
   final picId;
   FavoritesSection({Key key, this.picId}) : super(key: key);
@@ -23,7 +26,7 @@ class _FavoritesSectionState extends State<FavoritesSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    favPics = FlickrRequestsAndResponses.GetFavoiteUsers(widget.picId);
+    favPics = FlickrRequestsAndResponses.getFavoriteUsers(widget.picId);
   }
 
   @override
@@ -126,11 +129,10 @@ class _FavoritesSectionState extends State<FavoritesSection> {
                         setState(() {
                           CommonVars.favoriteUsersFollow[index] =
                               !CommonVars.favoriteUsersFollow[index];
-                          print(CommonVars.favoriteUsersFollow[index]);
                           if (CommonVars.favoriteUsersFollow[index]) {
-                            FlickrRequestsAndResponses.FollowUser(id);
+                            FlickrRequestsAndResponses.followUser(id);
                           } else {
-                            FlickrRequestsAndResponses.UnFollowUser(id);
+                            FlickrRequestsAndResponses.unFollowUser(id);
                           }
                         });
                       },

@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flickr/Components/FollowingsList.dart';
 import 'package:flickr/Components/FollowersList.dart';
 import 'package:flickr/api/RequestAndResponses.dart';
-
 import 'CameraRoll.dart';
 import 'Public.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +8,10 @@ import 'package:flickr/Essentials/CommonVars.dart';
 import 'package:flickr/Screens/ChangePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'about.dart';
+import 'About.dart';
 import 'AlbumScreen.dart';
 
+///Displays the user's profile inclusing their about, cameraroll, album, and public page along with additional settings.
 class SubProfile extends StatefulWidget {
   PickedFile photoFile;
   String userId;
@@ -233,6 +232,7 @@ class _SubProfile extends State<SubProfile> {
                 Public(),
                 AlbumScreen(
                   receivedPicId: '',
+                  receivedUserId: CommonVars.userId,
                 ),
                 AboutState(),
               ]),
@@ -293,13 +293,12 @@ class _SubProfile extends State<SubProfile> {
     Navigator.pop(context);
     Navigator.pushNamed(context, "LoadingScreen");
     String id = await FlickrRequestsAndResponses.uploadImage();
-    // print(id);
 
     if (file == "cover")
       FlickrRequestsAndResponses.changeCoverPhoto(id);
     else if (file == "profile")
       FlickrRequestsAndResponses.profileCoverPhoto(id);
-    FlickrRequestsAndResponses.GetAbout();
+    FlickrRequestsAndResponses.getAbout();
     Navigator.pop(context);
     Navigator.pushNamed(context, "UserPage");
     // ConvertingPhoto();
@@ -326,7 +325,6 @@ class _SubProfile extends State<SubProfile> {
       if (destination == CommonVars.help) {
         launch('https://www.flickr.com/help/terms');
       }
-      // print(destination);
     });
   }
 }
